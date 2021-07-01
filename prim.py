@@ -33,7 +33,7 @@ def prim(graph: defaultdict) -> int:
             (w, new) = heappop(adj)
             if visit[new] == 0:
                 visit[new] = 1
-                res += weight
+                res += w
                 break
 
     return res
