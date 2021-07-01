@@ -37,6 +37,3 @@ def prim(graph: defaultdict) -> int:
                 break
 
     return res
-
-
-print(prim(board))
