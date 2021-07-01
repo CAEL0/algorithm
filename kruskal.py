@@ -41,6 +41,3 @@ def kruskal(graph: list[tuple]) -> int:
             break
 
     return res
-
-
-print(kruskal(board))
