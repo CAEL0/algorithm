@@ -1,40 +1,38 @@
 import sys
 
-v, e = map(int, sys.stdin.readline().split())
+v, e = map(int, sys.stdin.readline().split())  # v : the number of vertices, e : the number of edges
 graph = []
 for _ in range(e):
-    a, b, c = map(int, sys.stdin.readline().split())
-    graph.append((c, a, b))
+    start, end, weight = map(int, sys.stdin.readline().split())  # start node -- weight -- end node
+    graph.append((weight, start, end))
 
 graph.sort()
 parent = [i for i in range(v + 1)]
 
 
 def union(x, y):
-    parent_x = find(x)
-    parent_y = find(y)
-    parent[parent_x] = parent_y
+    parent[find(x)] = find(y)
 
 
-def find(u):
-    if u != parent[u]:
-        parent[u] = find(parent[u])
-    return parent[u]
+def find(z):
+    if z != parent[z]:
+        parent[z] = find(parent[z])
+    return parent[z]
 
 
 def kruskal(graph):
-    res = 0
-    idx = 0
-    for (c, a, b) in graph:
-        if find(a) != find(b):
-            union(a, b)
-            res += c
-            idx += 1
+	res = 0
+	idx = 0
+	for (weight, start, end) in graph:
+		if find(start) != find(end):
+			union(start, end)
+			res += weight
+			idx += 1
+        
+		if idx == v - 1:
+			break
 
-        if idx == v - 1:
-            break
-
-    return res
+	return res
 
 
 print(kruskal(graph))
