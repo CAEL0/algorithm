@@ -38,6 +38,6 @@ def kruskal(graph: list[tuple]) -> int:
             idx += 1
 
         if idx == V - 1:
-            break
+            return res
 
-    return res
+    return -1
