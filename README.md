@@ -1,2 +1,4 @@
 # Algorithm
-Codes for some algorithms
+
+***
+> Codes for some algorithms
