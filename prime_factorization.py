@@ -2,7 +2,7 @@ from collections import defaultdict
 
 n = int(input())
 m = int(n ** 0.5)
-prime_list = [1 for _ in range(m + 1)]
+prime_list = [1] * (m + 1)
 prime_list[0] = 0
 prime_list[1] = 0
 
