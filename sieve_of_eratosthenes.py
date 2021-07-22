@@ -2,8 +2,8 @@
 In mathematics, the sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to any given limit.
 """
 
-n = 5000001
-check = [0] * (n + 1)
+n = int(input())
+check = [0] * (n + 1)  # check[i] : the smallest prime divides i
 sieve = [1] * (n + 1)
 sieve[0] = 0
 sieve[1] = 0
@@ -26,8 +26,6 @@ def factorization(x):
             x //= idx
 
         idx = check[x]
-        if sieve[idx] == 0:
-            continue
 
     if x > 1:
         res.append(x)
