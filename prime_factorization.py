@@ -12,20 +12,32 @@ for i in range(2, int((m + 1) ** 0.5) + 1):
             sieve[j * i] = 0
 
 
-def factorization(k):
+def factorization(x):
     factor = defaultdict(int)
     idx = 1
-    m = k ** 0.5
-    while (k > 1) and (idx < m):
+    m = x ** 0.5
+    while (x > 1) and (idx < m):
         idx += 1
-        if sieve[idx] == 0:
-            continue
+        if sieve[idx]:
+            while x % idx == 0:
+                factor[idx] += 1
+                x //= idx
 
-        while k % idx == 0:
-            factor[idx] += 1
-            k //= idx
-
-    if k > 1:
-        factor[k] += 1
+    if x > 1:
+        factor[x] += 1
 
     return factor
+
+
+def isprime(x):
+    if x == 2:
+        return True
+
+    if (x < 2) or (x % 2 == 0):
+        return False
+
+    for p in range(3, int(x ** 0.5) + 1):
+        if x % p == 0:
+            return False
+    return True
+
