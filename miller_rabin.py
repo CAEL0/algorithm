@@ -18,9 +18,6 @@ if n < 318,665,857,834,031,151,167,461, it is enough to test a = 2, 3, 5, 7, 11,
 if n < 3,317,044,064,679,887,385,961,981, it is enough to test a = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, and 41.
 """
 
-from math import log2
-
-
 def power(num, exp, mod):
     res = 1
     num %= mod
