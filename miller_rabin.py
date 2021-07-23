@@ -22,20 +22,13 @@ from math import log2
 
 
 def power(num, exp, mod):
-    if exp == 0:
-        return 1
-
-    num %= mod
-    arr = [num]
-    for _ in range(int(log2(exp))):
-        arr.append(pow(arr[-1], 2, mod))
-
     res = 1
-    bin_exp = bin(exp)[2:]
-    for j in range(len(bin_exp)):
-        if bin_exp[- j - 1] == '1':
-            res = res * arr[j] % mod
-
+    num %= mod
+    while exp:
+        if exp % 2:
+            res = res * num % mod
+        exp //= 2
+        num = pow(num, 2, mod)
     return res
 
 
