@@ -10,7 +10,7 @@ from math import gcd
 sys.setrecursionlimit(10 ** 5)
 
 
-def power(num, exp, mod):
+def power(num: int, exp: int, mod: int) -> int:
     res = 1
     num %= mod
     while exp:
@@ -21,7 +21,7 @@ def power(num, exp, mod):
     return res
 
 
-def miller_rabin(x):
+def miller_rabin(x: int) -> bool:
     if x == 1:
         return False
 
@@ -52,7 +52,7 @@ def miller_rabin(x):
     return True
 
 
-def pollard_rho(x):
+def pollard_rho(x: int) -> None:
     if x == 1:
         return
 
@@ -84,4 +84,6 @@ def pollard_rho(x):
             return
 
 
+x = int(input())
 ans = []
+pollard_rho(x)
