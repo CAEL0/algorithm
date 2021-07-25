@@ -13,26 +13,26 @@ import sys
 from collections import deque
 
 n, m = map(int, sys.stdin.readline().split())
-board1 = [[] for _ in range(n + 1)]
-board2 = [[] for _ in range(n + 1)]
+child = [[] for _ in range(n + 1)]
+parent = [[] for _ in range(n + 1)]
 for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
-    board1[a].append(b)
-    board2[b].append(a)
+    child[a].append(b)
+    parent[b].append(a)
 
 res = []
 queue = deque()
 for i in range(1, n + 1):
-    if not board2[i]:
+    if not parent[i]:
         queue.append(i)
 
 while queue:
     j = queue.popleft()
     res.append(j)
 
-    for i in board1[j]:
-        board2[i].remove(j)
-        if not board2[i]:
+    for i in child[j]:
+        parent[i].remove(j)
+        if not parent[i]:
             queue.append(i)
 
 print(*res)
