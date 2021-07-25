@@ -27,12 +27,12 @@ for i in range(1, n + 1):
         queue.append(i)
 
 while queue:
-    j = queue.popleft()
+    i = queue.popleft()
     res.append(j)
 
-    for i in child[j]:
-        parent[i].remove(j)
-        if not parent[i]:
-            queue.append(i)
+    for j in child[i]:
+        parent[j].remove(i)
+        if not parent[j]:
+            queue.append(j)
 
 print(*res)
