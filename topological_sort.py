@@ -13,26 +13,26 @@ import sys
 from collections import deque
 
 n, m = map(int, sys.stdin.readline().split())
-child = [[] for _ in range(n + 1)]
-parent = [[] for _ in range(n + 1)]
+chd = [[] for _ in range(n + 1)]
+ind = [0] * (n + 1)
 for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
-    child[a].append(b)
-    parent[b].append(a)
+    chd[a].append(b)
+    ind[b] += 1
 
 res = []
 queue = deque()
 for i in range(1, n + 1):
-    if not parent[i]:
+    if ind[i] == 0:
         queue.append(i)
 
 while queue:
     i = queue.popleft()
     res.append(j)
 
-    for j in child[i]:
-        parent[j].remove(i)
-        if not parent[j]:
+    for j in chd[i]:
+        ind[j] -= 1
+        if ind[j] == 0:
             queue.append(j)
 
 print(*res)
