@@ -38,5 +38,3 @@ while idx < n - 2:
 if len(stack) >= 3:
     if isline(stack[-2], stack[-1], stack[0]):
         stack.pop()
-
-print(len(stack))
