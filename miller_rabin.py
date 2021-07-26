@@ -19,7 +19,7 @@ if n < 3,317,044,064,679,887,385,961,981, it is enough to test a = 2, 3, 5, 7, 1
 """
 
 
-def power(num, exp, mod):
+def power(num: int, exp: int, mod: int) -> int:
     res = 1
     num %= mod
     while exp:
