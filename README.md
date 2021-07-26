@@ -1,4 +1,6 @@
 # Algorithm
 
 ***
-> Python codes for some algorithms
+> ## Python codes for some algorithms
+***
+>
