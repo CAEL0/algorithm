@@ -3,7 +3,7 @@
 ***
 > ### Python codes for some algorithms
 ***
-> Graph Theory
+> # Graph Theory
 > 
 > Mathematics
 > 
