@@ -1,10 +1,10 @@
 # Algorithm
 
 ***
-> ### Python codes for some algorithms
+> ## Python codes for some algorithms
 ***
-# >  Graph Theory
+> ### Graph Theory
+>> 
+> ### Mathematics
 > 
-> Mathematics
-> 
-> Sort
+> ### Sort
