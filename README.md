@@ -4,7 +4,10 @@
 > ## Python codes for some algorithms
 ***
 > ### Graph Theory
-> > bell
+> > Bellman Ford
+> > Dijkstra
+> > Floyd Warshall
 > ### Mathematics
-> 
+> > #### Prime
+> > > hi
 > ### Sort
