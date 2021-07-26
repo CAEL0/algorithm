@@ -10,14 +10,16 @@ in 1959, and for this reason it is also sometimes called the Bellman–Ford–Mo
 import sys
 from collections import defaultdict
 
-V, E = map(int, sys.stdin.readline().split())  # V : the number of vertices, E : the number of edges
+v, e = map(int, sys.stdin.readline().split())
 
 
-def bellman_ford(graph: defaultdict, start: int, step=V-1) -> list:
-    res = [float('inf') for _ in range(V + 1)]
+def bellman_ford(graph: defaultdict, start: int) -> list[float]:
+    res = [float('inf') for _ in range(v + 1)]
     res[start] = 0
-    for _ in range(step):
+    
+    for _ in range(v - 1):
         for start in graph.keys():
             for end, weight in graph[start].items():
                 res[end] = min(res[end], res[start] + weight)
+    
     return res
