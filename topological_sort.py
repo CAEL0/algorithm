@@ -13,26 +13,20 @@ import sys
 from collections import deque
 
 n, m = map(int, sys.stdin.readline().split())
-chd = [[] for _ in range(n + 1)]
-ind = [0] * (n + 1)
+out = [[] for _ in range(n + 1)]
+indegree = [0] * (n + 1)
 for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
-    chd[a].append(b)
-    ind[b] += 1
+    out[a].append(b)
+    indegree[b] += 1
 
 res = []
-queue = deque()
-for i in range(1, n + 1):
-    if ind[i] == 0:
-        queue.append(i)
-
+queue = deque([i for i in range(1, n + 1) if indegree[i] == 0])
 while queue:
     i = queue.popleft()
-    res.append(j)
+    res.append(i)
 
-    for j in chd[i]:
-        ind[j] -= 1
-        if ind[j] == 0:
+    for j in out[i]:
+        indegree[j] -= 1
+        if indegree[j] == 0:
             queue.append(j)
-
-print(*res)
