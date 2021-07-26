@@ -25,6 +25,8 @@
 > > > Tarjan
 >
 > ### Mathematics
+> > #### Number Theory
+> > > extended Euclidean
 > > #### Primality Test
 > > > Miller Rabin
 > > #### Prime Factorization
