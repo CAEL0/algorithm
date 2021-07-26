@@ -18,41 +18,41 @@ for _ in range(e):
     graph[a].append(b)
     inverse[b].append(a)
 
-scc = []
 stack = []
-visit1 = [0] * (v + 1)
+visit = [0] * (v + 1)
 for i in range(1, v + 1):
-    if visit1[i] == 0:
-        visit1[i] = 1
+    if visit[i] == 0:
         queue = [i]
+        visit[i] = 1
         while queue:
             tar = queue[-1]
-            flag = True
             for nxt in graph[tar]:
-                if visit1[nxt] == 0:
-                    visit1[nxt] = 1
-                    flag = False
+                if visit[nxt] == 0:
+                    visit[nxt] = 1
                     queue.append(nxt)
-            if flag:
+                    break
+            else:
                 stack.append(queue.pop())
 
-visit2 = [0] * (v + 1)
+scc = []
+finish = [0] * (v + 1)
 while stack:
-    queue = [stack[-1]]
-    visit2[stack[-1]] = 1
+    node = stack.pop()
+    if finish[node]:
+        continue
+
+    res = []
+    finish[node] = 1
+    queue = [node]
     while queue:
         tar = queue[-1]
-        flag = True
         for nxt in inverse[tar]:
-            if visit2[nxt] == 0:
-                visit2[nxt] = 1
-                flag = False
+            if finish[nxt] == 0:
+                finish[nxt] = 1
                 queue.append(nxt)
-        if flag:
-            break
+                break
+        else:
+            nxt = queue.pop()
+            res.append(nxt)
 
-    scc.append(queue)
-    for _ in range(len(queue)):
-        stack.pop()
-
-print(scc)
+    scc.append(res)
