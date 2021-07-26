@@ -5,7 +5,6 @@
 ***
 > ### Graph Theory
 > > bell
-> > 
 > ### Mathematics
 > 
 > ### Sort
