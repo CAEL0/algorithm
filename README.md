@@ -8,9 +8,9 @@
 > ### Graph Theory
 > > #### Shortest Path
 > > > Bellman Ford
-> > 
+> > >
 > > > Dijkstra
-> > 
+> > >
 > > > Floyd Warshall
 > ### Mathematics
 > > #### Primality Test
