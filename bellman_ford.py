@@ -13,7 +13,7 @@ from collections import defaultdict
 v, e = map(int, sys.stdin.readline().split())
 
 
-def bellman_ford(graph: defaultdict, start: int) -> list[float]:
+def bellman_ford(graph: defaultdict, start: int) -> list:
     res = [float('inf') for _ in range(v + 1)]
     res[start] = 0
     
