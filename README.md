@@ -8,28 +8,28 @@
 >
 > ### Graph Theory
 > > #### Minimum Spanning Tree
-> > > Kruskal
+> > > Kruskal's algorithm
 > > > 
-> > > Prim
+> > > Prim's algorithm
 > > #### Shortest Path
-> > > Bellman Ford
+> > > Bellman-Ford algorithm
 > > >
-> > > Dijkstra
+> > > Dijkstra's algorithm
 > > >
-> > > Floyd Warshall
+> > > Floyd-Warshall algorithm
 > > #### Sort
-> > > topological sort
+> > > topological sorting
 > > #### Strongly Connected Component
-> > > Kosaraju
+> > > Kosaraju's algorithm
 > > > 
-> > > Tarjan
+> > > Tarjan's algorithm
 >
 > ### Mathematics
 > > #### Number Theory
-> > > extended Euclidean
+> > > extended Euclidean algorithm
 > > #### Primality Test
-> > > Miller Rabin
+> > > Miller-Rabin primality test
 > > #### Prime Factorization
-> > > Pollard rho
+> > > Pollard's rho algorithm
 > > > 
 > > > sieve of Eratosthenes
