@@ -9,13 +9,13 @@ not form a cycle to the minimum spanning forest.
 
 import sys
 
-V, E = map(int, sys.stdin.readline().split())  # V : the number of vertices, E : the number of edges
+v, e = map(int, sys.stdin.readline().split())
+parent = [i for i in range(v + 1)]
 board = []
-for _ in range(E):
-    start, end, weight = map(int, sys.stdin.readline().split())  # start node -- weight -- end node
+for _ in range(e):
+    start, end, weight = map(int, sys.stdin.readline().split())
     board.append((weight, start, end))
 board.sort()
-parent = [i for i in range(V + 1)]
 
 
 def union(x: int, y: int) -> None:
@@ -28,7 +28,7 @@ def find(z: int) -> int:
     return parent[z]
 
 
-def kruskal(graph: list[tuple]) -> int:
+def kruskal(graph: list) -> int:
     res = 0
     idx = 0
     for (w, x, y) in graph:
@@ -37,7 +37,7 @@ def kruskal(graph: list[tuple]) -> int:
             res += w
             idx += 1
 
-        if idx == V - 1:
+        if idx == v - 1:
             return res
 
     return -1
