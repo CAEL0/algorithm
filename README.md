@@ -4,11 +4,12 @@
 > ## Python codes for some algorithms
 ***
 > ### Graph Theory
-> > Bellman Ford
+> > #### Shortest Path
+> > > Bellman Ford
 > > 
-> > Dijkstra
+> > > Dijkstra
 > > 
-> > Floyd Warshall
+> > > Floyd Warshall
 > ### Mathematics
 > > #### Primality Test
 > > > Miller Rabin
