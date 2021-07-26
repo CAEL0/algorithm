@@ -6,6 +6,10 @@
 > ### Geometry
 > > Graham's scan
 > ### Graph Theory
+> > #### Minimum Spanning Tree
+> > > Kruskal
+> > > 
+> > > Prim
 > > #### Shortest Path
 > > > Bellman Ford
 > > >
