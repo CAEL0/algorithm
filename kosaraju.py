@@ -11,12 +11,12 @@ import sys
 v, e = map(int, sys.stdin.readline().split())
 
 graph = [[] for _ in range(v + 1)]
-inverse = [[] for _ in range(v + 1)]
+reverse = [[] for _ in range(v + 1)]
 
 for _ in range(e):
     a, b = map(int, sys.stdin.readline().split())
     graph[a].append(b)
-    inverse[b].append(a)
+    reverse[b].append(a)
 
 stack = []
 visit = [0] * (v + 1)
@@ -25,8 +25,8 @@ for i in range(1, v + 1):
         queue = [i]
         visit[i] = 1
         while queue:
-            tar = queue[-1]
-            for nxt in graph[tar]:
+            cur = queue[-1]
+            for nxt in graph[cur]:
                 if visit[nxt] == 0:
                     visit[nxt] = 1
                     queue.append(nxt)
@@ -45,14 +45,13 @@ while stack:
     finish[node] = 1
     queue = [node]
     while queue:
-        tar = queue[-1]
-        for nxt in inverse[tar]:
+        cur = queue[-1]
+        for nxt in reverse[cur]:
             if finish[nxt] == 0:
                 finish[nxt] = 1
                 queue.append(nxt)
                 break
         else:
-            nxt = queue.pop()
-            res.append(nxt)
+            res.append(queue.pop())
 
     scc.append(res)
