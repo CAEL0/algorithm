@@ -31,3 +31,16 @@ def factorization(x):
         res.append(x)
     
     return res
+
+
+def isprime(x):
+    if x == 2:
+        return True
+
+    if (x < 2) or (x % 2 == 0):
+        return False
+
+    for p in range(3, int(x ** 0.5) + 1):
+        if x % p == 0:
+            return False
+    return True
