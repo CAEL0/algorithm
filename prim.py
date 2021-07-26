@@ -10,11 +10,11 @@ import sys
 from heapq import heappush, heappop
 from collections import defaultdict
 
-V, E = map(int, sys.stdin.readline().split())  # V : the number of vertices, E : the number of edges
-visit = [0] * (V + 1)
+v, e = map(int, sys.stdin.readline().split())
+visit = [0] * (v + 1)
 board = defaultdict(list)
-for _ in range(E):
-    start, end, weight = map(int, sys.stdin.readline().split())  # start node -- weight -- end node
+for _ in range(e):
+    start, end, weight = map(int, sys.stdin.readline().split())
     board[start].append((weight, end))
     board[end].append((weight, start))
 
@@ -24,14 +24,15 @@ def prim(graph: defaultdict) -> int:
     adj = []
     new = 1
     visit[1] = 1
-    for _ in range(V - 1):
-        for (w, node) in graph[new]:
-            if visit[node] == 0:
+    
+    for _ in range(v - 1):
+        for w, node in graph[new]:
+            if not visit[node]:
                 heappush(adj, (w, node))
 
         while True:
-            (w, new) = heappop(adj)
-            if visit[new] == 0:
+            w, new = heappop(adj)
+            if not visit[new]:
                 visit[new] = 1
                 res += w
                 break
