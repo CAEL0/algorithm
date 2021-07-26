@@ -10,6 +10,9 @@
 > > 
 > > Floyd Warshall
 > ### Mathematics
-> > #### Prime
-> > > hi
+> > #### Primality Test
+> > > Miller Rabin
+> > #### Prime Factorization
+> > > Pollard rho
 > ### Sort
+> > Topological sort
