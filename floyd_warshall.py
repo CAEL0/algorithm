@@ -11,18 +11,18 @@ the Schulze voting system) widest paths between all pairs of vertices in a weigh
 import sys
 from collections import defaultdict
 
-V, E = map(int, sys.stdin.readline().split())  # V : the number of vertices, E : the number of edges
+v, e = map(int, sys.stdin.readline().split())
 
 
 def floyd_warshall(graph: defaultdict) -> list[list]:
-    res = [[float('inf')] * (V + 1) for _ in range(V + 1)]
+    res = [[float('inf')] * (v + 1) for _ in range(v + 1)]
     for start in graph.keys():
-        for (end, weight) in graph[start]:
+        for end, weight in graph[start]:
             res[start][end] = min(res[start][end], weight)
 
-    for k in range(1, V + 1):
-        for i in range(1, V + 1):
-            for j in range(1, V + 1):
+    for k in range(1, v + 1):
+        for i in range(1, v + 1):
+            for j in range(1, v + 1):
                 if i != j != k != i:
                     res[i][j] = min(res[i][j], res[i][k] + res[k][j])
 
