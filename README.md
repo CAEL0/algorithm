@@ -5,6 +5,7 @@
 ***
 > ### Geometry
 > > Graham's scan
+>
 > ### Graph Theory
 > > #### Minimum Spanning Tree
 > > > Kruskal
@@ -16,6 +17,13 @@
 > > > Dijkstra
 > > >
 > > > Floyd Warshall
+> > #### Sort
+> > > topological sort
+> > #### Strongly Connected Component
+> > > Kosaraju
+> > > 
+> > > Tarjan
+>
 > ### Mathematics
 > > #### Primality Test
 > > > Miller Rabin
@@ -23,5 +31,3 @@
 > > > Pollard rho
 > > > 
 > > > sieve of Eratosthenes
-> ### Sort
-> > Topological sort
