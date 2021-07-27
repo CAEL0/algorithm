@@ -22,8 +22,8 @@ stack = []
 visit = [0] * (v + 1)
 for i in range(1, v + 1):
     if not visit[i]:
-        queue = [i]
         visit[i] = 1
+        queue = [i]
         while queue:
             cur = queue[-1]
             for nxt in graph[cur]:
