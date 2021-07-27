@@ -39,8 +39,8 @@ finish = [0] * (v + 1)
 while stack:
     node = stack.pop()
     if not finish[node]:
-        res = []
         finish[node] = 1
+        res = []
         queue = [node]
         while queue:
             cur = queue[-1]
@@ -52,4 +52,4 @@ while stack:
             else:
                 res.append(queue.pop())
 
-    scc.append(res)
+        scc.append(res)
