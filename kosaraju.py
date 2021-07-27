@@ -38,20 +38,18 @@ scc = []
 finish = [0] * (v + 1)
 while stack:
     node = stack.pop()
-    if finish[node]:
-        continue
-
-    res = []
-    finish[node] = 1
-    queue = [node]
-    while queue:
-        cur = queue[-1]
-        for nxt in reverse[cur]:
-            if not finish[nxt]:
-                finish[nxt] = 1
-                queue.append(nxt)
-                break
-        else:
-            res.append(queue.pop())
+    if not finish[node]:
+        res = []
+        finish[node] = 1
+        queue = [node]
+        while queue:
+            cur = queue[-1]
+            for nxt in reverse[cur]:
+                if not finish[nxt]:
+                    finish[nxt] = 1
+                    queue.append(nxt)
+                    break
+            else:
+                res.append(queue.pop())
 
     scc.append(res)
