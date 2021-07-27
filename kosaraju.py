@@ -21,13 +21,13 @@ for _ in range(e):
 stack = []
 visit = [0] * (v + 1)
 for i in range(1, v + 1):
-    if visit[i] == 0:
+    if not visit[i]:
         queue = [i]
         visit[i] = 1
         while queue:
             cur = queue[-1]
             for nxt in graph[cur]:
-                if visit[nxt] == 0:
+                if not visit[nxt]:
                     visit[nxt] = 1
                     queue.append(nxt)
                     break
@@ -47,7 +47,7 @@ while stack:
     while queue:
         cur = queue[-1]
         for nxt in reverse[cur]:
-            if finish[nxt] == 0:
+            if not finish[nxt]:
                 finish[nxt] = 1
                 queue.append(nxt)
                 break
