@@ -27,6 +27,8 @@
 > ### Mathematics
 > > #### Number Theory
 > > > extended Euclidean algorithm
+> > > 
+> > > Lucas' theorem
 > > #### Primality Test
 > > > Miller-Rabin primality test
 > > #### Prime Factorization
