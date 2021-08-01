@@ -20,6 +20,8 @@
 > > #### Sort
 > > > topological sorting
 > > #### Strongly Connected Component
+> > > 2-satisfiability
+> > > 
 > > > Kosaraju's algorithm
 > > > 
 > > > Tarjan's algorithm
