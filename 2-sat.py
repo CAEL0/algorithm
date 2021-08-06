@@ -8,7 +8,6 @@ polynomial time.
 """
 
 import sys
-sys.setrecursionlimit(10 ** 5)
 
 n, m = map(int, sys.stdin.readline().split())
 graph = [[] for _ in range(2 * n + 1)]
