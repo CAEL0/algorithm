@@ -9,7 +9,7 @@ import sys
 
 n, m = map(int, sys.stdin.readline().split())
 
-graph = [[] for _ in range(n)]
+graph = [[] for _ in range(n + 1)]
 for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
     graph[a].append(b)
@@ -47,9 +47,9 @@ def dfs(cur, parent):
 
 bcc = []
 stack = []
-dfsn = [0] * n
+dfsn = [0] * (n + 1)
 idx = 1
 
-for i in range(n):
+for i in range(1, n + 1):
     if not dfsn[i]:
         dfs(i, -1)
