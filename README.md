@@ -7,6 +7,7 @@
 > > Graham's scan
 >
 > ### Graph Theory
+> > #### Biconnected Component
 > > #### Minimum Spanning Tree
 > > > Kruskal's algorithm
 > > > 
