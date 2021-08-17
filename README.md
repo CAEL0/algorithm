@@ -4,7 +4,7 @@
 > ## Python codes for some algorithms
 ***
 > ### Geometry
-> > Graham's scan
+> > Graham scan
 >
 > ### Graph Theory
 > > #### Biconnected Component
