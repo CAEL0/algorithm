@@ -21,10 +21,12 @@ def isline(x: tuple, y: tuple, z: tuple) -> bool:  # are x, y, and z on the line
 
 
 n = int(sys.stdin.readline())
+
 coord = [tuple(map(int, sys.stdin.readline().split())) for _ in range(n)]
 coord.sort(key=lambda x: (x[1], x[0]))
 a, b = coord.pop(0)
 coord.sort(key=lambda x: tangent(x[0], x[1]))
+
 stack = [(a, b), coord[0]]
 idx = 0
 while idx < n - 2:
@@ -37,6 +39,7 @@ while idx < n - 2:
             stack.pop()
         else:
             break
+    
     stack.append((w1, w2))
     if (len(stack) >= 3) and (isline(stack[-3], stack[-2], stack[-1])):
         stack.pop(-2)
