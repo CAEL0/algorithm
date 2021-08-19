@@ -24,7 +24,7 @@ def dfs(cur, res):
     return 0
 
 
-n, m = map(int, sys.stdin.readline().split()))
+n, m = map(int, sys.stdin.readline().split())
 graph = [[0] * n for _ in range(n)]
 
 for _ in range(m):
