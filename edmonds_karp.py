@@ -23,9 +23,9 @@ while True:
         cur, res = queue.pop()
         
         for nxt in range(2, n + 1):
-            if (nxt == n) and graph[cur][n]:
-                res = min(res, graph[cur][n])
-                prev[n] = cur
+            if (nxt == n) and graph[cur][nxt]:
+                res = min(res, graph[cur][nxt])
+                prev[nxt] = cur
                 break
 
             if (prev[nxt] != -1) and graph[cur][nxt]:
@@ -39,7 +39,6 @@ while True:
         break
 
     ans += res
-    nxt = n
     while True:
         cur = prev[nxt]
         graph[cur][nxt] -= res
