@@ -29,7 +29,7 @@ graph = [[0] * (n + 1) for _ in range(n + 1)]
 
 for _ in range(m):
     start, end, capacity = map(int, sys.stdin.readline().split())
-    graph[start][end] += int(capacity)
+    graph[start][end] += capacity
 
 ans = 0
 flow = 1
