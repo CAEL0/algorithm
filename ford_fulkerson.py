@@ -12,7 +12,7 @@ def dfs(cur, res):
     if cur == n:
         return res
     
-    for nxt in range(1, n + 1):
+    for nxt in range(2, n + 1):
         if graph[cur][nxt] and not visit[nxt]:
             visit[nxt] = 1
             bottleneck = dfs(nxt, min(res, graph[cur][nxt]))
