@@ -9,10 +9,10 @@ import sys
 
 
 def dfs(cur, res):
-    if cur == n - 1:
+    if cur == n:
         return res
     
-    for nxt in range(n):
+    for nxt in range(1, n + 1):
         if graph[cur][nxt] and not visit[nxt]:
             visit[nxt] = 1
             bottleneck = dfs(nxt, min(res, graph[cur][nxt]))
@@ -25,7 +25,7 @@ def dfs(cur, res):
 
 
 n, m = map(int, sys.stdin.readline().split())
-graph = [[0] * n for _ in range(n)]
+graph = [[0] * (n + 1) for _ in range(n + 1)]
 
 for _ in range(m):
     start, end, capacity = map(int, sys.stdin.readline().split())
@@ -34,8 +34,8 @@ for _ in range(m):
 ans = 0
 flow = 1
 while flow:
-    visit = [0] * n
-    flow = dfs(0, float('inf'))
+    visit = [0] * (n + 1)
+    flow = dfs(1, float('inf'))
     ans += flow
 
 print(ans)
