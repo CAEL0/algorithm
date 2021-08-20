@@ -17,18 +17,18 @@ for _ in range(m):
 ans = 0
 while True:
     prev = [-1] * (n + 1)
-    visit = [0] * (n + 1)
+    prev[1] = 0
     queue = [(1, float('inf'))]
     while queue:
         cur, res = queue.pop()
-        visit[cur] = 1
+        
         for nxt in range(2, n + 1):
             if (nxt == n) and graph[cur][n]:
                 res = min(res, graph[cur][n])
                 prev[n] = cur
                 break
 
-            if not visit[nxt] and graph[cur][nxt]:
+            if (prev[nxt] != -1) and graph[cur][nxt]:
                 prev[nxt] = cur
                 queue.append((nxt, min(res, graph[cur][nxt])))
 
