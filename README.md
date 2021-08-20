@@ -9,6 +9,7 @@
 > ### Graph Theory
 > > #### Biconnected Component
 > > #### Flow Network
+> > > Edmonds-Karp algorithm
 > > > Ford-Fulkerson algorithm
 > > #### Minimum Spanning Tree
 > > > Kruskal's algorithm
