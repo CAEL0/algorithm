@@ -39,6 +39,7 @@ while True:
         break
 
     ans += res
+    nxt = -1
     while True:
         cur = prev[nxt]
         graph[cur][nxt] -= res
