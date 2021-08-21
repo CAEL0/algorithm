@@ -28,7 +28,7 @@ while True:
                 prev[nxt] = cur
                 break
 
-            if (prev[nxt] != -1) and graph[cur][nxt]:
+            if (prev[nxt] == -1) and graph[cur][nxt]:
                 prev[nxt] = cur
                 queue.append((nxt, min(res, graph[cur][nxt])))
 
