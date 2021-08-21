@@ -22,12 +22,12 @@ while True:
     while queue:
         cur, res = queue.popleft()
         
-        for nxt in range(2, n + 1):
-            if (nxt == n) and graph[cur][-1]:
-                res = min(res, graph[cur][-1])
-                prev[-1] = cur
-                break
-
+        if graph[cur][-1]:
+            res = min(res, graph[cur][-1])
+            prev[-1] = cur
+            break
+        
+        for nxt in range(2, n):
             if (prev[nxt] == -1) and graph[cur][nxt]:
                 prev[nxt] = cur
                 queue.append((nxt, min(res, graph[cur][nxt])))
