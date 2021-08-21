@@ -6,6 +6,7 @@ Dinic's algorithm includes additional techniques that reduce the running time to
 """
 
 import sys
+from collections import deque
 
 n, m = map(int, sys.stdin.readline().split())
 graph = [[0] * (n + 1) for _ in range(n + 1)]
@@ -18,9 +19,9 @@ ans = 0
 while True:
     prev = [-1] * (n + 1)
     prev[1] = 0
-    queue = [(1, float('inf'))]
+    queue = deque([(1, float('inf'))])
     while queue:
-        cur, res = queue.pop()
+        cur, res = queue.popleft()
         
         for nxt in range(2, n + 1):
             if (nxt == n) and graph[cur][-1]:
