@@ -18,7 +18,6 @@ for _ in range(m):
 ans = 0
 while True:
     prev = [-1] * (n + 1)
-    prev[1] = 0
     queue = deque([(1, float('inf'))])
     while queue:
         cur, res = queue.popleft()
