@@ -23,19 +23,19 @@ while True:
         cur, res = queue.pop()
         
         for nxt in range(2, n + 1):
-            if (nxt == n) and graph[cur][nxt]:
-                res = min(res, graph[cur][nxt])
-                prev[nxt] = cur
+            if (nxt == n) and graph[cur][-1]:
+                res = min(res, graph[cur][-1])
+                prev[-1] = cur
                 break
 
             if (prev[nxt] == -1) and graph[cur][nxt]:
                 prev[nxt] = cur
                 queue.append((nxt, min(res, graph[cur][nxt])))
 
-        if prev[n] != -1:
+        if prev[-1] != -1:
             break
     
-    if prev[n] == -1:
+    if prev[-1] == -1:
         break
 
     ans += res
