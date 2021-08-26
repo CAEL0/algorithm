@@ -8,6 +8,8 @@
 >
 > ### Graph Theory
 > > #### Biconnected Component
+> > #### Bipartite Graph
+> > > bipartite matching
 > > #### Flow Network
 > > > Edmonds-Karp algorithm
 > > > Ford-Fulkerson algorithm
