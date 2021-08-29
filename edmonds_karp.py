@@ -77,7 +77,7 @@ while True:
                
             if prev[nxt] == -1:
                 prev[nxt] = cur
-                queue.append((nxt, min(res, graph[cur][nxt])))
+                queue.append((nxt, min(res, capacity)))
 
         if prev[-1] != -1:
             break
