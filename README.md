@@ -14,6 +14,8 @@
 > > > Edmonds-Karp algorithm
 > > > 
 > > > Ford-Fulkerson algorithm
+> > > 
+> > > minimum cut maximum flow
 > > #### Minimum Spanning Tree
 > > > Kruskal's algorithm
 > > > 
