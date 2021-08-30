@@ -23,6 +23,8 @@
 > > > Dijkstra's algorithm
 > > >
 > > > Floyd-Warshall algorithm
+> > > 
+> > > shortest path faster algorithm
 > > #### Sort
 > > > topological sorting
 > > #### Strongly Connected Component
