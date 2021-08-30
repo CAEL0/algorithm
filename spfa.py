@@ -15,7 +15,7 @@ for _ in range(m):
     a, b, t = map(int, sys.stdin.readline().split())
     graph[a].append((b, t))
 
-res = [float('inf') for _ in range(n + 1)]
+res = [float('inf')] * (n + 1)
 visit = [0] * (n + 1)
 
 res[1] = 0
