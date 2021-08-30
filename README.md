@@ -15,16 +15,13 @@
 > > > Ford-Fulkerson algorithm
 > > #### Minimum Spanning Tree
 > > > Kruskal's algorithm
-> > > 
 > > > Prim's algorithm
 > > #### Shortest Path
 > > > Bellman-Ford algorithm
-> > >
 > > > Dijkstra's algorithm
-> > >
 > > > Floyd-Warshall algorithm
-> > > 
 > > > shortest path faster algorithm
+
 > > #### Sort
 > > > topological sorting
 > > #### Strongly Connected Component
