@@ -7,16 +7,13 @@ SPFA is Moore's “Algorithm D.” The name, “Shortest Path Faster Algorithm (
 """
 
 import sys
-from collections import defaultdict, deque
+from collections import deque
 
 n, m = map(int, sys.stdin.readline().split())
-graph = defaultdict(dict)
+graph = [[] for _ in range(n + 1)]
 for _ in range(m):
     a, b, t = map(int, sys.stdin.readline().split())
-    if b in graph[a].keys():
-        graph[a][b] = min(graph[a][b], t)
-    else:
-        graph[a][b] = t
+    graph[a].append((b, t))
 
 res = [float('inf') for _ in range(n + 1)]
 visit = [0] * (n + 1)
@@ -27,8 +24,7 @@ while queue:
     cur = queue.popleft()
     visit[cur] = 0
 
-    for nxt in graph[cur].keys():
-        weight = graph[cur][nxt]
+    for nxt, weight in graph[cur]:
         if res[nxt] > res[cur] + weight:
             res[nxt] = res[cur] + weight
             if not visit[nxt]:
