@@ -1,7 +1,7 @@
 # Algorithm
 
 ***
-> ## Codes for some algorithms
+> ## Python codes for some algorithms
 ***
 > ### Geometry
 > > Graham scan
