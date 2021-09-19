@@ -43,7 +43,6 @@ def dfs(cur):
             res.append(top)
             if cur == top:
                 break
-
         scc.append(res)
 
     return low
