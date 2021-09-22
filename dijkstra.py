@@ -13,7 +13,7 @@ from collections import defaultdict
 v, e = map(int, sys.stdin.readline().split())
 
 
-def dijkstra(graph: defaultdict, start: int) -> dict:
+def dijkstra(graph, start):
     res = {node: float('inf') for node in range(1, v + 1)}
     res[start] = 0
     queue = [[0, start]]
