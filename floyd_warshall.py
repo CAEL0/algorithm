@@ -14,7 +14,7 @@ from collections import defaultdict
 v, e = map(int, sys.stdin.readline().split())
 
 
-def floyd_warshall(graph: defaultdict) -> list[list]:
+def floyd_warshall(graph):
     res = [[float('inf')] * (v + 1) for _ in range(v + 1)]
     for start in graph.keys():
         for end, weight in graph[start]:
