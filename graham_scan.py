@@ -7,7 +7,7 @@ It uses a stack to detect and remove concavities in the boundary efficiently.
 import sys
 
 
-def tangent(x: int, y: int) -> tuple:
+def tangent(x, y):
     if x == a:
         return 1, y
     if x > a:
