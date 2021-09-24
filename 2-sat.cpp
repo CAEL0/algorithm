@@ -20,41 +20,41 @@ vector<int> visit(MAX), scc_idx(MAX), finish(MAX);
 vector<vector<int>> graph(MAX);
 
 int dfs(int cur) {
-	S.push(cur);
-	visit[cur] = idx;
-	int low = idx;
-	idx += 1;
-
-	for (int nxt : graph[cur]) {
-		if (not visit[nxt]) {
-			low = min(low, dfs(nxt));
-		}
-		else if (not finish[nxt]) {
-			low = min(low, visit[nxt]);
-		}
-	}
-
-	if (low == visit[cur]) {
-		while (true) {
-			int top = S.top();
-			S.pop();
-			finish[top] = 1;
-			scc_idx[top] = scc_num;
-			if (cur == top) {
-				break;
-			}
-		}
-		scc_num += 1;
-	}
-	return low;
+    S.push(cur);
+    visit[cur] = idx;
+    int low = idx;
+    idx += 1;
+    
+    for (int nxt : graph[cur]) {
+        if (not visit[nxt]) {
+            low = min(low, dfs(nxt));
+        }
+        else if (not finish[nxt]) {
+            low = min(low, visit[nxt]);
+        }
+    }
+    
+    if (low == visit[cur]) {
+        while (true) {
+            int top = S.top();
+            S.pop();
+            finish[top] = 1;
+            scc_idx[top] = scc_num;
+            if (cur == top) {
+                break;
+            }
+        }
+        scc_num += 1;
+    }
+    return low;
 }
 
 int main() {
-	cin.tie(NULL); cout.tie(NULL);
-	ios::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    ios::sync_with_stdio(false);
 
     int n, m;
-	cin >> n >> m;
+    cin >> n >> m;
 
     while (m--) {
         int x, y;
@@ -79,24 +79,24 @@ int main() {
         }
     }
 
-	idx = 1;
-	scc_num = 1;
-
-	for (int i = 1; i < 2 * n + 1; i++) {
-		if (not visit[i]) {
-			dfs(i);
-		}
-	}
+    idx = 1;
+    scc_num = 1;
     
-	bool flag = true;
-	for (int i = 0; i < n; i++) {
-		if (scc_idx[2 * i + 1] == scc_idx[2 * i + 2]) {
-			cout << '0';
-			flag = false;
-			break;
-		}
-	}
-	if (flag) {
+    for (int i = 1; i < 2 * n + 1; i++) {
+        if (not visit[i]) {
+            dfs(i);
+        }
+    }
+    
+    bool flag = true;
+    for (int i = 0; i < n; i++) {
+        if (scc_idx[2 * i + 1] == scc_idx[2 * i + 2]) {
+            cout << '0';
+            flag = false;
+            break;
+        }
+    }
+    if (flag) {
         cout << '1' << '\n';
         for (int i = 0; i < n; i++) cout << (scc_idx[2 * i + 1] < scc_idx[2 * i + 2]) << ' ';
     }
