@@ -19,20 +19,19 @@ def combination(a, b, p):
         return 0
 
     b = min(b, a - b)
-    numerator = 1
-    denominator = 1
+    num = 1
+    den = 1
     for i in range(b):
-        numerator = (numerator * (a - i)) % p
-        denominator = (denominator * (i + 1)) % p
+        num = (num * (a - i)) % p
+        den = (den * (i + 1)) % p
 
-    x, y = extended_gcd(denominator, p)
+    x, y = extended_gcd(den, p)
 
-    return (numerator * x) % p
+    return (num * x) % p
 
 
 def lucas(n, k, p):
     k = min(k, n - k)
-
     num = []
     den = []
 
