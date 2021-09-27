@@ -3,7 +3,7 @@ In mathematics, the sieve of Eratosthenes is an ancient algorithm for finding al
 """
 
 n = int(input())
-check = [0] * (n + 1)  # check[i] : the smallest prime divides i
+check = [0] * (n + 1)
 sieve = [1] * (n + 1)
 sieve[0] = 0
 sieve[1] = 0
