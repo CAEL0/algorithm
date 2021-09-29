@@ -19,7 +19,7 @@ for _ in range(e):
     board[end].append((weight, start))
 
 
-def prim(graph: defaultdict) -> int:
+def prim(graph):
     res = 0
     adj = []
     new = 1
