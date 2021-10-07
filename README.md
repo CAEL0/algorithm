@@ -3,6 +3,9 @@
 ***
 > ## Codes for some algorithms
 ***
+> ### Dynamic Programming
+> > Convex Hull Trick
+>
 > ### Geometry
 > > Graham scan
 >
