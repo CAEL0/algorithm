@@ -2,7 +2,9 @@
 In mathematics, the sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to any given limit.
 """
 
-n = int(input())
+import sys
+
+n = int(sys.stdin.readline())
 check = [0] * (n + 1)
 sieve = [1] * (n + 1)
 sieve[0] = 0
