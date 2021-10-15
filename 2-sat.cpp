@@ -8,9 +8,7 @@ polynomial time.
 */
 
 #include <iostream>
-#include <stack>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 int MAX = 987654;
