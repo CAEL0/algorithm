@@ -48,8 +48,8 @@ int dfs(int cur) {
 }
 
 int main() {
-    cin.tie(NULL); cout.tie(NULL);
-    ios::sync_with_stdio(false);
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
 
     int n, m;
     cin >> n >> m;
