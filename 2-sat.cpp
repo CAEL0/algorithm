@@ -1,12 +1,3 @@
-/*
-In computer science, 2-satisfiability, 2-SAT or just 2SAT is a computational problem of assigning values to
-variables, each of which has two possible values, in order to satisfy a system of constraints on pairs of variables.
-It is a special case of the general Boolean satisfiability problem, which can involve constraints on more than two
-variables, and of constraint satisfaction problems, which can allow more than two choices for the value of each
-variable. But in contrast to those more general problems, which are NP-complete, 2-satisfiability can be solved in
-polynomial time.
-*/
-
 #include <iostream>
 #include <bits/stdc++.h>
 
