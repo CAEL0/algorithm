@@ -12,7 +12,7 @@ int dfs(int cur) {
     S.push(cur);
     visit[cur] = idx;
     int low = idx;
-    idx += 1;
+    idx++;
     
     for (int nxt : graph[cur]) {
         if (not visit[nxt]) {
@@ -33,7 +33,7 @@ int dfs(int cur) {
                 break;
             }
         }
-        scc_num += 1;
+        scc_num++;
     }
     return low;
 }
