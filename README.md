@@ -1,7 +1,7 @@
 # Algorithm
 
 ***
-> ## Codes for some algorithms
+> ## Python/C++ Codes for Some Algorithms
 ***
 > ### Dynamic Programming
 > > Convex Hull Trick
