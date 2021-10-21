@@ -5,8 +5,8 @@ using namespace std;
 int MAX = 987654;
 int idx, scc_num;
 stack<int> S;
-vector<int> visit(MAX), scc_idx(MAX), finish(MAX);
-vector<vector<int>> graph(MAX);
+vector<int> visit[MAX], scc_idx[MAX], finish[MAX];
+vector<vector<int>> graph[MAX];
 
 int dfs(int cur) {
     S.push(cur);
