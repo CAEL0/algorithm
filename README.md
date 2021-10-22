@@ -51,3 +51,6 @@
 > > > Pollard's rho algorithm
 > > > 
 > > > sieve of Eratosthenes
+>
+> ### Miscellaneous
+> > > Mo's algorithm
