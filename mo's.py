@@ -20,7 +20,7 @@ ans[idx] = cnt
 
 for i in range(1, q):
     ll, rr, idx = query[i]
-    if right < ll:
+    if (right < ll) or (rr < left):
         res = [0] * (max(arr) + 1)
         cnt = 0
         for j in range(ll - 1, rr):
