@@ -42,27 +42,24 @@ int main() {
     for (int i = 1; i < q; i++) {
         int ll, rr;
         tie(ll, rr, idx) = query[i];
-        if (right < ll) {
+        if (right < ll || rr < left) {
             fill_n(res, *max_element(arr, arr + n) + 1, 0);
             cnt = 0;
             for (int j = ll - 1; j < rr; j++)
                 cnt += (res[arr[j]]++ == 0);
-        }
-        else {
-            if (ll < left) {
+        } else {
+            if (ll < left)
                 for (int j = ll - 1; j < left - 1; j++)
                     cnt += (res[arr[j]]++ == 0);
-            } else if (left < ll) {
+            else
                 for (int j = left - 1; j < ll - 1; j++)
                     cnt -= (--res[arr[j]] == 0);
-            }
-            if (right < rr) {
+            if (right < rr)
                 for (int j = right; j < rr; j++)
                     cnt += (res[arr[j]]++ == 0);
-            } else if (rr < right) {
+            else
                 for (int j = rr; j < right; j++)
                     cnt -= (--res[arr[j]] == 0);
-            }
         }
         ans[idx] = cnt;
         left = ll;
