@@ -2,68 +2,65 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef tuple<int, int, int> tp;
 
-int n, q;
+int q, k, cnt;
+int arr[100000], res[1000001], ans[100000];
 
-bool cmp(tp x, tp y) {
-    if (get<0>(x) / (int)sqrt(q) < get<0>(y) / (int)sqrt(q))
-        return true;
-    if (get<0>(x) / (int)sqrt(q) == get<0>(y) / (int)sqrt(q) && get<1>(x) < get<1>(y))
-        return true;
-    return false;
+struct Query {
+    int s, e, idx;
+    bool operator < (Query &x) {
+        if (s / k != x.s / k) return s / k < x.s / k;
+        return e < x.e;
+    }
+};
+void add(int s, int e) {
+    for (int j = s; j < e; j++)
+        cnt += (res[arr[j]]++ == 0);
+}
+void sub(int s, int e) {
+    for (int j = s; j < e; j++)
+        cnt -= (--res[arr[j]] == 0);
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
+    int n;
     cin >> n;
-    int arr[n];
     for (int i = 0; i < n; i++)
         cin >> arr[i];
     cin >> q;
-    tp query[q];
+    k = sqrt(q);
+    Query query[q];
     for (int i = 0; i < q; i++) {
-        int a, b;
-        cin >> a >> b;
-        query[i] = tp(a, b, i);
+        cin >> query[i].s >> query[i].e;
+        query[i].idx = i;
     }
-    sort(query, query + q, cmp);
+    sort(query, query + q);
     
-    int ans[q] = {0};
-    int res[*max_element(arr, arr + n) + 1] = {0};
-    int cnt = 0, left, right, idx;
-    tie(left, right, idx) = query[0];
-    for (int j = left - 1; j < right; j++)
-        cnt += (res[arr[j]]++ == 0);
+    int s = query[0].s;
+    int e = query[0].e;
+    int idx = query[0].idx;
+    add(s - 1, e);
     ans[idx] = cnt;
 
     for (int i = 1; i < q; i++) {
-        int ll, rr;
-        tie(ll, rr, idx) = query[i];
-        if (right < ll || rr < left) {
+        int ss = query[i].s;
+        int ee = query[i].e;
+        if (e < ss || ee < s) {
             fill_n(res, *max_element(arr, arr + n) + 1, 0);
             cnt = 0;
-            for (int j = ll - 1; j < rr; j++)
-                cnt += (res[arr[j]]++ == 0);
+            add(ss - 1, ee);
         } else {
-            if (ll < left)
-                for (int j = ll - 1; j < left - 1; j++)
-                    cnt += (res[arr[j]]++ == 0);
-            else
-                for (int j = left - 1; j < ll - 1; j++)
-                    cnt -= (--res[arr[j]] == 0);
-            if (right < rr)
-                for (int j = right; j < rr; j++)
-                    cnt += (res[arr[j]]++ == 0);
-            else
-                for (int j = rr; j < right; j++)
-                    cnt -= (--res[arr[j]] == 0);
+            if (ss < s) add(ss - 1, s - 1);
+            else sub(s - 1, ss - 1);
+            if (e < ee) add(e, ee);
+            else sub(ee, e);
         }
-        ans[idx] = cnt;
-        left = ll;
-        right = rr;
+        ans[query[i].idx] = cnt;
+        s = ss;
+        e = ee;
     }
     for (int i = 0; i < q; i++)
         cout << ans[i] << '\n';
