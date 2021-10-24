@@ -11,9 +11,7 @@ vector<vector<int>> graph[MAX];
 int dfs(int cur) {
     S.push(cur);
     visit[cur] = idx;
-    int low = idx;
-    idx++;
-    
+    int low = idx++;
     for (int nxt : graph[cur]) {
         if (not visit[nxt]) {
             low = min(low, dfs(nxt));
@@ -22,7 +20,6 @@ int dfs(int cur) {
             low = min(low, visit[nxt]);
         }
     }
-    
     if (low == visit[cur]) {
         while (true) {
             int top = S.top();
@@ -67,15 +64,12 @@ int main() {
             graph[2 * y].push_back(2 * x - 1);
         }
     }
-
     idx = 1;
     scc_num = 1;
     
-    for (int i = 1; i < 2 * n + 1; i++) {
-        if (not visit[i]) {
+    for (int i = 1; i < 2 * n + 1; i++)
+        if (not visit[i])
             dfs(i);
-        }
-    }
     
     bool flag = true;
     for (int i = 0; i < n; i++) {
