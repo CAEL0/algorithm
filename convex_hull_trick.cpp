@@ -9,12 +9,12 @@ using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> pll;
 
-vector<pll> STK;
+vector<pll> stk;
 
 double cross(int j, int k) {
     ll x1, y1, x2, y2;
-    tie(x1, y1) = STK[j];
-    tie(x2, y2) = STK[k];
+    tie(x1, y1) = stk[j];
+    tie(x2, y2) = stk[k];
     return (double)(y2 - y1) / (x1 - x2);
 }
 
@@ -22,37 +22,34 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int N;
-    cin >> N;
+    int n;
+    cin >> n;
 
-    int A[N], B[N];
-    for (int i = 0; i < N; i++) {
-        cin >> A[i];
-    }
-    for (int i = 0; i < N; i++) {
-        cin >> B[i];
-    }
-    STK.push_back(pll(B[0], 0));
+    int a[n], n[n];
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
     
-    for (int i = 1; i < N; i++) {
+    stk.push_back(pll(b[0], 0));
+    
+    for (int i = 1; i < n; i++) {
         int left = 0;
-        int right = STK.sz - 1;
+        int right = stk.sz - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (cross(mid, mid + 1) <= A[i]) {
+            if (cross(mid, mid + 1) <= a[i])
                 left = mid + 1;
-            }
-            else {
+            else
                 right = mid;
-            }
         }
-        STK.push_back(pll(B[i], STK[left].fi * A[i] + STK[left].se));
-        while (STK.sz > 2 && cross(STK.sz - 2, STK.sz - 1) <= cross(STK.sz - 3, STK.sz - 2)) {
-            pll tmp = STK.back();
-            STK.pop_back();
-            STK.pop_back();
-            STK.push_back(tmp);
+        stk.push_back(pll(b[i], stk[left].fi * a[i] + stk[left].se));
+        while (stk.sz > 2 && cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2)) {
+            pll tmp = stk.bk();
+            stk.pop_back();
+            stk.pop_back();
+            stk.push_back(tmp);
         }
     }
-    cout << STK.bk.se;
+    cout << stk.bk.se;
 }
