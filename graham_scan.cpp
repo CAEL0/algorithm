@@ -23,7 +23,7 @@ bool cmp2(pii u, pii v) {
     if (f(u) == 1) return u.se < v.se;
     double tanu = (double)(u.se - y) / (u.fi - x);
     double tanv = (double)(v.se - y) / (v.fi - x);
-    return tanu == tanv ? u.fi < v.fi: tan_u < tan_v;
+    return tanu == tanv ? u.fi < v.fi: tanu < tanv;
 }
 ll ccw(pii u, pii v, pii w) {
     return (ll)(v.fi - u.fi) * (w.se - v.se) - (ll)(w.fi - v.fi) * (v.se - u.se);
