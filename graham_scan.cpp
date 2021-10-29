@@ -1,3 +1,5 @@
+// BOJ 1708
+
 #include <iostream>
 #include <bits/stdc++.h>
 #define fi first
@@ -50,14 +52,14 @@ int main() {
     
     for (int i = 2; i < n; i++) {
         while (stk.sz > 1) {
-            if (ccw(stk[stk.sz - 2], stk[stk.sz - 1], arr[i]) <= 0)
+            if (ccw(*(stk.end() - 2), *(stk.end() - 1), arr[i]) <= 0)
                 stk.pop_back();
             else
                 break;
         }
         stk.push_back(arr[i]);
     }
-    if (stk.sz > 2 && ccw(stk[stk.sz - 2], stk[stk.sz - 1], stk[0]) <= 0)
+    if (stk.sz > 2 && ccw(*(stk.end() - 2), *(stk.end() - 1), stk[0]) <= 0)
         stk.pop_back();
     cout << stk.sz;
 }
