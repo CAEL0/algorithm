@@ -4,7 +4,7 @@
 > ## Python and C++ Codes for Some Algorithms
 ***
 > ### Dynamic Programming
-> > Convex Hull Trick
+> > convex hull trick
 >
 > ### Geometry
 > > Graham scan
