@@ -28,10 +28,13 @@ int main() {
     cin >> n;
 
     int a[n], b[n];
-    for (int i = 0; i < n; i++) cin >> a[i];
-    for (int i = 0; i < n; i++) cin >> b[i];
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
     
     stk.push_back(pll(b[0], 0));
+    
     for (int i = 1; i < n; i++) {
         int left = 0;
         int right = stk.sz - 1;
