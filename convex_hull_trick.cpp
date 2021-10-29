@@ -1,3 +1,5 @@
+// BOJ 13263
+
 #include <iostream>
 #include <bits/stdc++.h>
 #define fi first
@@ -25,14 +27,11 @@ int main() {
     int n;
     cin >> n;
 
-    int a[n], n[n];
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-    for (int i = 0; i < n; i++)
-        cin >> b[i];
+    int a[n], b[n];
+    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 0; i < n; i++) cin >> b[i];
     
     stk.push_back(pll(b[0], 0));
-    
     for (int i = 1; i < n; i++) {
         int left = 0;
         int right = stk.sz - 1;
@@ -45,10 +44,7 @@ int main() {
         }
         stk.push_back(pll(b[i], stk[left].fi * a[i] + stk[left].se));
         while (stk.sz > 2 && cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2)) {
-            pll tmp = stk.bk();
-            stk.pop_back();
-            stk.pop_back();
-            stk.push_back(tmp);
+            stk.erase(stk.end() - 2);
         }
     }
     cout << stk.bk.se;
