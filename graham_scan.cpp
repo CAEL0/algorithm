@@ -21,9 +21,9 @@ bool cmp1(pii u, pii v) {
 bool cmp2(pii u, pii v) {
     if (f(u) != f(v)) return f(u) < f(v);
     if (f(u) == 1) return u.se < v.se;
-    double tan_u = (double)(u.se - y) / (u.fi - x);
-    double tan_v = (double)(v.se - y) / (v.fi - x);
-    return tan_u == tan_v ? u.fi < v.fi : tan_u < tan_v;
+    double tanu = (double)(u.se - y) / (u.fi - x);
+    double tanv = (double)(v.se - y) / (v.fi - x);
+    return tanu == tanv ? u.fi < v.fi: tan_u < tan_v;
 }
 ll ccw(pii u, pii v, pii w) {
     return (ll)(v.fi - u.fi) * (w.se - v.se) - (ll)(w.fi - v.fi) * (v.se - u.se);
