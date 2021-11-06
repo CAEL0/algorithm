@@ -44,21 +44,9 @@ int main() {
 
     for (int a, b, c, i = 0; i < e; i++) {
         cin >> a >> b >> c;
-        bool flag = true;
-
-        for (int j = 0; j < graph[a].size(); j++) {
-            if (graph[a][j].fi == b) {
-                if (graph[a][j].se > c)
-                    graph[a][j] = pii(b, c);
-                flag = false;
-                break;
-            }
-        }
-        if (flag)
-            graph[a].push_back(pii(b, c));
+        graph[a].push_back(pii(b, c));
     }
-    for (int i = 1; i < v + 1; i++)
-        res[i] = 3000001;
+    fill_n(res, v + 1, 3000001);
     res[start] = 0;
 
     dijkstra(start);
