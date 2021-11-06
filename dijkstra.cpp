@@ -9,9 +9,9 @@ using namespace std;
 typedef pair<int, int> pii;
 
 vector<pii> graph[20001];
-int v, e, start, res[20001];
+int res[20001];
 
-void dijkstra(vector<pii> graph[], int start) {
+void dijkstra(int start) {
     priority_queue<pii> pq;
     pq.push(pii(0, start));
 
@@ -39,6 +39,7 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
+    int v, e, start;
     cin >> v >> e >> start;
 
     for (int a, b, c, i = 0; i < e; i++) {
@@ -60,7 +61,7 @@ int main() {
         res[i] = 3000001;
     res[start] = 0;
 
-    dijkstra(graph, start);
+    dijkstra(start);
     
     for (int i = 1; i < v + 1; i++) {
         if (res[i] == 3000001)
