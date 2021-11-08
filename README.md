@@ -41,6 +41,8 @@
 > > > Tarjan's algorithm
 >
 > ### Mathematics
+> > #### Linear Algebra
+> > > Gaussian Elimination
 > > #### Number Theory
 > > > extended Euclidean algorithm
 > > > 
