@@ -15,18 +15,17 @@ ll gcd(ll x, ll y) {
     return y;
 }
 pll extended_gcd(ll x, ll y) {
-    ll x0 = 1, x1 = 0, y0 = 0, y1 = 1, k;
+    ll a0 = 1, a1 = 0, b0 = 0, b1 = 1, k;
     while (y) {
         k = x / y;
         swap(x, y);
         y %= x;
-        swap(x0, x1);
-        x1 -= k * x0;
-        swap(y0, y1);
-        y1 -= k * y0;
-
+        swap(a0, a1);
+        a1 -= k * a0;
+        swap(b0, b1);
+        b1 -= k * b0;
     }
-    return pll(x0, y0);
+    return pll(a0, b0);
 }
 
 int main() {
