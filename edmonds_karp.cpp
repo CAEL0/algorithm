@@ -1,3 +1,5 @@
+// BOJ 2188
+
 #include <iostream>
 #include <bits/stdc++.h>
 
@@ -7,25 +9,22 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int n, m;
+    int n, m, k;
     cin >> n >> m;
-
-    int k = n + m + 2;
+    k = n + m + 2;
     vector<int> graph[k];
     
-    for (int i = 1; i < n + 1; i++) {
+    for (int j, tmp, i = 1; i < n + 1; i++) {
         graph[0].push_back(i);
-        int j;
         cin >> j;
         while (j--) {
-            int tmp;
             cin >> tmp;
             graph[i].push_back(n + tmp);
         }
     }
-    for (int i = n + 1; i < k - 1; i++) {
+    for (int i = n + 1; i < k - 1; i++)
         graph[i].push_back(k - 1);
-    }
+
     int ans = 0;
     while (true) {
         int prev[k];
