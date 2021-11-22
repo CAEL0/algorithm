@@ -56,3 +56,6 @@
 >
 > ### Miscellaneous
 > > > Mo's algorithm
+>
+> ### String
+> > > Knuth-Morris-Pratt algorithm
