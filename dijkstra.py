@@ -14,7 +14,7 @@ v, e = map(int, sys.stdin.readline().split())
 
 
 def dijkstra(graph, start):
-    res = {node: float('inf') for node in range(1, v + 1)}
+    res = {i: float('inf') for i in range(1, v + 1)}
     res[start] = 0
     queue = [(0, start)]
     while queue:
