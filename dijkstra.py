@@ -11,15 +11,23 @@ from heapq import heappush, heappop
 from collections import defaultdict
 
 v, e = map(int, sys.stdin.readline().split())
+graph = defaultdict(dict)
+
+for _ in range(e):
+    a, b, c = map(int, sys.stdin.readline().split())
+    if b in graph[a].keys():
+        graph[a][b] = min(graph[a][b], c)
+    else:
+        graph[a][b] = c
 
 
 def dijkstra(graph, start):
-    res = {i: float('inf') for i in range(1, v + 1)}
+    res = [float('inf')] * (v + 1)
     res[start] = 0
     queue = [(0, start)]
     while queue:
         old_weight, old_node = heappop(queue)
-        if res[old_node] >= old_weight:
+        if res[old_node] == old_weight:
             for new_node, new_weight in graph[old_node].items():
                 total_weight = old_weight + new_weight
                 if total_weight < res[new_node]:
