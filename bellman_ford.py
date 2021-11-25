@@ -11,12 +11,19 @@ import sys
 from collections import defaultdict
 
 v, e = map(int, sys.stdin.readline().split())
+graph = defaultdict(dict)
+
+for _ in range(e):
+    a, b, c = map(int, sys.stdin.readline().split())
+    if b in graph[a].keys():
+        graph[a][b] = min(graph[a][b], c)
+    else:
+        graph[a][b] = c
 
 
 def bellman_ford(graph, start):
-    res = [float('inf') for _ in range(v + 1)]
+    res = [float('inf')] * (v + 1)
     res[start] = 0
-    
     for _ in range(v - 1):
         for start in graph.keys():
             for end, weight in graph[start].items():
