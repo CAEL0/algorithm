@@ -25,12 +25,12 @@ for _ in range(e):
 def floyd_warshall(graph):
     res = [[float('inf')] * (v + 1) for _ in range(v + 1)]
     for start in graph.keys():
+        res[start][start] = 0
         for end in graph[start].keys():
             res[start][end] = min(res[start][end], graph[start][end])
 
     for k in range(1, v + 1):
         for i in range(1, v + 1):
             for j in range(1, v + 1):
-                if i != j != k != i:
-                    res[i][j] = min(res[i][j], res[i][k] + res[k][j])
+                res[i][j] = min(res[i][j], res[i][k] + res[k][j])
     return res
