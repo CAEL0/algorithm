@@ -25,8 +25,8 @@ for _ in range(e):
 def floyd_warshall(graph):
     res = [[float('inf')] * (v + 1) for _ in range(v + 1)]
     for start in graph.keys():
-        for end, weight in graph[start]:
-            res[start][end] = min(res[start][end], weight)
+        for end in graph[start].keys():
+            res[start][end] = min(res[start][end], graph[start][end])
 
     for k in range(1, v + 1):
         for i in range(1, v + 1):
