@@ -12,6 +12,14 @@ import sys
 from collections import defaultdict
 
 v, e = map(int, sys.stdin.readline().split())
+graph = defaultdict(dict)
+
+for _ in range(e):
+    a, b, c = map(int, sys.stdin.readline().split())
+    if b in graph[a].keys():
+        graph[a][b] = min(graph[a][b], c)
+    else:
+        graph[a][b] = c
 
 
 def floyd_warshall(graph):
