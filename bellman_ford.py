@@ -28,5 +28,4 @@ def bellman_ford(graph, start):
         for start in graph.keys():
             for end, weight in graph[start].items():
                 res[end] = min(res[end], res[start] + weight)
-    
     return res
