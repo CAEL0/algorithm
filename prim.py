@@ -11,7 +11,6 @@ from heapq import heappush, heappop
 from collections import defaultdict
 
 v, e = map(int, sys.stdin.readline().split())
-visit = [0] * (v + 1)
 board = defaultdict(list)
 for _ in range(e):
     start, end, weight = map(int, sys.stdin.readline().split())
@@ -23,6 +22,7 @@ def prim(graph):
     res = 0
     adj = []
     new = 1
+    visit = [0] * (v + 1)
     visit[1] = 1
     
     for _ in range(v - 1):
