@@ -23,7 +23,6 @@ queue = deque([1])
 while queue:
     cur = queue.popleft()
     visit[cur] = 0
-
     for nxt, weight in graph[cur]:
         if res[nxt] > res[cur] + weight:
             res[nxt] = res[cur] + weight
