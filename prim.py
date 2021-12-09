@@ -24,7 +24,6 @@ def prim(graph):
     new = 1
     visit = [0] * (v + 1)
     visit[1] = 1
-    
     for _ in range(v - 1):
         for w, node in graph[new]:
             if not visit[node]:
