@@ -35,5 +35,4 @@ def kruskal(graph):
 
         if idx == v - 1:
             return res
-
     return -1
