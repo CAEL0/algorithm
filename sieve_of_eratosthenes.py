@@ -31,7 +31,6 @@ def factorization(x):
 
     if x > 1:
         res.append(x)
-    
     return res
 
 
