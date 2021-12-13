@@ -8,7 +8,6 @@ Specifically, a cut vertex is any vertex whose removal increases the number of c
 import sys
 
 n, m = map(int, sys.stdin.readline().split())
-
 graph = [[] for _ in range(n + 1)]
 for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
