@@ -26,7 +26,6 @@ def combination(a, b, p):
         den = (den * (i + 1)) % p
 
     x, y = extended_gcd(den, p)
-
     return (num * x) % p
 
 
