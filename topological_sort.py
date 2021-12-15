@@ -25,7 +25,6 @@ queue = deque([i for i in range(1, n + 1) if indegree[i] == 0])
 while queue:
     i = queue.popleft()
     res.append(i)
-
     for j in out[i]:
         indegree[j] -= 1
         if indegree[j] == 0:
