@@ -40,7 +40,6 @@ def dfs(cur, parent):
         elif low > dfsn[nxt]:
             low = min(low, dfsn[nxt])
             stack.append((cur, nxt))
-        
     return low
 
 
