@@ -48,7 +48,6 @@ def miller_rabin(x):
                 break
         else:
             return False
-
     return True
 
 
