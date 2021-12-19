@@ -51,5 +51,4 @@ while stack:
                     break
             else:
                 res.append(queue.pop())
-
         scc.append(res)
