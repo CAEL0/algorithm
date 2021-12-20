@@ -45,5 +45,4 @@ def lucas(n, k, p):
     res = 1
     for i in range(len(den)):
         res = (res * combination(num[i], den[i], p)) % p
-
     return res
