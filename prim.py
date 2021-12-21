@@ -35,5 +35,4 @@ def prim(graph):
                 visit[new] = 1
                 res += w
                 break
-
     return res
