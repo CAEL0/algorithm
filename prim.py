@@ -28,7 +28,6 @@ def prim(graph):
         for w, node in graph[new]:
             if not visit[node]:
                 heappush(adj, (w, node))
-
         while True:
             w, new = heappop(adj)
             if not visit[new]:
