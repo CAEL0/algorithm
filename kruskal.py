@@ -32,7 +32,6 @@ def kruskal(graph):
             union(x, y)
             res += w
             idx += 1
-
         if idx == v - 1:
             return res
     return -1
