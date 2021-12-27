@@ -21,7 +21,6 @@ for i in range(1, n):
             left = mid + 1
         else:
             right = mid
-    
     stack.append((b[i], stack[left][0] * a[i] + stack[left][1]))
     while (len(stack) >= 3) and (cross(-2, -1) <= cross(-3, -2)):
         stack.pop(-2)
