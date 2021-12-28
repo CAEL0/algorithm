@@ -27,5 +27,4 @@ for i in range(len(t)):
         else:
             j += 1
 
-print(len(ans))
 print(*ans)
