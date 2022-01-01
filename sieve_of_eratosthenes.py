@@ -26,7 +26,6 @@ def factorization(x):
         while x % idx == 0:
             res.append(idx)
             x //= idx
-
         idx = check[x]
 
     if x > 1:
