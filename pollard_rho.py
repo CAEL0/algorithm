@@ -83,6 +83,6 @@ def pollard_rho(x):
             return
 
 
-x = int(input())
+x = int(sys.stdin.readline())
 ans = []
 pollard_rho(x)
