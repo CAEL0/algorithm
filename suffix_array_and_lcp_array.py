@@ -10,7 +10,7 @@ import sys
 s = sys.stdin.readline().strip()
 n = len(s)
 sa = [i for i in range(n)]
-pos = [ord(s[i]) for i in range(n)] + [-1]
+pos = [ord(s[i]) for i in range(n)] + [0]
 d = 1
 while True:
     sa.sort(key=lambda x: (pos[x], pos[min(x + d, n)]))
