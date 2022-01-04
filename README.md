@@ -43,7 +43,7 @@
 >
 > ### Mathematics
 > > #### Linear Algebra
-> > > Gaussian Elimination
+> > > Gaussian elimination
 > > #### Number Theory
 > > > extended Euclidean algorithm
 > > > 
@@ -60,3 +60,4 @@
 >
 > ### String
 > > > Knuth-Morris-Pratt algorithm
+> > > suffix array and lcp array
