@@ -57,7 +57,7 @@ n = len(s)
 sa = [i for i in range(n)]
 pos = [ord(s[i]) for i in range(n)] + [0]
 d = 1
-while d <= n:
+while True:    
     cnt = [0] * max(n, 200)
     cnt[0] = d
     for i in range(d, n):
@@ -88,7 +88,7 @@ while d <= n:
         tmp[i + 1] = tmp[i] + ((pos[x], pos[min(x + d, n)]) < (pos[y], pos[min(y + d, n)]))
     
     for i in range(n):
-        pos[sa[i]] = tmp[i]
+        pos[sa[i]] = tmp[i] + 1
     
     if tmp[-1] == n - 1:
         break
@@ -103,15 +103,15 @@ lcp = [0] * n
 lcp[0] = 'x'
 k = 0
 for i in range(n):
-    if pos[i] == 0:
+    if pos[i] == 1:
         k -= (k > 0)
         continue
     
-    j = sa[pos[i] - 1]
+    j = sa[pos[i] - 2]
     while (max(i, j) + k < n) and (s[i + k] == s[j + k]):
         k += 1
     
-    lcp[pos[i]] = k
+    lcp[pos[i] - 1] = k
     k -= (k > 0)
 
 print(*lcp)
