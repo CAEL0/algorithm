@@ -32,7 +32,6 @@ for i in range(n):
 print()
 
 lcp = [0] * n
-lcp[0] = 'x'
 k = 0
 for i in range(n):
     if pos[i] == 0:
@@ -100,7 +99,6 @@ for i in range(n):
 print()
 
 lcp = [0] * n
-lcp[0] = 'x'
 k = 0
 for i in range(n):
     if pos[i] == 1:
