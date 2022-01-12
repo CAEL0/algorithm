@@ -5,7 +5,7 @@
 > ## Python and C++ Codes for some Algorithms
 ***
 > ### Data Structure
-> > #### segment tree
+> > #### Segment Tree
 > > > maximum subarray problem
 >
 > ### Dynamic Programming
