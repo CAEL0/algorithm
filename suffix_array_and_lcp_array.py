@@ -27,10 +27,6 @@ while True:
     
     d *= 2
 
-for i in range(n):
-    print(sa[i] + 1, end=' ')
-print()
-
 lcp = [0] * n
 k = 0
 for i in range(n):
@@ -44,8 +40,6 @@ for i in range(n):
     
     lcp[pos[i]] = k
     k -= (k > 0)
-
-print(*lcp)
 
 #--------------------------------------------------------------------------------
 
@@ -94,10 +88,6 @@ while True:
     
     d *= 2
 
-for i in range(n):
-    print(sa[i] + 1, end=' ')
-print()
-
 lcp = [0] * n
 k = 0
 for i in range(n):
@@ -111,5 +101,3 @@ for i in range(n):
     
     lcp[pos[i] - 1] = k
     k -= (k > 0)
-
-print(*lcp)
