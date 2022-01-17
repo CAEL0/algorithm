@@ -9,7 +9,8 @@ from math import log2, ceil
 n = int(sys.stdin.readline())
 arr = list(map(int, sys.stdin.readline().split()))
 height = ceil(log2(n))
-tree = [[0] * 4 for _ in range(2 ** (height + 1))]
+z = 2 ** height
+tree = [[0] * 4 for _ in range(2 * z)]
 
 for i in range(n):
     tree[2 ** height + i] = [arr[i]] * 4
@@ -24,8 +25,8 @@ for h in range(height - 1, -1, -1):
 def summation(a, b):
     res1 = [-float('inf'), 0, -float('inf'), 0]
     res2 = [-float('inf'), -float('inf'), 0, 0]
-    a += 2 ** height - 1
-    b += 2 ** height - 1
+    a += z - 1
+    b += z - 1
     while a <= b:
         if a % 2:
             res1 = [max(res1[0], tree[a][0], res1[2] + tree[a][1]), max(res1[1], res1[3] + tree[a][1]), max(tree[a][2], res1[2] + tree[a][3]), res1[3] + tree[a][3]]
@@ -40,7 +41,7 @@ def summation(a, b):
 
 
 def update(k, c):
-    idx = 2 ** height + k - 1
+    idx = z + k - 1
     tree[idx] = [c] * 4
     while idx > 1:
         idx //= 2
