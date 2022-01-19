@@ -7,13 +7,14 @@ It uses a stack to detect and remove concavities in the boundary efficiently.
 import sys
 
 
-def tangent(x, y):
+def tangent(z):
+    x, y = z
     if x == a:
         return 1, y
     if x > a:
         return 0, (y - b) / (x - a), x
     if x < a:
-        return 2, (y - b) / (x - a), x
+        return 2, (y - b) / (x - a), -x
 
 
 def ccw(x1, y1, x2, y2, x3, y3):
@@ -21,20 +22,15 @@ def ccw(x1, y1, x2, y2, x3, y3):
 
 
 n = int(sys.stdin.readline())
-
 coord = [tuple(map(int, sys.stdin.readline().split())) for _ in range(n)]
-coord.sort(key=lambda x: (x[1], x[0]))
-a, b = coord.pop(0)
-coord.sort(key=lambda x: tangent(*x))
+coord.sort(key=lambda x: (-x[1], -x[0]))
+a, b = coord.pop()
+coord.sort(key=tangent)
 
 stack = [(a, b), coord[0]]
-
 for i in range(1, n - 1):
-    while len(stack) >= 2:
-        if ccw(*stack[-2], *stack[-1], *coord[i]) <= 0:
-            stack.pop()
-        else:
-            break
+    while (len(stack) >= 2) and (ccw(*stack[-2], *stack[-1], *coord[i]) <= 0):
+        stack.pop()
     stack.append(coord[i])
 
 if (len(stack) >= 3) and (ccw(*stack[-2], *stack[-1], *stack[0]) <= 0):
