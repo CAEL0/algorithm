@@ -51,12 +51,8 @@ int main() {
     stk.push_back(arr[1]);
     
     for (int i = 2; i < n; i++) {
-        while (stk.sz > 1) {
-            if (ccw(*(stk.end() - 2), *(stk.end() - 1), arr[i]) <= 0)
-                stk.pop_back();
-            else
-                break;
-        }
+        while (stk.sz > 1 && ccw(*(stk.end() - 2), *(stk.end() - 1), arr[i]) <= 0)
+            stk.pop_back();
         stk.push_back(arr[i]);
     }
     if (stk.sz > 2 && ccw(*(stk.end() - 2), *(stk.end() - 1), stk[0]) <= 0)
