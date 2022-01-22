@@ -5,10 +5,13 @@
 > ## Python and C++ Codes for some Algorithms
 ***
 > ### Data Structure
+> > #### Disjoint Set (Union Find)
 > > #### Fenwick Tree
 > > > 2d Fenwick tree
 > > > 
 > > > Fenwick tree
+> > #### Heap
+> > > min heap
 > > #### Linked List
 > > > singly linked list
 > > > 
@@ -17,7 +20,6 @@
 > > > maximum subarray problem
 > > > 
 > > > segment tree
-> > #### Disjoint Set (Union Find)
 >
 > ### Dynamic Programming
 > > convex hull trick
