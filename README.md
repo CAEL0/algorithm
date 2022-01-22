@@ -6,6 +6,8 @@
 ***
 > ### Data Structure
 > > #### Fenwick Tree
+> > > 2d Fenwick tree
+> > > 
 > > > Fenwick tree
 > > #### Segment Tree
 > > > maximum subarray problem
