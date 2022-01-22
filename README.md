@@ -5,6 +5,7 @@
 > ## Python and C++ Codes for some Algorithms
 ***
 > ### Data Structure
+> > #### Binary Search Tree
 > > #### Disjoint Set (Union Find)
 > > #### Fenwick Tree
 > > > 2d Fenwick tree
