@@ -23,6 +23,8 @@
 > > > maximum subarray problem
 > > > 
 > > > segment tree
+> > #### String
+> > > trie
 >
 > ### Dynamic Programming
 > > convex hull trick
