@@ -44,6 +44,8 @@
 > > > Kosaraju's algorithm
 > > > 
 > > > Tarjan's algorithm
+> > #### Tree
+> > > Euler tour technique
 >
 > ### Mathematics
 > > #### Linear Algebra
