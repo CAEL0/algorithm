@@ -9,7 +9,7 @@
 > > > 2d Fenwick tree
 > > > 
 > > > Fenwick tree
-> > #### linked list
+> > #### Linked List
 > > > singly linked list
 > > > 
 > > > doubly linked list
