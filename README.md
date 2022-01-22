@@ -5,8 +5,12 @@
 > ## Python and C++ Codes for some Algorithms
 ***
 > ### Data Structure
+> > #### Fenwick Tree
+> > > Fenwick tree
 > > #### Segment Tree
 > > > maximum subarray problem
+> > > 
+> > > segment tree
 >
 > ### Dynamic Programming
 > > convex hull trick
