@@ -9,6 +9,10 @@
 > > > 2d Fenwick tree
 > > > 
 > > > Fenwick tree
+> > #### linked list
+> > > singly linked list
+> > > 
+> > > doubly linked list
 > > #### Segment Tree
 > > > maximum subarray problem
 > > > 
