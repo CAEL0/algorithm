@@ -17,6 +17,7 @@
 > > > maximum subarray problem
 > > > 
 > > > segment tree
+> > #### Disjoint Set (Union Find)
 >
 > ### Dynamic Programming
 > > convex hull trick
