@@ -18,6 +18,8 @@
 > > > 
 > > > doubly linked list
 > > #### Segment Tree
+> > > lazy propagation
+> > >
 > > > maximum subarray problem
 > > > 
 > > > segment tree
