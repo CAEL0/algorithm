@@ -45,3 +45,28 @@ def update(k, c):
     while idx >= 1:
         tree[idx] -= gap
         idx //= 2
+
+#--------------------------------------------------------------------------------
+
+def maximum(a, b):
+    res = 0
+    a += z - 1
+    b += z - 1
+    while a <= b:
+        if a % 2:
+            res = max(res, tree[a])
+            a += 1
+        if b % 2 == 0:
+            res = max(res, tree[b])
+            b -= 1
+        a //= 2
+        b //= 2
+    return res
+
+
+def update(k, c):
+    idx = z + k - 1
+    tree[idx] = c
+    while idx > 1:
+        idx //= 2
+        tree[idx] = max(tree[2 * idx], tree[2 * idx + 1])
