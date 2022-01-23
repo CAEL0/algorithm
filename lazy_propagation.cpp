@@ -48,7 +48,6 @@ ll summation(ll a, ll b) {
     return res;
 }
 void update(ll a, ll b, ll c) {
-    ll res = 0;
     vector<tll> queue;
     queue.push_back(tll(a, b, 1));
     while (queue.size()) {
