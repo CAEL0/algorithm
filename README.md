@@ -22,6 +22,8 @@
 > > >
 > > > maximum subarray problem
 > > > 
+> > > merge sort tree
+> > > 
 > > > segment tree
 > > #### String
 > > > trie
