@@ -3,21 +3,22 @@ from bisect import bisect
 from math import log2, ceil
 
 
-def merge(arr1, arr2):
-    res = []
+def merge(k, l, r):
     i = j = 0
     while True:
-        if i == len(arr1):
-            return res + arr2[j:]
+        if i == len(tree[l]):
+            tree[k].extend(tree[r][j:])
+            return
 
-        if j == len(arr2):
-            return res + arr1[i:]
+        if j == len(tree[r]):
+            tree[k].extend(tree[l][i:])
+            return
 
-        if arr1[i] <= arr2[j]:
-            res.append(arr1[i])
+        if tree[l][i] <= tree[r][j]:
+            tree[k].append(tree[l][i])
             i += 1
         else:
-            res.append(arr2[j])
+            tree[k].append(tree[r][j])
             j += 1
 
 
@@ -32,7 +33,7 @@ for i in range(n):
 
 for h in range(height - 1, -1, -1):
     for i in range(2 ** h, 2 ** (h + 1)):
-        tree[i] = merge(tree[2 * i], tree[2 * i + 1])
+        merge(i, 2 * i, 2 * i + 1)
 
 
 def larger(a, b, k):
