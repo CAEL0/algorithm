@@ -3,11 +3,12 @@ from math import log2, ceil
 
 n = int(sys.stdin.readline())
 height = ceil(log2(n))
-tree = [0] * 2 ** (height + 1)
-lazy = [0] * 2 ** (height + 1)
+z = 2 ** height
+tree = [0] * 2 * z
+lazy = [0] * 2 * z
 
 for i in range(n):
-    tree[2 ** height + i] = int(sys.stdin.readline())
+    tree[z + i] = int(sys.stdin.readline())
 
 for h in range(height - 1, -1, -1):
     for i in range(2 ** h, 2 ** (h + 1)):
@@ -20,7 +21,7 @@ def summation(a, b):
     while queue:
         a, b, idx = queue.pop()
         level = 2 ** int(log2(idx))
-        length = (2 ** height) // level
+        length = z // level
         start = (idx % level) * length
         mid = start + length // 2
 
@@ -52,7 +53,7 @@ def update(a, b, c):
     while queue:
         a, b, idx = queue.pop()
         level = 2 ** int(log2(idx))
-        length = (2 ** height) // level
+        length = z // level
         start = (idx % level) * length
         mid = start + length // 2
 
