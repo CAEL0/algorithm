@@ -29,7 +29,7 @@ z = 2 ** height
 tree = [[] for _ in range(2 * z)]
 
 for i in range(n):
-    tree[2 ** height + i] = [arr[i]]
+    tree[z + i] = [arr[i]]
 
 for h in range(height - 1, -1, -1):
     for i in range(2 ** h, 2 ** (h + 1)):
