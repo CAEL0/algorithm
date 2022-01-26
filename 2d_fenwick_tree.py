@@ -27,9 +27,9 @@ n, m = map(int, sys.stdin.readline().split())
 fenwick_tree = [[0] * (n + 1) for _ in range(n + 1)]
 
 for x in range(n):
-    num = list(map(int, sys.stdin.readline().split()))
+    arr = list(map(int, sys.stdin.readline().split()))
     for y in range(n):
-        update(x + 1, y + 1, num[y])
+        update(x + 1, y + 1, arr[y])
 
 for _ in range(m):
     operation = list(map(int, sys.stdin.readline().split()))
