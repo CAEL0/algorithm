@@ -46,6 +46,3 @@ for i in range(1, q):
     ans[idx] = cnt
     left = ll
     right = rr
-
-for i in ans:
-    print(i)
