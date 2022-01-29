@@ -83,6 +83,8 @@
 >
 > ### Miscellaneous
 > > > Mo's algorithm
+> > > 
+> > > square root decomposition
 >
 > ### String
 > > > Knuth-Morris-Pratt algorithm
