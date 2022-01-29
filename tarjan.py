@@ -1,8 +1,7 @@
 """
-Tarjan's strongly connected components algorithm is an algorithm in graph theory for finding the strongly 
-connected components (SCCs) of a directed graph. It runs in linear time, matching the time bound for alternative 
-methods including Kosaraju's algorithm and the path-based strong component algorithm. The algorithm is named for its 
-inventor, Robert Tarjan.
+Tarjan's strongly connected components algorithm is an algorithm in graph theory for finding the strongly connected components (SCCs) of a directed graph.
+It runs in linear time, matching the time bound for alternative methods including Kosaraju's algorithm and the path-based strong component algorithm.
+The algorithm is named for its inventor, Robert Tarjan.
 """
 
 import sys
