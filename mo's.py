@@ -1,13 +1,14 @@
 import sys
 
 n = int(sys.stdin.readline())
+k = int(n ** 0.5)
 arr = list(map(int, sys.stdin.readline().split()))
 q = int(sys.stdin.readline())
 query = []
 for i in range(q):
     a, b = map(int, sys.stdin.readline().split())
     query.append((a, b, i))
-query.sort(key=lambda x: (x[0] // int(q ** 0.5), x[1]))
+query.sort(key=lambda x: (x[0] // k, x[1]))
 
 ans = [0] * q
 res = [0] * (max(arr) + 1)
