@@ -16,7 +16,7 @@ class FenwickTree:
 
     def summation(self, idx):
         res = 0
-        while idx >= 0:
+        while idx > 0:
             res += self.array[idx]
             idx -= idx & -idx
         return res
