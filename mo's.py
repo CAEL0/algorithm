@@ -9,7 +9,7 @@ query = []
 for i in range(q):
     a, b = map(int, sys.stdin.readline().split())
     query.append((a, b, i))
-query.sort(key=lambda x: (x[0] / k, x[1]))
+query.sort(key=lambda x: (x[0] // k, x[1]))
 
 ans = [0] * q
 res = [0] * (z + 1)
