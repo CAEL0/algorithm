@@ -14,10 +14,10 @@ typedef pair<ll, ll> pll;
 vector<pll> stk;
 
 double cross(int j, int k) {
-    ll x1, y1, x2, y2;
-    tie(x1, y1) = stk[j];
-    tie(x2, y2) = stk[k];
-    return (double)(y2 - y1) / (x1 - x2);
+    ll x, y, z, w;
+    tie(x, y) = stk[j];
+    tie(z, w) = stk[k];
+    return (double)(w - y) / (x - z);
 }
 
 int main() {
