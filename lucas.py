@@ -33,7 +33,6 @@ def lucas(n, k, p):
     k = min(k, n - k)
     num = []
     den = []
-
     while n:
         num.append(n % p)
         n //= p
