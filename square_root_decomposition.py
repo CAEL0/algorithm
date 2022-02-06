@@ -50,17 +50,14 @@ for _ in range(m + o):
     else:
         b -= 1
         c -= 1
-        idx1 = b // k
-        idx2 = c // k
         ans = 0
-        for i in range(idx1 + 1, idx2):
-            ans += group[i]
-
-        for i in range(b, min(k * (idx1 + 1), c + 1)):
-            ans += arr[i]
-
-        if idx1 != idx2:
-            for i in range(max(b, k * idx2), c + 1):
-                ans += arr[i]
-
+        idx = b
+        while idx <= c:
+            if (idx % k == 0) and (idx + k - 1 <= c):
+                ans += group[idx // k]
+                idx += k
+            else:
+                ans += arr[idx]
+                idx += 1
+        
         print(ans)
