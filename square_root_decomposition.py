@@ -39,17 +39,14 @@ arr = [int(sys.stdin.readline()) for _ in range(n)]
 group = [0] * (k + 2)
 
 for i in range(n):
-    idx = i // k
-    group[idx] += arr[i]
+    group[i // k] += arr[i]
 
 for _ in range(m + o):
     a, b, c = map(int, sys.stdin.readline().split())
     if a == 1:
         b -= 1
-        idx = b // k
-        gap = c - arr[b]
+        group[b // k] += c - arr[b]
         arr[b] = c
-        group[idx] += gap
     else:
         b -= 1
         c -= 1
