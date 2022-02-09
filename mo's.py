@@ -2,7 +2,6 @@ import sys
 
 n = int(sys.stdin.readline())
 arr = list(map(int, sys.stdin.readline().split()))
-z = max(arr)
 q = int(sys.stdin.readline())
 query = []
 for i in range(q):
@@ -10,33 +9,38 @@ for i in range(q):
     query.append((a, b, i))
 query.sort(key=lambda x: (x[0] // 300, x[1]))
 
+
+def add(l, r):
+    global cnt
+    for j in range(l, r):
+        cnt += (res[arr[j]] == 0)
+        res[arr[j]] += 1
+
+
+def sub(l, r):
+    global cnt
+    for j in range(l, r):
+        res[arr[j]] -= 1
+        cnt -= (res[arr[j]] == 0)
+
+
 ans = [0] * q
-res = [0] * (z + 1)
+res = [0] * (max(arr) + 1)
 cnt = 0
 left, right, idx = query[0]
-for j in range(left - 1, right):
-    cnt += (res[arr[j]] == 0)
-    res[arr[j]] += 1
+add(left - 1, right)
 ans[idx] = cnt
 
 for i in range(1, q):
     ll, rr, idx = query[i]
     if ll < left:
-        for j in range(ll - 1, left - 1):
-            cnt += (res[arr[j]] == 0)
-            res[arr[j]] += 1
+        add(ll - 1, left - 1)
     else:
-        for j in range(left - 1, ll - 1):
-            res[arr[j]] -= 1
-            cnt -= (res[arr[j]] == 0)
+        sub(left - 1, ll - 1)
     if right < rr:
-        for j in range(right, rr):
-            cnt += (res[arr[j]] == 0)
-            res[arr[j]] += 1
+        add(right, rr)
     else:
-        for j in range(rr, right):
-            res[arr[j]] -= 1
-            cnt -= (res[arr[j]] == 0)
+        sub(rr, right)
     ans[idx] = cnt
     left = ll
     right = rr
