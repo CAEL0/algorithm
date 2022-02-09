@@ -112,12 +112,12 @@ int main() {
     }
     sort(qry, qry + q);
     
-    for (int i = qry[0].s; i <= qry[0].e; i++)
+    int s = qry[0].s;
+    int e = qry[0].e;
+    for (int i = s; i <= e; i++)
         add(i);
 
     ans[qry[0].idx] = cnt;
-    int s = qry[0].s;
-    int e = qry[0].e;
 
     for (int i = 1; i < q; i++) {
         while (e < qry[i].e) add(++e);
