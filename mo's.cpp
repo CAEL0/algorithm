@@ -50,16 +50,10 @@ int main() {
     for (int i = 1; i < q; i++) {
         int ss = query[i].s;
         int ee = query[i].e;
-        if (e < ss || ee < s) {
-            fill_n(res, *max_element(arr, arr + n) + 1, 0);
-            cnt = 0;
-            add(ss - 1, ee);
-        } else {
-            if (ss < s) add(ss - 1, s - 1);
-            else sub(s - 1, ss - 1);
-            if (e < ee) add(e, ee);
-            else sub(ee, e);
-        }
+        if (ss < s) add(ss - 1, s - 1);
+        else sub(s - 1, ss - 1);
+        if (e < ee) add(e, ee);
+        else sub(ee, e);
         ans[query[i].idx] = cnt;
         s = ss;
         e = ee;
