@@ -25,6 +25,7 @@
 > > > merge sort tree
 > > > 
 > > > segment tree
+> > #### Sparse Table
 > > #### String
 > > > trie
 >
