@@ -11,8 +11,8 @@ for i in range(19):
         sparse[i + 1][j] = sparse[i][sparse[i][j]]
 
 for _ in range(int(sys.stdin.readline())):
-    n, x = map(int, sys.stdin.readline().split())
+    m, x = map(int, sys.stdin.readline().split())
     for i in range(20):
-        if n & (1 << i):
+        if m & (1 << i):
             x = sparse[i][x]
     print(x)
