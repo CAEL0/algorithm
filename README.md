@@ -67,6 +67,8 @@
 > > > Tarjan's algorithm
 > > #### Tree
 > > > Euler tour technique
+> > > 
+> > > lowest common ancestor
 >
 > ### Mathematics
 > > #### Linear Algebra
