@@ -11,7 +11,7 @@ import sys
 
 v, e = map(int, sys.stdin.readline().split())
 parent = [i for i in range(v + 1)]
-board = sorted([tuple(map(int, sys.stdin.readline().split())) for _ in range(e)], key=lambda x: x[2])
+graph = sorted([tuple(map(int, sys.stdin.readline().split())) for _ in range(e)], key=lambda x: x[2])
 
 
 def union(x, y):
@@ -24,14 +24,16 @@ def find(z):
     return parent[z]
 
 
-def kruskal(graph):
-    res = 0
-    idx = 0
-    for x, y, w in graph:
-        if find(x) != find(y):
-            union(x, y)
-            res += w
-            idx += 1
-        if idx == v - 1:
-            return res
-    return -1
+ans = 0
+cnt = 0
+for x, y, w in graph:
+    if find(x) != find(y):
+        union(x, y)
+        ans += w
+        cnt += 1
+    
+    if cnt == v - 1:
+        print(ans)
+        break
+else:
+    print(-1)
