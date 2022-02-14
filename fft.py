@@ -1,1 +1,11 @@
-
+"""
+A fast Fourier transform (FFT) is an algorithm that computes the discrete Fourier transform (DFT) of a sequence, or its inverse (IDFT).
+Fourier analysis converts a signal from its original domain (often time or space) to a representation in the frequency domain and vice versa.
+The DFT is obtained by decomposing a sequence of values into components of different frequencies.
+This operation is useful in many fields, but computing it directly from the definition is often too slow to be practical.
+An FFT rapidly computes such transformations by factorizing the DFT matrix into a product of sparse (mostly zero) factors.
+As a result, it manages to reduce the complexity of computing the DFT from O(N^2), which arises if one simply applies the definition of DFT, to O(NlogN), where N is the data size.
+The difference in speed can be enormous, especially for long data sets where N may be in the thousands or millions.
+In the presence of round-off error, many FFT algorithms are much more accurate than evaluating the DFT definition directly or indirectly.
+There are many different FFT algorithms based on a wide range of published theories, from simple complex-number arithmetic to group theory and number theory.
+"""
