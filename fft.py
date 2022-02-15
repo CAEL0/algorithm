@@ -19,11 +19,11 @@ def fft(coef, w):
     if n == 1:
         return coef
     
-    even = [0] * (n // 2)
-    odd = [0] * (n // 2)
+    even = []
+    odd = []
     for i in range(n // 2):
-        even[i] = coef[2 * i]
-        odd[i] = coef[2 * i + 1]
+        even.append(coef[2 * i])
+        odd.append(coef[2 * i + 1])
     
     ww = w * w
     fe = fft(even, ww)
@@ -33,10 +33,7 @@ def fft(coef, w):
     wk = complex(1, 0)
     for i in range(n // 2):
         res[i] = fe[i] + wk * fo[i]
-        wk *= w
-    
-    for i in range(n // 2):
-        res[i + n // 2] = fe[i] + wk * fo[i]
+        res[i + n // 2] = fe[i] - wk * fo[i]
         wk *= w
     return res
 
