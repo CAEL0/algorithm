@@ -9,14 +9,18 @@ The last operation allows to find out efficiently if any two elements are in the
 import sys
 
 n = int(sys.stdin.readline())
-parent = [i for i in range(n)]
+parent = [i for i in range(n + 1)]
 
 
 def union(x, y):
-    parent[find(x)] = find(y)
+    u, v = sorted((find(x), find(y)))
+    parent[u] = v
 
 
-def find(z):
-    if z != parent[z]:
-        parent[z] = find(parent[z])
-    return parent[z]
+def find(c):
+    u = c
+    v = parent[u]
+    while u != v:
+        u, v = v, parent[v]
+    parent[c] = v
+    return v
