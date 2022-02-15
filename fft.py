@@ -14,28 +14,26 @@ import sys
 from math import cos, sin, pi
 
 
-def fft(coef, w):
-    n = len(coef)
+def fft(arr, w):
+    n = len(arr)
     if n == 1:
-        return coef
+        return
     
     even = []
     odd = []
     for i in range(n // 2):
-        even.append(coef[2 * i])
-        odd.append(coef[2 * i + 1])
+        even.append(arr[2 * i])
+        odd.append(arr[2 * i + 1])
     
     ww = w * w
-    fe = fft(even, ww)
-    fo = fft(odd, ww)
+    fft(even, ww)
+    fft(odd, ww)
     
-    res = [0] * n
     wk = complex(1, 0)
     for i in range(n // 2):
-        res[i] = fe[i] + wk * fo[i]
-        res[i + n // 2] = fe[i] - wk * fo[i]
+        arr[i] = even[i] + wk * odd[i]
+        arr[i + n // 2] = even[i] - wk * odd[i]
         wk *= w
-    return res
 
 
 def multiply(a, b):
@@ -47,10 +45,10 @@ def multiply(a, b):
     a.extend([0] * (n - len(a)))
     b.extend([0] * (n - len(b)))
     w = complex(cos(2 * pi / n), sin(2 * pi / n))
-    fa = fft(a, w)
-    fb = fft(b, w)
-    c = [fa[i] * fb[i] for i in range(n)]
-    fc = fft(c, 1 / w)
+    fft(a, w)
+    fft(b, w)
+    c = [a[i] * b[i] for i in range(n)]
+    fft(c, 1 / w)
     for i in range(n):
-        fc[i] = round(fc[i].real / n)
-    return fc
+        c[i] = round(c[i].real / n)
+    return c
