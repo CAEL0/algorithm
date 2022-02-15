@@ -55,5 +55,5 @@ def multiply(a, b):
     c = [fa[i] * fb[i] for i in range(n)]
     fc = fft(c, 1 / w)
     for i in range(n):
-        fc[i] /= n
+        fc[i] = round(fc[i].real / n)
     return fc
