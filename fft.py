@@ -38,7 +38,7 @@ def fft(arr, w):
 
 def multiply(a, b):
     n = 1
-    while n <= max(len(a), len(b)):
+    while (n <= len(a)) or (n <= len(b)):
         n *= 2
     n *= 2
 
