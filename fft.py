@@ -15,13 +15,13 @@ from math import cos, sin, pi
 
 
 def fft(arr, w):
-    n = len(arr)
-    if n == 1:
+    n = len(arr) // 2
+    if n == 0:
         return
     
     even = []
     odd = []
-    for i in range(n // 2):
+    for i in range(n):
         even.append(arr[2 * i])
         odd.append(arr[2 * i + 1])
     
@@ -30,9 +30,9 @@ def fft(arr, w):
     fft(odd, ww)
     
     wk = complex(1, 0)
-    for i in range(n // 2):
+    for i in range(n):
         arr[i] = even[i] + wk * odd[i]
-        arr[i + n // 2] = even[i] - wk * odd[i]
+        arr[i + n] = even[i] - wk * odd[i]
         wk *= w
 
 
