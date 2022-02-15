@@ -30,7 +30,7 @@ void fft(vector<cpx> &arr, cpx w) {
 }
 vector<cpx> multiply(vector<cpx> a, vector<cpx> b) {
     int n = 1;
-    while (n <= max(a.size(), b.size()))
+    while (n <= a.size() || n <= b.size())
         n *= 2;
     n *= 2;
     a.resize(n);
