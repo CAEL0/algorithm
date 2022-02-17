@@ -45,7 +45,6 @@ def dfs(cur):
             if cur == top:
                 break
         scc_num += 1
-
     return low
 
 
