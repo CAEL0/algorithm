@@ -97,9 +97,9 @@ void fft(vector<cpx> &arr, bool inv) {
         }
     }
 }
-void multiply(vector<cpx> a, vector<cpx> b) {
+void multiply(vector<cpx> &a, vector<cpx> &b) {
     int n = 1;
-    while (n <= a.size())
+    while (n <= a.size() || n <= b.size())
         n *= 2;
     n *= 2;
     a.resize(n);
@@ -111,6 +111,6 @@ void multiply(vector<cpx> a, vector<cpx> b) {
         a[i] *= b[i];
     
     fft(a, true);
-    for (int i = p - 1; i < t; i++)
-        res[i] += (ll)round(a[i].real() / n);
+    for (int i = 0; i < n; i++)
+        res[i] = round(a[i].real() / n);
 }
