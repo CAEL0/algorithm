@@ -7,16 +7,15 @@ import sys
 n = int(sys.stdin.readline())
 check = [0] * (n + 1)
 sieve = [1] * (n + 1)
-sieve[0] = 0
-sieve[1] = 0
+sieve[0] = sieve[1] = 0
 
 for i in range(2, n + 1):
     if sieve[i]:
         check[i] = i
-        for j in range(2, n // i + 1):
-            if sieve[j * i]:
-                check[j * i] = i
-            sieve[j * i] = 0
+        for j in range(i * i, n + 1, i):
+            if sieve[j]:
+                check[j] = i
+            sieve[j] = 0
 
 
 def factorization(x):
