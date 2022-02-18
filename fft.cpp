@@ -71,3 +71,46 @@ int main() {
         ans = max(ans, (int)res[i].real());
     cout << ans;
 }
+
+//--------------------------------------------------------------------------------
+
+void fft(vector<cpx> &arr, bool inv) {
+    int n = arr.size();
+    for (int i = 1, j = 0; i < n; i++) {
+        int bit = n >> 1;
+        while (!((j ^= bit) & bit))
+            bit >>= 1;
+        if (i < j)
+            swap(arr[i], arr[j]);
+    }
+    for (int i = 1; i < n; i <<= 1) {
+        double x = inv ? PI / i : -PI / i;
+        cpx w(cos(x), sin(x));
+        for (int j = 0; j < n; j += i << 1) {
+            cpx wk(1, 0);
+            for (int k = 0; k < i; k++) {
+                cpx tmp = arr[i + j + k] * wk;
+                arr[i + j + k] = arr[j + k] - tmp;
+                arr[j + k] += tmp;
+                wk *= w;
+            }
+        }
+    }
+}
+void multiply(vector<cpx> a, vector<cpx> b) {
+    int n = 1;
+    while (n <= a.size())
+        n *= 2;
+    n *= 2;
+    a.resize(n);
+    b.resize(n);
+    fft(a, false);
+    fft(b, false);
+
+    for (int i = 0; i < n; i++)
+        a[i] *= b[i];
+    
+    fft(a, true);
+    for (int i = p - 1; i < t; i++)
+        res[i] += (ll)round(a[i].real() / n);
+}
