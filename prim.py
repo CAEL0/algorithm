@@ -7,30 +7,29 @@ at each step adding the cheapest possible connection from the tree to another ve
 
 import sys
 from heapq import heappush, heappop
-from collections import defaultdict
 
-v, e = map(int, sys.stdin.readline().split())
-board = defaultdict(list)
-for _ in range(e):
-    start, end, weight = map(int, sys.stdin.readline().split())
-    board[start].append((weight, end))
-    board[end].append((weight, start))
+n, m = map(int, sys.stdin.readline().split())
+graph = [[] for _ in range(n + 1)]
+for _ in range(m):
+    a, b, c = map(int, sys.stdin.readline().split())
+    graph[a].append((c, b))
+    graph[b].append((c, a))
 
+visit = [0] * (n + 1)
+visit[1] = 1
+ans = 0
+new = 1
+hq = []
+for _ in range(n - 1):
+    for (w, node) in graph[new]:
+        if visit[node] == 0:
+            heappush(hq, (w, node))
 
-def prim(graph):
-    res = 0
-    adj = []
-    new = 1
-    visit = [0] * (v + 1)
-    visit[1] = 1
-    for _ in range(v - 1):
-        for w, node in graph[new]:
-            if not visit[node]:
-                heappush(adj, (w, node))
-        while True:
-            w, new = heappop(adj)
-            if not visit[new]:
-                visit[new] = 1
-                res += w
-                break
-    return res
+    while True:
+        (w, new) = heappop(hq)
+        if visit[new] == 0:
+            visit[new] = 1
+            ans += w
+            break
+
+print(ans)
