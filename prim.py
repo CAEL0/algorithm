@@ -22,12 +22,12 @@ new = 1
 hq = []
 for _ in range(n - 1):
     for (w, node) in graph[new]:
-        if visit[node] == 0:
+        if not visit[node]:
             heappush(hq, (w, node))
 
     while True:
         (w, new) = heappop(hq)
-        if visit[new] == 0:
+        if not visit[new]:
             visit[new] = 1
             ans += w
             break
