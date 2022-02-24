@@ -2,7 +2,7 @@
 > # Algorithm
 
 ***
-> ## Python and C++ Codes for some Algorithms
+> ## Python and C++ Codes for some Algorithms and Data Structures
 ***
 > ### Data Structure
 > > #### Binary Search Tree
