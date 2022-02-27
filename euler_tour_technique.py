@@ -25,7 +25,6 @@ def dfs(cur):
     dfs_in[cur] = dfn
     for pos in graph[cur]:
         dfs(pos)
-
     dfs_out[cur] = dfn
 
 
