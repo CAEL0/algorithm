@@ -54,5 +54,4 @@ class MinHeap:
             else:
                 self.array[i], self.array[2 * i + 1] = self.array[2 * i + 1], self.array[i]
                 i = 2 * i + 1
-        
         return res
