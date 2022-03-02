@@ -79,7 +79,6 @@ while True:
                 break
         else:
             graph[nxt].append([cur, flow])
-        
         nxt = cur
     
 print(weight)
