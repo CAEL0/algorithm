@@ -67,8 +67,7 @@ def pollard_rho(x):
     while True:
         c = random.randint(1, x - 1)
         flag = True
-        t = r = 1
-        g = 1
+        t = r = g = 1
         while g == 1:
             t = (t ** 2 + c) % x
             r = (r ** 4 + 2 * c * r ** 2 + c ** 2 + c) % x
