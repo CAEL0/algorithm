@@ -21,7 +21,6 @@ while True:
     queue = deque([(1, float('inf'))])
     while queue:
         cur, res = queue.popleft()
-        
         if graph[cur][-1]:
             res = min(res, graph[cur][-1])
             prev[-1] = cur
