@@ -88,7 +88,6 @@ while True:
     nxt = n
     while True:
         cur = prev[nxt]
-        
         for i in range(len(graph[cur])):
             if graph[cur][i][0] == nxt:
                 graph[cur][i][1] -= res
