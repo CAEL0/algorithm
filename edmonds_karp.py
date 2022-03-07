@@ -67,7 +67,6 @@ while True:
     queue = deque([(1, float('inf'))])
     while queue:
         cur, res = queue.popleft()
-        
         for nxt, capacity in graph[cur]:
             if nxt == n:
                 res = min(res, capacity)
