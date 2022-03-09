@@ -1,7 +1,7 @@
 """
-The Miller–Rabin primality test or Rabin–Miller primality test is a probabilistic primality test: an algorithm
-which determines whether a given number is likely to be prime, similar to the Fermat primality test and the
-Solovay–Strassen primality test.
+The Miller–Rabin primality test or Rabin–Miller primality test is a probabilistic primality test:
+an algorithm which determines whether a given number is likely to be prime,
+similar to the Fermat primality test and the Solovay–Strassen primality test.
 if n < 2,047, it is enough to test a = 2;
 if n < 1,373,653, it is enough to test a = 2 and 3;
 if n < 9,080,191, it is enough to test a = 31 and 73;
