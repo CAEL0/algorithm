@@ -20,7 +20,6 @@ equation = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
 
 for z in range(n - 1):
     l = lcm(*[equation[i][z] for i in range(n - z)])
-
     for i in range(n - z):
         k = l // equation[i][z]
         for j in range(z, n + 1):
