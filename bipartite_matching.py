@@ -1,3 +1,5 @@
+# BOJ 2188 축사 배정
+
 import sys
 
 
