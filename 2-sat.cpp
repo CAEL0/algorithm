@@ -1,4 +1,4 @@
-// BOJ 11281
+// BOJ 11281 2-SAT - 4
 
 #include <iostream>
 #include <bits/stdc++.h>
