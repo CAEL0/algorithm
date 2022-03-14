@@ -6,6 +6,8 @@ and of constraint satisfaction problems, which can allow more than two choices f
 But in contrast to those more general problems, which are NP-complete, 2-satisfiability can be solved in polynomial time.
 """
 
+# BOJ 11281 2-SAT - 4
+
 import sys
 
 n, m = map(int, sys.stdin.readline().split())
