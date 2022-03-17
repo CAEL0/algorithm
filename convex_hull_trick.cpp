@@ -1,4 +1,4 @@
-// BOJ 13263
+// BOJ 13263 나무 자르기
 
 #include <iostream>
 #include <bits/stdc++.h>
