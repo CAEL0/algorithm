@@ -1,4 +1,4 @@
-// BOJ 1753
+// BOJ 1753 최단경로
 
 #include <iostream>
 #include <bits/stdc++.h>
