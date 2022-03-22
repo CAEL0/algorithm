@@ -6,6 +6,8 @@ It provides operations for adding new sets, merging sets (replacing them by thei
 The last operation allows to find out efficiently if any two elements are in the same or different sets.
 """
 
+# BOJ 1717 집합의 표현
+
 import sys
 
 n = int(sys.stdin.readline())
