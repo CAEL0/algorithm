@@ -1,4 +1,4 @@
-// BOJ 2188
+// BOJ 2188 축사 배정
 
 #include <iostream>
 #include <bits/stdc++.h>
