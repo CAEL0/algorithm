@@ -5,6 +5,8 @@ and independently published by Jack Edmonds and Richard Karp in 1972.
 Dinic's algorithm includes additional techniques that reduce the running time to O(V ** 2 * E).
 """
 
+# BOJ 2188 축사 배정
+
 import sys
 from collections import deque
 
