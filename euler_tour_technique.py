@@ -6,7 +6,7 @@ The ETT allows for efficient, parallel computation of solutions to common proble
 It was introduced by Tarjan and Vishkin in 1984.
 """
 
-# BOJ 18227 성대나라의 물탱크
+# BOJ 14287 회사 문화 3
 
 import sys
 
