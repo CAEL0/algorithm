@@ -1,4 +1,4 @@
-// BOJ 14565
+// BOJ 14565 역원(Inverse) 구하기
 
 #include <iostream>
 #include <bits/stdc++.h>
