@@ -1,4 +1,4 @@
-// BOJ 2042
+// BOJ 2042 구간 합 구하기
 
 #include <iostream>
 #include <bits/stdc++.h>
