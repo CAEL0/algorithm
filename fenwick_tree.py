@@ -2,6 +2,7 @@
 A Fenwick tree or binary indexed tree is a data structure that can efficiently update elements and calculate prefix sums in a table of numbers.
 """
 
+# BOJ 2042 구간 합 구하기
 
 class FenwickTree:
     def __init__(self, array):
