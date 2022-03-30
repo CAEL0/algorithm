@@ -1,4 +1,4 @@
-// BOJ 1067
+// BOJ 1067 이동
 
 #include <iostream>
 #include <bits/stdc++.h>
