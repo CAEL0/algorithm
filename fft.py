@@ -11,6 +11,8 @@ In the presence of round-off error, many FFT algorithms are much more accurate t
 There are many different FFT algorithms based on a wide range of published theories, from simple complex-number arithmetic to group theory and number theory.
 """
 
+# BOJ 1067 이동
+
 import sys
 from math import cos, sin, pi
 
