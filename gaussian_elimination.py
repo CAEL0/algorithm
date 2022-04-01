@@ -4,6 +4,8 @@ It consists of a sequence of operations performed on the corresponding matrix of
 This method can also be used to compute the rank of a matrix, the determinant of a square matrix, and the inverse of an invertible matrix.
 """
 
+# BOJ 22940 선형 연립 방정식
+
 import sys
 from math import gcd
 
