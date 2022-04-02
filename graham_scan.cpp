@@ -1,4 +1,4 @@
-// BOJ 1708
+// BOJ 1708 볼록 껍질
 
 #include <iostream>
 #include <bits/stdc++.h>
