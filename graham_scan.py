@@ -4,6 +4,8 @@ It is named after Ronald Graham, who published the original algorithm in 1972. T
 It uses a stack to detect and remove concavities in the boundary efficiently.
 """
 
+# BOJ 1708 볼록 껍질
+
 import sys
 
 
