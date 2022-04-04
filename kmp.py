@@ -4,6 +4,8 @@ by employing the observation that when a mismatch occurs, the word itself embodi
 thus bypassing re-examination of previously matched characters.
 """
 
+# BOJ 1786 찾기
+
 t = input()
 p = input()
 lps = [0] * len(p)
