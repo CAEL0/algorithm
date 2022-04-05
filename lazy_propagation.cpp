@@ -1,4 +1,4 @@
-// BOJ 10999
+// BOJ 10999 구간 합 구하기 2
 
 #include <iostream>
 #include <bits/stdc++.h>
