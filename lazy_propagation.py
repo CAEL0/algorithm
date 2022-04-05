@@ -1,3 +1,5 @@
+# BOJ 10999 구간 합 구하기 2
+
 import sys
 from math import log2, ceil
 
