@@ -1,4 +1,4 @@
-// BOJ 13547
+// BOJ 13547 수열과 쿼리 5
 
 #include <iostream>
 #include <bits/stdc++.h>
