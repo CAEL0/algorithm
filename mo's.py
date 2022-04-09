@@ -1,3 +1,5 @@
+# BOJ 13547 수열과 쿼리 5
+
 import sys
 
 n = int(sys.stdin.readline())
