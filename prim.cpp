@@ -1,4 +1,4 @@
-// BOJ 1197
+// BOJ 1197 최소 스패닝 트리
 
 #include <iostream>
 #include <bits/stdc++.h>
