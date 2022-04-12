@@ -5,6 +5,8 @@ The algorithm operates by building this tree one vertex at a time, from an arbit
 at each step adding the cheapest possible connection from the tree to another vertex.
 """
 
+# BOJ 1197 최소 스패닝 트리
+
 import sys
 from heapq import heappush, heappop
 
