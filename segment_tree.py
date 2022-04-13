@@ -7,6 +7,8 @@ A segment tree for a set I of n intervals uses O(n log n) storage and can be bui
 Segment trees support searching for all the intervals that contain a query point in time O(log n + k), k being the number of retrieved intervals or segments.
 """
 
+# BOJ 2042 구간 합 구하기
+
 import sys
 from math import log2, ceil
 
