@@ -1,4 +1,4 @@
-// BOJ 1978
+// BOJ 1978 소수 찾기
 
 #include <iostream>
 #include <bits/stdc++.h>
