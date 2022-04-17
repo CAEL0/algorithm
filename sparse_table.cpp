@@ -1,4 +1,4 @@
-// BOJ 17435
+// BOJ 17435 합성함수와 쿼리
 
 #include <iostream>
 #include <bits/stdc++.h>
