@@ -1,4 +1,4 @@
-// BOJ 9248
+// BOJ 9248 Suffix Array
 
 #include <iostream>
 #include <bits/stdc++.h>
