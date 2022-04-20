@@ -5,6 +5,8 @@ In computer science, the longest common prefix array (LCP array) is an auxiliary
 It stores the lengths of the longest common prefixes (LCPs) between all pairs of consecutive suffixes in a sorted suffix array.
 """
 
+# BOJ 9248 Suffix Array
+
 import sys
 
 s = sys.stdin.readline().strip()
