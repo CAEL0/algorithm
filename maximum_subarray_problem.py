@@ -22,7 +22,7 @@ for h in range(height - 1, -1, -1):
         tree[i] = (max(max1, max2, right1 + left2), max(left1, sum1 + left2), max(right2, right1 + sum2), sum1 + sum2)
 
 
-def summation(a, b):
+def maximum(a, b):
     res1 = [-float('inf'), 0, -float('inf'), 0]
     res2 = [-float('inf'), -float('inf'), 0, 0]
     a += z - 1
