@@ -83,6 +83,8 @@
 > > > sieve of Eratosthenes
 >
 > ### Miscellaneous
+> > > Kadane's algorithm
+> > > 
 > > > Mo's algorithm
 > > > 
 > > > square root decomposition
