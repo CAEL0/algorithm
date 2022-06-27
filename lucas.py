@@ -31,17 +31,10 @@ def combination(a, b, p):
 
 def lucas(n, k, p):
     k = min(k, n - k)
-    num = []
-    den = []
-    while n:
-        num.append(n % p)
-        n //= p
-
-    while k:
-        den.append(k % p)
-        k //= p
-
     res = 1
-    for i in range(len(den)):
-        res = (res * combination(num[i], den[i], p)) % p
+    while k:
+        res = res * combination(n % p, k % p, p) % p
+        n //= p
+        k //= p
+    
     return res
