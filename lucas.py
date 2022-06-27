@@ -7,7 +7,7 @@ Lucas's theorem first appeared in 1878 in papers by Édouard Lucas.
 
 def extended_gcd(a, b):
     x0, x1, y0, y1 = 1, 0, 0, 1
-    while b != 0:
+    while b:
         z, a, b = a // b, b, a % b
         x0, x1 = x1, x0 - z * x1
         y0, y1 = y1, y0 - z * y1
@@ -19,14 +19,13 @@ def combination(a, b, p):
         return 0
 
     b = min(b, a - b)
-    num = 1
-    den = 1
+    num = den = 1
     for i in range(b):
-        num = (num * (a - i)) % p
-        den = (den * (i + 1)) % p
+        num = num * (a - i) % p
+        den = den * (i + 1) % p
 
     x, y = extended_gcd(den, p)
-    return (num * x) % p
+    return num * x % p
 
 
 def lucas(n, k, p):
