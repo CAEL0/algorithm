@@ -9,17 +9,13 @@ and finds shortest paths from the source to all other nodes in the graph, produc
 
 import sys
 from heapq import heappush, heappop
-from collections import defaultdict
 
 v, e = map(int, sys.stdin.readline().split())
-graph = defaultdict(dict)
+graph = [[] for _ in range(v + 1)]
 
 for _ in range(e):
     a, b, c = map(int, sys.stdin.readline().split())
-    if b in graph[a].keys():
-        graph[a][b] = min(graph[a][b], c)
-    else:
-        graph[a][b] = c
+    graph[a].append((b, c))
 
 
 def dijkstra(graph, start):
@@ -29,7 +25,7 @@ def dijkstra(graph, start):
     while queue:
         old_weight, old_node = heappop(queue)
         if res[old_node] == old_weight:
-            for new_node, new_weight in graph[old_node].items():
+            for new_node, new_weight in graph[old_node]:
                 total_weight = old_weight + new_weight
                 if total_weight < res[new_node]:
                     res[new_node] = total_weight
