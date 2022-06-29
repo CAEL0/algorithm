@@ -7,20 +7,9 @@ the size of the smallest prime factor of the composite number being factorized.
 # BOJ 4149 큰 수 소인수분해
 
 import sys
-import random
+from random import randint
 from math import gcd
 sys.setrecursionlimit(10 ** 5)
-
-
-def power(num, exp, mod):
-    res = 1
-    num %= mod
-    while exp:
-        if exp % 2:
-            res = res * num % mod
-        exp //= 2
-        num = pow(num, 2, mod)
-    return res
 
 
 def miller_rabin(x):
@@ -37,7 +26,7 @@ def miller_rabin(x):
         if a >= x - 1:
             break
 
-        b = power(a, d, x)
+        b = pow(a, d, x)
         if b in [1, x - 1]:
             continue
 
@@ -67,7 +56,7 @@ def pollard_rho(x):
         return
 
     while True:
-        c = random.randint(1, x - 1)
+        c = randint(1, x - 1)
         flag = True
         t = r = g = 1
         while g == 1:
