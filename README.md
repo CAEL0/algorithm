@@ -94,4 +94,6 @@
 > ### String
 > > > Knuth-Morris-Pratt algorithm
 > > > 
+> > > Manacher's algorithm
+> > > 
 > > > suffix array and lcp array
