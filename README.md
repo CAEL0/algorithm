@@ -87,6 +87,8 @@
 > > > 
 > > > Mo's algorithm
 > > > 
+> > > permutation cycle decomposition
+> > > 
 > > > square root decomposition
 >
 > ### String
