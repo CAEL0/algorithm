@@ -2,20 +2,20 @@
 
 
 def manacher(s):
-    m = len(s)
-    a = [0] * m
-    r = p = -1
-    for i in range(1, m):
+    n = len(s)
+    a = [0] * n
+    r = c = -1
+    for i in range(1, n):
         if r < i - 1 + a[i - 1]:
             r = i - 1 + a[i - 1]
-            p = i - 1
+            c = i - 1
         
         if r >= i:
-            a[i] = min(r - i, a[2 * p - i])
+            a[i] = min(r - i, a[2 * c - i])
         
         while True:
             a[i] += 1
-            if (i - a[i] == -1) or (i + a[i] == m):
+            if (i - a[i] == -1) or (i + a[i] == n):
                 a[i] -= 1
                 break
             
@@ -26,9 +26,4 @@ def manacher(s):
 
 
 s = input()
-ans = 2 * manacher(s) + 1
-ss = '#'
-for i in range(len(s)):
-    ss += s[i] + '#'
-ans = max(ans, manacher(ss))
-print(ans)
+print(manacher('#' + '#'.join(s) + '#'))
