@@ -1,5 +1,8 @@
 # BOJ 13275 가장 긴 팰린드롬 부분 문자열
 
+import sys
+input = sys.stdin.readline
+
 
 def manacher(s):
     m = len(s)
@@ -19,5 +22,5 @@ def manacher(s):
     return max(a)
 
 
-s = input()
+s = input().rstrip()
 print(manacher('#' + '#'.join(s) + '#'))
