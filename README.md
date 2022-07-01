@@ -97,3 +97,5 @@
 > > > Manacher's algorithm
 > > > 
 > > > suffix array and lcp array
+> > > 
+> > > Z algorithm
