@@ -13,15 +13,9 @@ def manacher(s):
         if r >= i:
             a[i] = min(r - i, a[2 * c - i])
         
-        while True:
+        while (i - a[i] > 0) and (i + a[i] < m - 1) and (s[i - a[i] - 1] == s[i + a[i] + 1]):
             a[i] += 1
-            if (i - a[i] == -1) or (i + a[i] == m):
-                a[i] -= 1
-                break
-            
-            if s[i - a[i]] != s[i + a[i]]:
-                a[i] -= 1
-                break
+    
     return max(a)
 
 
