@@ -2,10 +2,10 @@
 
 
 def manacher(s):
-    n = len(s)
-    a = [0] * n
+    m = len(s)
+    a = [0] * m
     r = p = -1
-    for i in range(1, n):
+    for i in range(1, m):
         if r < i - 1 + a[i - 1]:
             r = i - 1 + a[i - 1]
             p = i - 1
@@ -15,7 +15,7 @@ def manacher(s):
         
         while True:
             a[i] += 1
-            if (i - a[i] == -1) or (i + a[i] == n):
+            if (i - a[i] == -1) or (i + a[i] == m):
                 a[i] -= 1
                 break
             
