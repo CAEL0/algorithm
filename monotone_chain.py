@@ -10,7 +10,6 @@ def ccw(x1, y1, x2, y2, x3, y3):
 
 n = int(input())
 coord = sorted([tuple(map(int, input().split())) for _ in range(n)])
-coord.sort()
 stack1 = [coord[0], coord[1]]
 for i in range(2, n):
     while (len(stack1) > 1) and (ccw(*stack1[-2], *stack1[-1], *coord[i]) <= 0):
