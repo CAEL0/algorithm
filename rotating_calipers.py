@@ -40,8 +40,11 @@ for _ in range(int(input())):
         stack.append(stack_[i])
     
     m = len(stack)
-    a = 0
-    b = 1
+    a = b = 0
+    for i in range(1, m):
+        if stack[i][0] > stack[b][0]:
+            b = i
+    
     mx = (stack[a][0] - stack[b][0]) ** 2 + (stack[a][1] - stack[b][1]) ** 2
     ans = [*stack[a], *stack[b]]
     for _ in range(2 * m):
