@@ -30,8 +30,10 @@
 > > convex hull trick
 >
 > ### Geometry
-> > Graham scan
->
+> > #### Convex Hull
+> > > Graham scan
+> > > 
+> > > monotone chain
 > ### Graph Theory
 > > #### Biconnected Component
 > > #### Bipartite Graph
