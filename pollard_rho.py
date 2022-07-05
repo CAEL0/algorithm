@@ -10,6 +10,7 @@ import sys
 from random import randint
 from math import gcd
 sys.setrecursionlimit(10 ** 5)
+input = sys.stdin.readline
 
 
 def miller_rabin(x):
@@ -44,35 +45,32 @@ def miller_rabin(x):
 
 def pollard_rho(x):
     if x == 1:
-        return
+        return ()
 
     if x % 2 == 0:
-        ans.append(2)
-        pollard_rho(x // 2)
-        return
+        return 2, *pollard_rho(x // 2)
 
     if miller_rabin(x):
-        ans.append(x)
-        return
+        return x,
 
     while True:
-        c = randint(1, x - 1)
+        c = randint(1, n - 1)
         flag = True
-        t = r = g = 1
+        t = r = 1
+        g = 1
         while g == 1:
             t = (t ** 2 + c) % x
             r = (r ** 4 + 2 * c * r ** 2 + c ** 2 + c) % x
             g = gcd(abs(t - r), x)
-            if g == x:
+            if g == n:
                 flag = False
                 break
 
         if flag:
-            pollard_rho(g)
-            pollard_rho(x // g)
-            return
+            return *pollard_rho(g), *pollard_rho(x // g)
 
 
-x = int(sys.stdin.readline())
-ans = []
-pollard_rho(x)
+n = int(input())
+ans = pollard_rho(n)
+for p in sorted(ans):
+    print(p)
