@@ -28,7 +28,8 @@
 >
 > ### Dynamic Programming
 > > convex hull trick
->
+> >
+> > Knuth's optimization
 > ### Geometry
 > > #### Convex Hull
 > > > Graham scan
