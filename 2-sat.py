@@ -9,12 +9,13 @@ But in contrast to those more general problems, which are NP-complete, 2-satisfi
 # BOJ 11281 2-SAT - 4
 
 import sys
+input = sys.stdin.readline
 
-n, m = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 graph = [[] for _ in range(2 * n + 1)]
 
 for _ in range(m):
-    a, b = map(int, sys.stdin.readline().split())
+    a, b = map(int, input().split())
     graph[-a].append(b)
     graph[-b].append(a)
 
@@ -67,13 +68,13 @@ else:
 
 ----------------------------------------------------------------------------------------------------
 
-n, m = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 
 graph = [[] for _ in range(2 * n + 1)]
 reverse = [[] for _ in range(2 * n + 1)]
 
 for _ in range(m):
-    a, b = map(int, sys.stdin.readline().split())
+    a, b = map(int, input().split())
     graph[-a].append(b)
     graph[-b].append(a)
     reverse[b].append(-a)
