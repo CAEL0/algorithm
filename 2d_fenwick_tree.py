@@ -1,6 +1,7 @@
 # BOJ 11658 구간 합 구하기 3
 
 import sys
+input = sys.stdin.readline
 
 
 def update(i, j, value):
@@ -25,16 +26,16 @@ def summation(i, j):
     return res
 
 
-n, m = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 fenwick_tree = [[0] * (n + 1) for _ in range(n + 1)]
 
 for x in range(n):
-    arr = list(map(int, sys.stdin.readline().split()))
+    arr = [*map(int, input().split())]
     for y in range(n):
         update(x + 1, y + 1, arr[y])
 
 for _ in range(m):
-    operation = list(map(int, sys.stdin.readline().split()))
+    operation = [*map(int, input().split())]
     if operation[0]:
         x1, y1, x2, y2 = operation[1:]
         print(summation(x2, y2) - summation(x2, y1 - 1) - summation(x1 - 1, y2) + summation(x1 - 1, y1 - 1))
