@@ -11,10 +11,10 @@ check = [0] * (n + 1)
 sieve = [1] * (n + 1)
 sieve[0] = sieve[1] = 0
 
-for i in range(2, n + 1):
+for i in range(2, len(sieve)):
     if sieve[i]:
         check[i] = i
-        for j in range(i * i, n + 1, i):
+        for j in range(i * i, len(sieve), i):
             if sieve[j]:
                 check[j] = i
             sieve[j] = 0
