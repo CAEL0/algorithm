@@ -9,8 +9,9 @@ The last operation allows to find out efficiently if any two elements are in the
 # BOJ 1717 집합의 표현
 
 import sys
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
+n = int(input())
 parent = [i for i in range(n + 1)]
 
 
