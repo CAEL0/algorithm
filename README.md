@@ -74,6 +74,7 @@
 >
 > ### Mathematics
 > > #### Fast Fourier Transform
+> > > xor convolution
 > > #### Linear Algebra
 > > > Gaussian elimination
 > > #### Number Theory
