@@ -34,3 +34,24 @@ class Trie:
         if cur_node.data is not None:
             return True
         return False
+
+#--------------------------------------------------------------------------------
+
+class Node:
+    def __init__(self):
+        self.idx = [0] * 26
+
+
+class Trie:
+    def __init__(self):
+        self.nodes = [Node()]
+
+    def insert(self, string):
+        cur = 0
+        for char in string:
+            char = ord(char) - 97
+            if not self.nodes[cur].idx[char]:
+                self.nodes[cur].idx[char] = len(self.nodes)
+                self.nodes.append(Node())
+            
+            cur = self.nodes[cur].idx[char]
