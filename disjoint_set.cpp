@@ -12,26 +12,27 @@ int find(int z) {
         parent[z] = find(parent[z]);
     return parent[z];
 }
+void uni(int x, int y) {
+    x = find(x);
+    y = find(y);
+    parent[min(x, y)] = max(x, y);
+}
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int n, m, o, x, y;
+    int n, m, q, x, y;
     cin >> n >> m;
 
     for (int i = 1; i <= n; i++)
         parent[i] = i;
 
     while (m--) {
-        cin >> o >> x >> y;
-        if (o) {
-            if (find(x) == find(y))
-                cout << "YES\n";
-            else
-                cout << "NO\n";
-        }
+        cin >> q >> x >> y;
+        if (q)
+            cout << (find(x) == find(y) ? "YES" : "NO") << '\n';
         else
-            parent[find(x)] = find(y);
+            uni(x, y);
     }
 }
