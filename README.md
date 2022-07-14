@@ -78,6 +78,8 @@
 > > #### Linear Algebra
 > > > Gaussian elimination
 > > #### Number Theory
+> > > Euler's phi (totient) function
+> > > 
 > > > extended Euclidean algorithm
 > > > 
 > > > Lucas' theorem
