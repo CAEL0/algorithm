@@ -81,6 +81,8 @@
 > > > extended Euclidean algorithm
 > > > 
 > > > Lucas' theorem
+> > > 
+> > > power tower
 > > #### Primality Test
 > > > Miller-Rabin primality test
 > > #### Prime Factorization
