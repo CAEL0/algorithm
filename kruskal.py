@@ -8,10 +8,11 @@ It is a greedy algorithm in graph theory as in each step it adds the next lowest
 """
 
 import sys
+input = sys.stdin.readline
 
-v, e = map(int, sys.stdin.readline().split())
+v, e = map(int, input().split())
 parent = [i for i in range(v + 1)]
-graph = sorted([tuple(map(int, sys.stdin.readline().split())) for _ in range(e)], key=lambda x: x[2])
+graph = sorted([tuple(map(int, input().split())) for _ in range(e)], key=lambda x: x[2])
 
 
 def union(x, y):
