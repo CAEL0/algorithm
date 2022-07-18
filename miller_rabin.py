@@ -25,9 +25,9 @@ def miller_rabin(x):
 
     s = 0
     d = x - 1
-    while d % 2 == 0:
+    while not d & 1:
         s += 1
-        d //= 2
+        d >>= 1
 
     for a in [2, 7, 61]:
         if a >= x - 1:
