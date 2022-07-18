@@ -19,17 +19,6 @@ if n < 3,317,044,064,679,887,385,961,981, it is enough to test a = 2, 3, 5, 7, 1
 """
 
 
-def power(num, exp, mod):
-    res = 1
-    num %= mod
-    while exp:
-        if exp % 2:
-            res = res * num % mod
-        exp //= 2
-        num = pow(num, 2, mod)
-    return res
-
-
 def miller_rabin(x):
     if x == 1:
         return False
@@ -44,7 +33,7 @@ def miller_rabin(x):
         if a >= x - 1:
             break
 
-        b = power(a, d, x)
+        b = pow(a, d, x)
         if b in [1, x - 1]:
             continue
 
@@ -52,7 +41,7 @@ def miller_rabin(x):
             return False
 
         for _ in range(s - 1):
-            b = pow(b, 2, x)
+            b = b * b % x
             if b == x - 1:
                 break
         else:
