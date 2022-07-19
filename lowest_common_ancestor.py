@@ -7,11 +7,12 @@ where we define each node to be a descendant of itself (so if v has a direct con
 # BOJ 11438 LCA 2
 
 import sys
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
+n = int(input())
 graph = [[] for _ in range(n + 1)]
 for _ in range(n - 1):
-    a, b = map(int, sys.stdin.readline().split())
+    a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
@@ -33,8 +34,8 @@ for i in range(19):
     for j in range(1, n + 1):
         sparse[i + 1][j] = sparse[i][sparse[i][j]]
 
-for _ in range(int(sys.stdin.readline())):
-    a, b = map(int, sys.stdin.readline().split())
+for _ in range(int(input())):
+    a, b = map(int, input().split())
     if depth[a] > depth[b]:
         a, b = b, a
     d = depth[b] - depth[a]
@@ -51,6 +52,7 @@ for _ in range(int(sys.stdin.readline())):
             if sparse[i][a] != sparse[i][b]:
                 a = sparse[i][a]
                 b = sparse[i][b]
+        
         if sparse[0][a] == sparse[0][b]:
             print(sparse[0][a])
             break
