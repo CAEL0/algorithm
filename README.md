@@ -77,6 +77,8 @@
 > > > xor convolution
 > > #### Linear Algebra
 > > > Gaussian elimination
+> > > 
+> > > matrix multiplication
 > > #### Number Theory
 > > > Euler's phi (totient) function
 > > > 
