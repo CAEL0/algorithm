@@ -14,21 +14,21 @@ ll add(int a, int b) {
     a += powh - 1;
     b += powh - 1;
     while (a <= b) {
-        if (a % 2)
+        if (a & 1)
             res += tree[a++];
-        if (b % 2 == 0)
+        if (!(b & 1))
             res += tree[b--];
-        a /= 2;
-        b /= 2;
+        a >>= 1;
+        b >>= 1;
     }
     return res;
 }
 void update(int k, ll c) {
     int idx = powh + k - 1;
     ll gap = tree[idx] - c;
-    while (idx >= 1) {
+    while (idx) {
         tree[idx] -= gap;
-        idx /= 2;
+        idx >>= 1;
     }
 }
 
