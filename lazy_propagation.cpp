@@ -71,8 +71,7 @@ int main() {
             ll d;
             cin >> b >> c >> d;
             update(1, 1, N, b, c, d);
-        }
-        else {
+        } else {
             int b, c;
             cin >> b >> c;
             cout << summation(1, 1, N, b, c) << '\n';
