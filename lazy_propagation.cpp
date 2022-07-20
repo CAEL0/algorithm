@@ -38,21 +38,23 @@ ll summation(int idx, int s, int e, int l, int r) {
     int m = (s + e) >> 1;
     return summation(2 * idx, s, m, l, r) + summation(2 * idx + 1, m + 1, e, l, r);
 }
-ll update(int idx, int s, int e, int l, int r, ll v) {
+void update(int idx, int s, int e, int l, int r, ll v) {
     propagate(idx, s, e);
     if (r < s || e < l)
-        return tree[idx];
+        return;
     
     if (l <= s && e <= r) {
         if (s != e) {
             lazy[2 * idx] += v;
             lazy[2 * idx + 1] += v;
         }
-        return tree[idx] += (e - s + 1) * v;
+        tree[idx] += (e - s + 1) * v;
+        return;
     }
-    
     int m = (s + e) >> 1;
-    return tree[idx] = update(2 * idx, s, m, l, r, v) + update(2 * idx + 1, m + 1, e, l, r, v);
+    update(2 * idx, s, m, l, r, v);
+    update(2 * idx + 1, m + 1, e, l, r, v);
+    tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
 }
 
 int main() {
