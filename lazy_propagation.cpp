@@ -5,90 +5,91 @@
 
 using namespace std;
 typedef long long ll;
-typedef tuple<ll, ll, ll> tll;
 
-ll z, tree[4000010], lazy[4000010];
+ll powh, tree[4000010], lazy[4000010];
+
+struct Node {
+    ll l, r, idx;
+};
 
 ll summation(ll a, ll b) {
     ll res = 0;
-    vector<tll> queue;
-    queue.push_back(tll(a, b, 1));
-    while (queue.size()) {
-        ll l, r, idx;
-        tie(l, r, idx) = queue.back();
-        queue.pop_back();
-        ll level = pow(2, (ll)log2(idx));
-        ll length = z / level;
-        ll start = (idx % level) * length;
+    stack<Node> stk;
+    stk.push({a, b, 1});
+    while (stk.size()) {
+        Node node = stk.top();
+        stk.pop();
+        ll level = pow(2, (ll)log2(node.idx));
+        ll length = powh / level;
+        ll start = (node.idx % level) * length;
         ll mid = start + length / 2;
 
-        if (lazy[idx]) {
+        if (lazy[node.idx]) {
             if (length == 2) {
-                tree[2 * idx] += lazy[idx];
-                tree[2 * idx + 1] += lazy[idx];
+                tree[2 * node.idx] += lazy[node.idx];
+                tree[2 * node.idx + 1] += lazy[node.idx];
             }
             else {
-                lazy[2 * idx] += lazy[idx];
-                lazy[2 * idx + 1] += lazy[idx];
+                lazy[2 * node.idx] += lazy[node.idx];
+                lazy[2 * node.idx + 1] += lazy[node.idx];
             }
-            tree[idx] += lazy[idx] * length;
-            lazy[idx] = 0;
+            tree[node.idx] += lazy[node.idx] * length;
+            lazy[node.idx] = 0;
         }
-        if (l == start && r - l + 1 == length)
-            res += tree[idx];
-        else if (r < mid)
-            queue.push_back(tll(l, r, 2 * idx));
-        else if (mid <= l)
-            queue.push_back(tll(l, r, 2 * idx + 1));
+        if (node.l == start && node.r - node.l + 1 == length)
+            res += tree[node.idx];
+        else if (node.r < mid)
+            stk.push({node.l, node.r, 2 * node.idx});
+        else if (mid <= node.l)
+            stk.push({node.l, node.r, 2 * node.idx + 1});
         else {
-            queue.push_back(tll(l, mid - 1, 2 * idx));
-            queue.push_back(tll(mid, r, 2 * idx + 1));
+            stk.push({node.l, mid - 1, 2 * node.idx});
+            stk.push({mid, node.r, 2 * node.idx + 1});
         }
     }
     return res;
 }
 void update(ll a, ll b, ll c) {
-    vector<tll> queue;
-    queue.push_back(tll(a, b, 1));
-    while (queue.size()) {
-        ll l, r, idx;
-        tie(l, r, idx) = queue.back();
-        queue.pop_back();
-        ll level = pow(2, (ll)log2(idx));
-        ll length = z / level;
-        ll start = (idx % level) * length;
+    stack<Node> stk;
+    stk.push({a, b, 1});
+    while (stk.size()) {
+        Node node = stk.top();
+        stk.pop();
+        ll level = pow(2, (ll)log2(node.idx));
+        ll length = powh / level;
+        ll start = (node.idx % level) * length;
         ll mid = start + length / 2;
 
-        if (lazy[idx]) {
+        if (lazy[node.idx]) {
             if (length == 2) {
-                tree[2 * idx] += lazy[idx];
-                tree[2 * idx + 1] += lazy[idx];
+                tree[2 * node.idx] += lazy[node.idx];
+                tree[2 * node.idx + 1] += lazy[node.idx];
             }
             else {
-                lazy[2 * idx] += lazy[idx];
-                lazy[2 * idx + 1] += lazy[idx];
+                lazy[2 * node.idx] += lazy[node.idx];
+                lazy[2 * node.idx + 1] += lazy[node.idx];
             }
-            tree[idx] += lazy[idx] * length;
-            lazy[idx] = 0;
+            tree[node.idx] += lazy[node.idx] * length;
+            lazy[node.idx] = 0;
         }
-        if (l == start && r - l + 1 == length) {
+        if (node.l == start && node.r - node.l + 1 == length) {
             if (length == 1)
-                tree[idx] += c;
+                tree[node.idx] += c;
             else
-                lazy[idx] = c;
+                lazy[node.idx] = c;
             
-            while (idx > 1) {
-                idx /= 2;
-                tree[idx] += length * c;
+            while (node.idx > 1) {
+                node.idx >>= 1;
+                tree[node.idx] += length * c;
             }
         }
-        else if (r < mid)
-            queue.push_back(tll(l, r, 2 * idx));
-        else if (mid <= l)
-            queue.push_back(tll(l, r, 2 * idx + 1));
+        else if (node.r < mid)
+            stk.push({node.l, node.r, 2 * node.idx});
+        else if (mid <= node.l)
+            stk.push({node.l, node.r, 2 * node.idx + 1});
         else {
-            queue.push_back(tll(l, mid - 1, 2 * idx));
-            queue.push_back(tll(mid, r, 2 * idx + 1));
+            stk.push({node.l, mid - 1, 2 * node.idx});
+            stk.push({mid, node.r, 2 * node.idx + 1});
         }
     }
 }
@@ -99,10 +100,10 @@ int main() {
     ll n, m, k, height;
     cin >> n >> m >> k;
     height = (ll)ceil(log2(n));
-    z = pow(2, height);
+    powh = pow(2, height);
     
     for (int i = 0; i < n; i++)
-        cin >> tree[z + i];
+        cin >> tree[powh + i];
     
     for (ll h = height - 1; h > -1; h--) {
         for (ll i = pow(2, h); i < pow(2, h + 1); i++)
@@ -113,8 +114,7 @@ int main() {
         if (q == 1) {
             cin >> c;
             update(a - 1, b - 1, c);
-        }
-        else
+        } else
             cout << summation(a - 1, b - 1) << '\n';
     }
 }
