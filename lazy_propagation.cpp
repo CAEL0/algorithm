@@ -7,6 +7,88 @@ using namespace std;
 typedef long long ll;
 
 int N, M, K;
+ll tree[3000010], lazy[3000010];
+
+ll init(int idx, int s, int e) {
+    if (s == e) {
+        cin >> tree[idx];
+        return tree[idx];
+    }
+    int m = (s + e) >> 1;
+    return tree[idx] = init(2 * idx, s, m) + init(2 * idx + 1, m + 1, e);
+}
+void propagate(int idx, int s, int e) {
+    if (lazy[idx]) {
+        if (s != e) {
+            lazy[2 * idx] += lazy[idx];
+            lazy[2 * idx + 1] += lazy[idx];
+        }
+        tree[idx] += (e - s + 1) * lazy[idx];
+        lazy[idx] = 0;
+    }
+}
+ll summation(int idx, int s, int e, int l, int r) {
+    propagate(idx, s, e);
+    if (r < s || e < l)
+        return 0;
+    
+    if (l <= s && e <= r)
+        return tree[idx];
+    
+    int m = (s + e) >> 1;
+    return summation(2 * idx, s, m, l, r) + summation(2 * idx + 1, m + 1, e, l, r);
+}
+ll update(int idx, int s, int e, int l, int r, ll v) {
+    propagate(idx, s, e);
+    if (r < s || e < l)
+        return tree[idx];
+    
+    if (l <= s && e <= r) {
+        if (s != e) {
+            lazy[2 * idx] += v;
+            lazy[2 * idx + 1] += v;
+        }
+        return tree[idx] += (e - s + 1) * v;
+    }
+    
+    int m = (s + e) >> 1;
+    return tree[idx] = update(2 * idx, s, m, l, r, v) + update(2 * idx + 1, m + 1, e, l, r, v);
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    cin >> N >> M >> K;
+
+    init(1, 1, N);
+    
+    for (int i = 0; i < M + K; i++) {
+        int a;
+        cin >> a;
+        if (a == 1) {
+            int b, c;
+            ll d;
+            cin >> b >> c>> d;
+            update(1, 1, N, b, c, d);
+        }
+        else {
+            int b, c;
+            cin >> b >> c;
+            cout << summation(1, 1, N, b, c) << '\n';
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------
+
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+
+int N, M, K;
 ll powh;
 
 struct Node {
