@@ -69,7 +69,7 @@ int main() {
         if (a == 1) {
             int b, c;
             ll d;
-            cin >> b >> c>> d;
+            cin >> b >> c >> d;
             update(1, 1, N, b, c, d);
         }
         else {
