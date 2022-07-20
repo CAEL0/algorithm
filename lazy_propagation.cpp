@@ -6,90 +6,92 @@
 using namespace std;
 typedef long long ll;
 
-ll powh, tree[4000010], lazy[4000010];
+int N, M, K;
+ll powh;
 
 struct Node {
-    ll l, r, idx;
+    ll val, lazy;
+} tree[4000010];
+
+struct Range {
+    int l, r, idx;
 };
 
-ll summation(ll a, ll b) {
+ll summation(int l, int r) {
     ll res = 0;
-    stack<Node> stk;
-    stk.push({a, b, 1});
+    stack<Range> stk;
+    stk.push({l, r, 1});
     while (stk.size()) {
-        Node node = stk.top();
+        Range range = stk.top();
         stk.pop();
-        ll level = pow(2, (ll)log2(node.idx));
-        ll length = powh / level;
-        ll start = (node.idx % level) * length;
-        ll mid = start + length / 2;
+        int level = pow(2, (ll)log2(range.idx));
+        int length = powh / level;
+        int start = (range.idx % level) * length;
+        int mid = start + length / 2;
 
-        if (lazy[node.idx]) {
+        if (tree[range.idx].lazy) {
             if (length == 2) {
-                tree[2 * node.idx] += lazy[node.idx];
-                tree[2 * node.idx + 1] += lazy[node.idx];
+                tree[2 * range.idx].val += tree[range.idx].lazy;
+                tree[2 * range.idx + 1].val += tree[range.idx].lazy;
+            } else {
+                tree[2 * range.idx].lazy += tree[range.idx].lazy;
+                tree[2 * range.idx + 1].lazy += tree[range.idx].lazy;
             }
-            else {
-                lazy[2 * node.idx] += lazy[node.idx];
-                lazy[2 * node.idx + 1] += lazy[node.idx];
-            }
-            tree[node.idx] += lazy[node.idx] * length;
-            lazy[node.idx] = 0;
+            tree[range.idx].val += tree[range.idx].lazy * length;
+            tree[range.idx].lazy = 0;
         }
-        if (node.l == start && node.r - node.l + 1 == length)
-            res += tree[node.idx];
-        else if (node.r < mid)
-            stk.push({node.l, node.r, 2 * node.idx});
-        else if (mid <= node.l)
-            stk.push({node.l, node.r, 2 * node.idx + 1});
+        if (range.l == start && range.r - range.l + 1 == length)
+            res += tree[range.idx].val;
+        else if (range.r < mid)
+            stk.push({range.l, range.r, 2 * range.idx});
+        else if (mid <= range.l)
+            stk.push({range.l, range.r, 2 * range.idx + 1});
         else {
-            stk.push({node.l, mid - 1, 2 * node.idx});
-            stk.push({mid, node.r, 2 * node.idx + 1});
+            stk.push({range.l, mid - 1, 2 * range.idx});
+            stk.push({mid, range.r, 2 * range.idx + 1});
         }
     }
     return res;
 }
-void update(ll a, ll b, ll c) {
-    stack<Node> stk;
-    stk.push({a, b, 1});
+void update(int l, int r, ll c) {
+    stack<Range> stk;
+    stk.push({l, r, 1});
     while (stk.size()) {
-        Node node = stk.top();
+        Range range = stk.top();
         stk.pop();
-        ll level = pow(2, (ll)log2(node.idx));
-        ll length = powh / level;
-        ll start = (node.idx % level) * length;
-        ll mid = start + length / 2;
+        int level = pow(2, (ll)log2(range.idx));
+        int length = powh / level;
+        int start = (range.idx % level) * length;
+        int mid = start + length / 2;
 
-        if (lazy[node.idx]) {
+        if (tree[range.idx].lazy) {
             if (length == 2) {
-                tree[2 * node.idx] += lazy[node.idx];
-                tree[2 * node.idx + 1] += lazy[node.idx];
+                tree[2 * range.idx].val += tree[range.idx].lazy;
+                tree[2 * range.idx + 1].val += tree[range.idx].lazy;
+            } else {
+                tree[2 * range.idx].lazy += tree[range.idx].lazy;
+                tree[2 * range.idx + 1].lazy += tree[range.idx].lazy;
             }
-            else {
-                lazy[2 * node.idx] += lazy[node.idx];
-                lazy[2 * node.idx + 1] += lazy[node.idx];
-            }
-            tree[node.idx] += lazy[node.idx] * length;
-            lazy[node.idx] = 0;
+            tree[range.idx].val += tree[range.idx].lazy * length;
+            tree[range.idx].lazy = 0;
         }
-        if (node.l == start && node.r - node.l + 1 == length) {
+        if (range.l == start && range.r - range.l + 1 == length) {
             if (length == 1)
-                tree[node.idx] += c;
+                tree[range.idx].val += c;
             else
-                lazy[node.idx] = c;
+                tree[range.idx].lazy = c;
             
-            while (node.idx > 1) {
-                node.idx >>= 1;
-                tree[node.idx] += length * c;
+            while (range.idx > 1) {
+                range.idx >>= 1;
+                tree[range.idx].val += length * c;
             }
-        }
-        else if (node.r < mid)
-            stk.push({node.l, node.r, 2 * node.idx});
-        else if (mid <= node.l)
-            stk.push({node.l, node.r, 2 * node.idx + 1});
+        } else if (range.r < mid)
+            stk.push({range.l, range.r, 2 * range.idx});
+        else if (mid <= range.l)
+            stk.push({range.l, range.r, 2 * range.idx + 1});
         else {
-            stk.push({node.l, mid - 1, 2 * node.idx});
-            stk.push({mid, node.r, 2 * node.idx + 1});
+            stk.push({range.l, mid - 1, 2 * range.idx});
+            stk.push({mid, range.r, 2 * range.idx + 1});
         }
     }
 }
@@ -97,24 +99,25 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    ll n, m, k, height;
-    cin >> n >> m >> k;
-    height = (ll)ceil(log2(n));
+    cin >> N >> M >> K;
+    int height = ceil(log2(N));
     powh = pow(2, height);
     
-    for (int i = 0; i < n; i++)
-        cin >> tree[powh + i];
+    for (int i = 0; i < N; i++)
+        cin >> tree[powh + i].val;
     
     for (ll h = height - 1; h > -1; h--) {
         for (ll i = pow(2, h); i < pow(2, h + 1); i++)
-            tree[i] = tree[2 * i] + tree[2 * i + 1];
+            tree[i].val = tree[2 * i].val + tree[2 * i + 1].val;
     }
-    for (ll a, b, c, q, i = 0; i < m + k; i++) {
-        cin >> q >> a >> b;
+    for (int i = 0; i < M + K; i++) {
+        int q, l, r;
+        cin >> q >> l >> r;
         if (q == 1) {
-            cin >> c;
-            update(a - 1, b - 1, c);
+            ll v;
+            cin >> v;
+            update(--l, --r, v);
         } else
-            cout << summation(a - 1, b - 1) << '\n';
+            cout << summation(--l, --r) << '\n';
     }
 }
