@@ -102,6 +102,8 @@
 > > > 
 > > > permutation cycle decomposition
 > > > 
+> > > small to large trick
+> > > 
 > > > square root decomposition
 > > > 
 > > > Sprague-Grundy theorem
