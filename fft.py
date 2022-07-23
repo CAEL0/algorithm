@@ -17,6 +17,7 @@ import sys
 from math import cos, sin, pi
 
 
+
 def fft(arr, w):
     n = len(arr) // 2
     if n == 0:
