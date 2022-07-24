@@ -13,9 +13,7 @@ There are many different FFT algorithms based on a wide range of published theor
 
 # BOJ 1067 이동
 
-import sys
 from math import cos, sin, pi
-
 
 
 def fft(arr, w):
