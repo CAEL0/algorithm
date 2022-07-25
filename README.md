@@ -96,6 +96,8 @@
 > > > sieve of Eratosthenes
 >
 > ### Miscellaneous
+> > > imos method
+> > > 
 > > > Kadane's algorithm
 > > > 
 > > > Mo's algorithm
