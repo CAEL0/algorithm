@@ -7,18 +7,11 @@ This method can also be used to compute the rank of a matrix, the determinant of
 # BOJ 22940 선형 연립 방정식
 
 import sys
-from math import gcd
+from math import lcm
+input = sys.stdin.readline
 
-
-def lcm(*args):
-    res = args[0] * args[1] // gcd(args[0], args[1])
-    for i in range(2, len(args)):
-        res = (res * args[i]) // gcd(res, args[i])
-    return res
-
-
-n = int(sys.stdin.readline())
-equation = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+n = int(input())
+equation = [[*map(int, input().split())] for _ in range(n)]
 
 for z in range(n - 1):
     l = lcm(*[equation[i][z] for i in range(n - z)])
