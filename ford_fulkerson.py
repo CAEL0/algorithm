@@ -6,6 +6,7 @@ The name "Ford–Fulkerson" is often also used for the Edmonds–Karp algorithm,
 """
 
 import sys
+input = sys.stdin.readline
 
 
 def dfs(cur, res):
@@ -23,11 +24,11 @@ def dfs(cur, res):
     return 0
 
 
-n, m = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 graph = [[0] * (n + 1) for _ in range(n + 1)]
 
 for _ in range(m):
-    start, end, capacity = map(int, sys.stdin.readline().split())
+    start, end, capacity = map(int, input().split())
     graph[start][end] += capacity
 
 ans = 0
