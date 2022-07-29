@@ -7,6 +7,7 @@ It uses a stack to detect and remove concavities in the boundary efficiently.
 # BOJ 1708 볼록 껍질
 
 import sys
+input = sys.stdin.readline
 
 
 def tangent(z):
@@ -23,8 +24,8 @@ def ccw(x1, y1, x2, y2, x3, y3):
     return (x2 - x1) * (y3 - y2) - (x3 - x2) * (y2 - y1)
 
 
-n = int(sys.stdin.readline())
-coord = [tuple(map(int, sys.stdin.readline().split())) for _ in range(n)]
+n = int(input())
+coord = [tuple(map(int, input().split())) for _ in range(n)]
 coord.sort(key=lambda x: (-x[1], -x[0]))
 a, b = coord.pop()
 coord.sort(key=tangent)
