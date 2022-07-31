@@ -6,11 +6,11 @@ typedef long long ll;
 
 const int MOD = 1e9 + 7;
 
-ll power(ll base, ll exp) {
+ll ipow(ll base, ll exp) {
 	ll res = 1;
 	while (exp) {
 		if (exp & 1)
-            		res = res * base % MOD;
+            res = res * base % MOD;
 		base = base * base % MOD;
 		exp >>= 1;
 	}
@@ -19,9 +19,9 @@ ll power(ll base, ll exp) {
 vector<int> berlekamp_massey(vector<int> x) {
 	vector<int> ls, cur;
 	int lf, ld;
-	for (int i = 0; i < x.size(); i++) {
+	for (int i = 0; i < x.sz; i++) {
 		ll t = 0;
-		for (int j = 0; j < cur.size(); j++)
+		for (int j = 0; j < cur.sz; j++)
 			t = (t + (ll)x[i - j - 1] * cur[j]) % MOD;
 		
 		if ((t - x[i]) % MOD == 0)
@@ -32,16 +32,16 @@ vector<int> berlekamp_massey(vector<int> x) {
 			ld = (t - x[i]) % MOD;
 			continue;
 		}
-		ll k = (t - x[i]) * power(ld, MOD - 2) % MOD;
+		ll k = (t - x[i]) * ipow(ld, MOD - 2) % MOD;
 		vector<int> c(i - lf - 1);
 		c.push_back(k);
 		for (auto &j: ls)
             c.push_back(-j * k % MOD);
-		if (c.size() < cur.size())
-            c.resize(cur.size());
-		for (int j = 0; j < cur.size(); j++)
+		if (c.sz < cur.sz)
+            c.resize(cur.sz);
+		for (int j = 0; j < cur.sz; j++)
 			c[j] = (c[j] + cur[j]) % MOD;
-		if (i - lf + (int)ls.size() >= (int)cur.size())
+		if (i - lf + (int)ls.sz >= (int)cur.sz)
 			tie(ls, lf, ld) = make_tuple(cur, i, (t - x[i]) % MOD);
 		cur = c;
 	}
@@ -50,7 +50,7 @@ vector<int> berlekamp_massey(vector<int> x) {
 	return cur;
 }
 int get_nth(vector<int> rec, vector<int> dp, ll n){
-	int m = rec.size();
+	int m = rec.sz;
 	vector<int> s(m), t(m);
 	s[0] = 1;
 	if (m != 1)
@@ -59,7 +59,7 @@ int get_nth(vector<int> rec, vector<int> dp, ll n){
         t[0] = rec[0];
     
 	auto mul = [&rec](vector<int> v, vector<int> w) {
-		int m = v.size();
+		int m = v.sz;
 		vector<int> t(2 * m);
 		for (int j = 0; j < m; j++) {
 			for (int k = 0; k < m; k++) {
@@ -90,7 +90,7 @@ int get_nth(vector<int> rec, vector<int> dp, ll n){
 	return res;
 }
 int guess_nth_term(vector<int> x, ll n) {
-	if (n < x.size())
+	if (n < x.sz)
         return x[n];
 	
 	vector<int> v = berlekamp_massey(x);
@@ -147,7 +147,7 @@ ll det(int n, vector<elem> M) {
 	if (n % 2 == 0)
         sol = MOD - sol;
 	for (auto &i: rnd)
-        sol = (ll)sol * power(i, MOD - 2) % MOD;
+        sol = (ll)sol * ipow(i, MOD - 2) % MOD;
 	return sol;
 }
 
