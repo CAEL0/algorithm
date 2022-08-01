@@ -10,6 +10,7 @@
 > > > Fenwick tree
 > > #### Heap
 > > > min heap
+> > #### Heavy-Light Decomposition
 > > #### Linked List
 > > > singly linked list
 > > > 
@@ -20,8 +21,6 @@
 > > > maximum subarray problem
 > > > 
 > > > merge sort tree
-> > > 
-> > > segment tree
 > > #### Sparse Table
 > > #### String
 > > > trie
