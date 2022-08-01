@@ -2,20 +2,19 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
 typedef long long ll;
+typedef pair<ll, ll> pll;
 
 int lps[1000005];
+vector<int> ans;
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-
-    string T, P;
-    getline(cin, T);
-    getline(cin, P);
-    
+void kmp(string T, string P) {
     int j = 0;
     for (int i = 1; i < P.length(); i++) {
         while (j > 0 && P[i] != P[j])
@@ -25,7 +24,6 @@ int main() {
             lps[i] = ++j;
     }
     j = 0;
-    vector<int> ans;
     for (int i = 0; i < T.length(); i++) {
         while (j > 0 && T[i] != P[j])
             j = lps[j - 1];
@@ -38,7 +36,18 @@ int main() {
                 j++;
         }
     }
-    cout << ans.size() << '\n';
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    string X, Y;
+    getline(cin, X);
+    getline(cin, Y);
+    kmp(X, Y);
+
+    cout << ans.sz << '\n';
     for (int i: ans)
         cout << i << ' ';
 }
