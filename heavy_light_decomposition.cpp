@@ -19,18 +19,18 @@ struct Edge {
 };
 vector<Edge> graph[MAX];
 
-int dfs1(int prv, int cur, int d) {
-    dep[cur] = d;
-    int ret = 1;
+void dfs1(int cur) {
+    sub[cur] = 1;
     for (auto &edge: graph[cur]) {
-        if (edge.nxt != prv) {
+        if (!sub[edge.nxt]) {
             par[edge.nxt] = cur;
-            ret += dfs1(cur, edge.nxt, d + 1);
+            dep[edge.nxt] = dep[cur] + 1;
+            dfs1(edge.nxt);
+            sub[cur] += sub[edge.nxt];
             if (sub[graph[cur][0].nxt] < sub[edge.nxt])
                 swap(graph[cur][0], edge);
         }
     }
-    return sub[cur] = ret;
 }
 void dfs2(int cur) {
     in[cur] = ++idx;
@@ -98,7 +98,7 @@ int main() {
         graph[v].push_back({u, w});
         edges[i] = {u, v};
     }
-    dfs1(0, 1, 0);
+    dfs1(1);
     dfs2(1);
     init(1, 1, N);
     
