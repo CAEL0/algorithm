@@ -43,7 +43,7 @@ void dfs2(int cur) {
     }
     out[cur] = idx;
 }
-ll init(int idx, int s, int e) {
+int init(int idx, int s, int e) {
     if (s == e) {
         return tree[idx] = weight[s];
     }
