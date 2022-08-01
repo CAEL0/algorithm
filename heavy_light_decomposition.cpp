@@ -99,6 +99,7 @@ int main() {
         edges[i] = {u, v};
     }
     dfs1(1);
+    top[1] = 1;
     dfs2(1);
     init(1, 1, N);
     
