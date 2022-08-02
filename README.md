@@ -95,6 +95,8 @@
 > > > sieve of Eratosthenes
 >
 > ### Miscellaneous
+> > > Berlekamp-Massey algorithm
+> > > 
 > > > imos method
 > > > 
 > > > Kadane's algorithm
