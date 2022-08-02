@@ -27,15 +27,18 @@ ll summation(int idx, int s, int e, int l, int r) {
     int m = (s + e) >> 1;
     return summation(2 * idx, s, m, l, r) + summation(2 * idx + 1, m + 1, e, l, r);
 }
-ll update(int idx, int s, int e, int l, int r, ll v) {
+void update(int idx, int s, int e, int l, ll v) {
     if (r < s || e < l)
-        return tree[idx];
+        return;
     
-    if (s == e)
-        return tree[idx] = v;
-    
+    if (s == e) {
+        tree[idx] = v;
+        return;
+    }
     int m = (s + e) >> 1;
-    return tree[idx] = update(2 * idx, s, m, l, r, v) + update(2 * idx + 1, m + 1, e, l, r, v);
+    update(2 * idx, s, m, l, v);
+    update(2 * idx + 1, m + 1, e, l, v);
+    tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
 }
 
 int main() {
@@ -50,7 +53,7 @@ int main() {
         ll a, b, c;
         cin >> a >> b >> c;
         if (a == 1)
-            update(1, 1, N, b, b, c);
+            update(1, 1, N, b, c);
         else
             cout << summation(1, 1, N, b, c) << '\n';
     }
