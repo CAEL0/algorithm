@@ -5,17 +5,17 @@
 
 using namespace std;
 
-int parent[1000000];
+int dsu[1000000];
 
 int find(int z) {
-    if (z != parent[z])
-        parent[z] = find(parent[z]);
-    return parent[z];
+    if (z != dsu[z])
+        dsu[z] = find(dsu[z]);
+    return dsu[z];
 }
 void uni(int x, int y) {
     x = find(x);
     y = find(y);
-    parent[min(x, y)] = max(x, y);
+    dsu[min(x, y)] = max(x, y);
 }
 
 int main() {
@@ -26,7 +26,7 @@ int main() {
     cin >> n >> m;
 
     for (int i = 1; i <= n; i++)
-        parent[i] = i;
+        dsu[i] = i;
 
     while (m--) {
         cin >> q >> x >> y;
