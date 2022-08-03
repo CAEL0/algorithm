@@ -18,7 +18,7 @@ ll init(int idx, int s, int e) {
     return tree[idx] = init(2 * idx, s, m) + init(2 * idx + 1, m + 1, e);
 }
 ll summation(int idx, int s, int e, int l, int r) {
-    if (l < s || e < l)
+    if (r < s || e < l)
         return 0;
     
     if (l <= s && e <= r)
@@ -28,7 +28,7 @@ ll summation(int idx, int s, int e, int l, int r) {
     return summation(2 * idx, s, m, l, r) + summation(2 * idx + 1, m + 1, e, l, r);
 }
 void update(int idx, int s, int e, int l, ll v) {
-    if (r < s || e < l)
+    if (l < s || e < l)
         return;
     
     if (s == e) {
