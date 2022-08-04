@@ -32,16 +32,15 @@ int main() {
         cin >> X[i];
     
     int left = 0;
-    int right = 1e9;
-    while (left + 3 < right) {
-        int x1 = ((ll)2 * left + right) / 3;
-        int x2 = ((ll)left + 2 * right) / 3;
-        ll y1 = f(x1);
-        ll y2 = f(x2);
-        if (y1 >= y2)
-            left = x1;
+    int right = X[N - 1];
+    while (left + 3 <= right) {
+        int p = ((ll)2 * left + right) / 3;
+        int q = ((ll)left + 2 * right) / 3;
+        
+        if (f(p) >= f(q))
+            left = p;
         else
-            right = x2;
+            right = q;
     }
     ll ans = f(left);
     for (int x = left + 1; x <= right; x++)
