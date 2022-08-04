@@ -12,7 +12,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 int N;
-ll tree[1000010];
+ll tree[1000005];
 
 struct Fenwick {
     ll summation(int k) {
