@@ -11,8 +11,9 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
+const int MAX = 1000005;
 int N;
-ll tree[1000005];
+ll tree[MAX];
 
 struct Fenwick {
     ll summation(int k) {
@@ -25,6 +26,21 @@ struct Fenwick {
     }
     ll summation(int l, int r) {
         return summation(r) - summation(l - 1);
+    }
+    ll kth(ll k) {
+        ll ret = 0;
+        ll idx = 1;
+        while (idx <= N)
+            idx *= 2;
+        
+        while (idx) {
+            if (ret + idx <= N && tree[ret + idx] < k) {
+                k -= tree[ret + idx];
+                ret += idx;
+            }
+            idx /= 2;
+        }
+        return ret + 1;
     }
     void update(int k, ll v) {
         ll gap = v - summation(k, k);
