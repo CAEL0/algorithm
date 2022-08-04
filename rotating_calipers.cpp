@@ -26,7 +26,6 @@ ll dist(Point a, Point b) {
     ret += pow((ll)(a.y - b.y), 2);
     return ret;
 }
-
 ll ccw(Point a, Point b, Point c) {
     return (ll)(b.x - a.x) * (c.y - b.y) - (ll)(c.x - b.x) * (b.y - a.y);
 }
