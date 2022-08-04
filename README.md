@@ -111,7 +111,7 @@
 > > > 
 > > > Sprague-Grundy theorem
 > > > 
-> > > 
+> > > ternary search
 >
 > ### String
 > > > Knuth-Morris-Pratt algorithm
