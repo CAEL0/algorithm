@@ -12,7 +12,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 int N;
-ll tree[2000010];
+ll tree[1000010];
 
 struct Fenwick {
     ll summation(int k) {
@@ -28,13 +28,13 @@ struct Fenwick {
     }
     void update(int k, ll v) {
         ll gap = v - summation(k, k);
-        while (k < 2 * N) {
+        while (k <= N) {
             tree[k] += gap;
             k += (k & -k);
         }
     }
     void add(int k, ll v) {
-        while (k < 2 * N) {
+        while (k <= N) {
             tree[k] += v;
             k += (k & -k);
         }
