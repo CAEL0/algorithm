@@ -12,7 +12,8 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 int N, Q;
-char S[105];
+char P[105];
+string S;
 
 struct Trie {
     Trie* go[26];
@@ -45,8 +46,8 @@ Trie* root;
 void init() {
     root = new Trie;
     for (int i = 0; i < N; i++) {
-        cin >> S;
-        root->insert(S);
+        cin >> P;
+        root->insert(P);
     }
     queue<Trie*> qu;
     root->fail = root;
@@ -88,13 +89,12 @@ int main() {
     
     cin >> Q;
     while (Q--) {
-        string T;
-        cin >> T;
+        cin >> S;
 
         Trie* cur = root;
         bool flag = false;
-        for (int i = 0; i < T.length(); i++) {
-            int nxt = T[i] - 'a';
+        for (int i = 0; i < S.length(); i++) {
+            int nxt = S[i] - 'a';
             while (cur != root && !cur->go[nxt])
                 cur = cur->fail;
             
