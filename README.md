@@ -114,6 +114,8 @@
 > > > ternary search
 >
 > ### String
+> > > Aho-Corasick algorithm
+> > > 
 > > > Knuth-Morris-Pratt algorithm
 > > > 
 > > > Manacher's algorithm
