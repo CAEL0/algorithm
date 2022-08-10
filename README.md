@@ -21,6 +21,8 @@
 > > > maximum subarray problem
 > > > 
 > > > merge sort tree
+> > > 
+> > > range update point query
 > > #### Sparse Table
 > > #### String
 > > > trie
