@@ -39,9 +39,29 @@ struct Trie {
     }
 };
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+//--------------------------------------------------------------------------------
 
-    
-}
+struct Trie {
+    map<char, Trie*> nxt;
+    bool finish;
+
+    Trie() {
+        finish = false;
+    }
+    ~Trie() {
+        nxt.clear();
+    }
+    bool insert(const char* s) {
+        if (*s == '\0') {
+            finish = true;
+            return !nxt.sz;
+        }
+        if (finish)
+            return false;
+        
+        if (nxt.find(*s) == nxt.end())
+            nxt[*s] = new Trie;
+        
+        return nxt[*s]->insert(s + 1);
+    }
+};
