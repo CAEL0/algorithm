@@ -2,17 +2,22 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
 typedef long long ll;
+typedef pair<int, int> pii;
 
 int V, E;
 int parent[10005];
 
 struct Edge {
     int x, y, w;
-    bool operator < (const Edge &e) const {
-        return w < e.w;
+    bool operator<(const Edge &o) const {
+        return w < o.w;
     }
 } graph[100005];
 
