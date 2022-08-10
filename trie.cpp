@@ -65,3 +65,31 @@ struct Trie {
         return nxt[*s]->insert(s + 1);
     }
 };
+
+//--------------------------------------------------------------------------------
+
+struct Trie {
+    vector<pair<char, Trie*>> nxt;
+    bool finish;
+
+    Trie() {
+        finish = false;
+    }
+    ~Trie() {
+        nxt.clear();
+    }
+    void insert(const char* s) {
+        if (*s == '\0') {
+            finish = true;
+            return;
+        }
+        for (auto node: nxt) {
+            if (node.fi == *s) {
+                node.se->insert(s + 1);
+                return;
+            }
+        }
+        nxt.push_back({*s, new Trie});
+        nxt.bk.se->insert(s + 1);
+    }
+};
