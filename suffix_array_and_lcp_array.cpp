@@ -2,8 +2,92 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
+typedef long long ll;
+typedef pair<int, int> pii;
+
+const int MAX = 500005;
+int N, d, sa[MAX], pos[MAX], tmp[MAX], lcp[MAX];
+string S;
+
+bool cmp(int i, int j) {
+    if (pos[i] != pos[j])
+        return pos[i] < pos[j];
+    
+    i += d;
+    j += d;
+    return (i < N && j < N) ? (pos[i] < pos[j]) : (i > j);
+}
+void SA() {
+    N = S.length();
+    for (int i = 0; i < N; i++) {
+        sa[i] = i;
+        pos[i] = S[i];
+    }
+    d = 1;
+    while (1) {
+        sort(sa, sa + N, cmp);
+        fill_n(tmp, N, 0);
+        for (int i = 0; i < N - 1; i++)
+            tmp[i + 1] = tmp[i] + cmp(sa[i], sa[i + 1]);
+        
+        for (int i = 0; i < N; i++)
+            pos[sa[i]] = tmp[i];
+        
+        if (tmp[N - 1] == N - 1)
+            break;
+        
+        d *= 2;
+    }
+}
+void LCP() {
+    int k = 0;
+    for (int i = 0; i < N; i++) {
+        if (!pos[i]) {
+            k = max(k - 1, 0);
+            continue;
+        }
+        int j = sa[pos[i] - 1];
+        while (max(i, j) + k < N && S[i + k] == S[j + k])
+            k++;
+        
+        lcp[pos[i]] = k;
+        k = max(k - 1, 0);
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    cin >> S;
+    SA();
+    LCP();
+    for (int i = 0; i < N; i++)
+        cout << sa[i] + 1 << ' ';
+    cout << '\n';
+    cout << "x ";
+    for (int i = 1; i < N; i++)
+        cout << lcp[i] << ' ';
+}
+
+//--------------------------------------------------------------------------------
+
+#include <iostream>
+#include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> pii;
 
 int main() {
     ios::sync_with_stdio(0);
