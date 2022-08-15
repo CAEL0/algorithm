@@ -59,7 +59,7 @@ int main() {
         bool flag = true;
         vector<int> G[M + 1];
         for (int q = 1; q <= Q; q++) {
-            if (lef[q] <= M && lef[q] <= rig[q]) {
+            if (lef[q] <= min(M, rig[q])) {
                 flag = false;
                 G[(lef[q] + rig[q]) >> 1].push_back(q);
             }
