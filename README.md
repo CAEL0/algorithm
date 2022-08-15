@@ -105,6 +105,8 @@
 > > > 
 > > > Mo's algorithm
 > > > 
+> > > parallel binary search
+> > > 
 > > > permutation cycle decomposition
 > > > 
 > > > small to large trick
