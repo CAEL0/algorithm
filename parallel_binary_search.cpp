@@ -53,11 +53,11 @@ int main() {
     for (int i = 1; i <= Q; i++)
         cin >> qry[i].x >> qry[i].y;
     
-    fill_n(lef, N + 1, 1);
-    fill_n(rig, N + 1, M);
+    fill_n(lef, Q + 1, 1);
+    fill_n(rig, Q + 1, M);
     while (1) {
         bool flag = true;
-        vector<int> G[MAX];
+        vector<int> G[M + 1];
         for (int q = 1; q <= Q; q++) {
             if (lef[q] <= M && lef[q] <= rig[q]) {
                 flag = false;
