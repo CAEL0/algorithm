@@ -61,3 +61,70 @@ int main() {
         }
     }
 }
+
+//--------------------------------------------------------------------------------
+
+#include <iostream>
+#include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> pii;
+
+const int MAX = 100005;
+int N, Q, A[MAX];
+ll tree[MAX];
+
+struct Fenwick {
+    void init() {
+        for (int k = 1; k <= N; k++)
+            if (k + (k & -k) <= N)
+                tree[k + (k & -k)] += tree[k];
+    }
+    void range(int k, ll v) {
+        while (k <= N) {
+            tree[k] += v;
+            k += (k & -k);
+        }
+    }
+    ll point(int k) {
+        ll ret = 0;
+        while (k) {
+            ret += tree[k];
+            k -= (k & -k);
+        }
+        return ret;
+    }
+} fw;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+
+    cin >> N;
+    for (int i = 1; i <= N; i++) {
+        cin >> A[i];
+        tree[i] = A[i] - A[i - 1];
+    }
+    fw.init();
+
+    cin >> Q;
+    while (Q--) {
+        int q;
+        cin >> q;
+        if (q & 1) {
+            int i, j, k;
+            cin >> i >> j >> k;
+            fw.range(i, k);
+            fw.range(j + 1, -k);
+        } else {
+            int x;
+            cin >> x;
+            cout << fw.point(x) << '\n';
+        }
+    }
+}
