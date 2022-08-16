@@ -86,14 +86,18 @@ struct Fenwick {
                 tree[k + (k & -k)] += tree[k];
     }
     void range(int k, ll v) {
-        while (k <= N) {
+        while (k < MAX) {
             tree[k] += v;
             k += (k & -k);
         }
     }
+    void range(int l, int r, ll v) {
+        range(l, v);
+        range(r + 1, -v);
+    }
     ll point(int k) {
         ll ret = 0;
-        while (k) {
+        while (k > 0) {
             ret += tree[k];
             k -= (k & -k);
         }
