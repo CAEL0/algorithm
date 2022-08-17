@@ -11,8 +11,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int V, E;
-int parent[10005];
+int V, E, dsu[10005];
 
 struct Edge {
     int x, y, w;
@@ -22,14 +21,14 @@ struct Edge {
 } graph[100005];
 
 int find(int z) {
-    if (z != parent[z])
-        parent[z] = find(parent[z]);
-    return parent[z];
+    if (z != dsu[z])
+        dsu[z] = find(dsu[z]);
+    return dsu[z];
 }
 void uni(int x, int y) {
     x = find(x);
     y = find(y);
-    parent[min(x, y)] = max(x, y);
+    dsu[x] = y;
 }
 int kruskal() {
     int ans = 0, cnt = 0;
@@ -58,7 +57,7 @@ int main() {
     }
     sort(graph, graph + E);
     for (int i = 1; i <= V; i++)
-        parent[i] = i;
+        dsu[i] = i;
     
     cout << kruskal();
 }
