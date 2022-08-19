@@ -22,6 +22,8 @@
 > > > 
 > > > merge sort tree
 > > > 
+> > > persistence segment tree
+> > > 
 > > > range update point query
 > > #### Sparse Table
 > > #### String
