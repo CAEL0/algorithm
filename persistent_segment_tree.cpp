@@ -24,12 +24,6 @@ Node* newNode(int v) {
     nodes[++node_idx] = {v, nullptr, nullptr};
     return &nodes[node_idx];
 }
-void init() {
-    roots[0] = 1;
-    node_idx = 0;
-    Node* root = newNode(0);
-    root->l = root->r = root;
-}
 Node* addNode(Node* prv, int s, int e, int i, int v) {
     Node* cur = newNode(prv->v + v);
     if (s != e) {
@@ -71,7 +65,10 @@ int main() {
             cin >> x >> y;
             eggs[x + 1].push_back(y + 1);
         }
-        init();
+        roots[0] = 1;
+        node_idx = 0;
+        Node* root = newNode(0);
+        root->l = root->r = root;
         for (int x = 1; x < MAX; x++) {
             roots[x] = roots[x - 1];
             for (int y: eggs[x]) {
