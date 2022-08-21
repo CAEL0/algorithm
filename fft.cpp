@@ -2,9 +2,15 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
-typedef complex<double> cpx;
+typedef long long ll;
+typedef pair<ll, ll> pll;
+
 const double PI = acos(-1);
 
 void fft(vector<cpx> &arr, cpx w) {
