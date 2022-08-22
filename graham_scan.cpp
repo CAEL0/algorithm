@@ -2,13 +2,14 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
 #define fi first
 #define se second
-#define sz size()
 
 using namespace std;
-typedef pair<int, int> pii;
 typedef long long ll;
+typedef pair<int, int> pii;
 
 int n, x, y;
 
