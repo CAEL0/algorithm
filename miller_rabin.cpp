@@ -1,8 +1,13 @@
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
 typedef long long ll;
+typedef pair<int, int> pii;
 
 ll ipow(ll base, ll exp, ll mod) {
     ll res = 1;
