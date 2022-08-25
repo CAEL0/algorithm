@@ -2,9 +2,14 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
 typedef long long ll;
+typedef pair<int, int> pii;
 
 const int MOD = 1e9 + 7;
 int T, N, D;
