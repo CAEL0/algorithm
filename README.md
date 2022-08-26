@@ -25,6 +25,8 @@
 > > > persistent segment tree
 > > > 
 > > > range update point query
+> > > 
+> > > segment tree beats
 > > #### Sparse Table
 > > #### String
 > > > trie
