@@ -11,14 +11,13 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, M;
-vector<int> graph[205];
-int b[205];
+int N, M, b[205];
+vector<int> G[205];
 bool vst[205];
 
 bool dfs(int cur) {
     vst[cur] = true;
-    for (int nxt: graph[cur]) {
+    for (int nxt: G[cur]) {
         if (!b[nxt] || (!vst[b[nxt]] && dfs(b[nxt]))) {
             b[nxt] = cur;
             return true;
@@ -38,7 +37,7 @@ int main() {
         while (s--) {
             int tmp;
             cin >> tmp;
-            graph[i].push_back(tmp);
+            G[i].push_back(tmp);
         }
     }
     int ans = 0;
