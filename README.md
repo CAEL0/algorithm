@@ -51,7 +51,9 @@
 > > > 
 > > > Ford-Fulkerson algorithm
 > > > 
-> > > minimum cut maximum flow
+> > > max-flow min-cut theorem
+> > > 
+> > > minimum cost maximum flow
 > > #### Minimum Spanning Tree
 > > > Kruskal's algorithm
 > > > 
