@@ -1,4 +1,4 @@
-// BOJ 11405 책 구매하기
+// BOJ 11407 책 구매하기 3
 
 #include <iostream>
 #include <bits/stdc++.h>
@@ -13,6 +13,8 @@ typedef pair<int, int> pii;
 
 const int MAX = 205;
 const int INF = 2e9;
+const int S = MAX - 2;
+const int E = MAX - 1;
 int N, M, C[MAX][MAX], D[MAX][MAX], F[MAX][MAX];
 vector<int> G[MAX];
 
@@ -20,29 +22,32 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    cin >> M >> N;
-    int S = N + M + 1;
-    int E = N + M + 2;
-    for (int j = N + 1; j <= N + M; j++) {
-        cin >> C[j][E];
-        G[E].push_back(j);
-        G[j].push_back(E);
-    }
+    cin >> N >> M;
     for (int i = 1; i <= N; i++) {
         cin >> C[S][i];
         G[S].push_back(i);
         G[i].push_back(S);
     }
-    for (int i = 1; i <= N; i++) {
-        for (int j = N + 1; j <= N + M; j++) {
-            cin >> D[i][j];
-            D[j][i] = -D[i][j];
-            C[i][j] = INF;
+    for (int j = N + 1; j <= N + M; j++) {
+        cin >> C[j][E];
+        G[j].push_back(E);
+        G[E].push_back(j);
+    }
+    for (int j = N + 1; j <= N + M; j++) {
+        for (int i = 1; i <= N; i++) {
+            cin >> C[i][j];
             G[i].push_back(j);
             G[j].push_back(i);
         }
     }
-    int ans = 0;
+    for (int j = N + 1; j <= N + M; j++) {
+        for (int i = 1; i <= N; i++) {
+            cin >> D[i][j];
+            D[j][i] = -D[i][j];
+        }
+    }
+    int ans1 = 0;
+    int ans2 = 0;
     while (1) {
         int res[MAX], prv[MAX];
         bool isin[MAX];
@@ -82,11 +87,14 @@ int main() {
         nxt = E;
         while (nxt != S) {
             int cur = prv[nxt];
-            ans += flow * D[cur][nxt];
+            ans2 += flow * D[cur][nxt];
             F[cur][nxt] += flow;
             F[nxt][cur] -= flow;
             nxt = cur;
         }
     }
-    cout << ans;
+    for (int i = 1; i <= N; i++)
+        ans1 += F[S][i];
+    
+    cout << ans1 << '\n' << ans2;
 }
