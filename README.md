@@ -47,6 +47,8 @@
 > > #### Bipartite Graph
 > > > bipartite matching
 > > #### Flow Network
+> > > Dinic's algorithm
+> > > 
 > > > Edmonds-Karp algorithm
 > > > 
 > > > Ford-Fulkerson algorithm
