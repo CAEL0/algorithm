@@ -53,6 +53,8 @@
 > > > 
 > > > Ford-Fulkerson algorithm
 > > > 
+> > > Hopcroft-Karp algorithm
+> > > 
 > > > max-flow min-cut theorem
 > > > 
 > > > minimum cost maximum flow
