@@ -62,7 +62,6 @@ int main() {
             int cur = Q.front();
             Q.pop();
             isin[cur] = false;
-
             for (int nxt: G[cur]) {
                 if (C[cur][nxt] > F[cur][nxt] && res[nxt] > res[cur] + D[cur][nxt]) {
                     res[nxt] = res[cur] + D[cur][nxt];
