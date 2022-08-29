@@ -11,15 +11,16 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, M, b[205];
-vector<int> G[205];
-bool vst[205];
+const int MAX = 205;
+int N, M, B[MAX];
+vector<int> G[MAX];
+bool vst[MAX];
 
 bool dfs(int cur) {
     vst[cur] = true;
     for (int nxt: G[cur]) {
-        if (!b[nxt] || (!vst[b[nxt]] && dfs(b[nxt]))) {
-            b[nxt] = cur;
+        if (!B[nxt] || (!vst[B[nxt]] && dfs(B[nxt]))) {
+            B[nxt] = cur;
             return true;
         }
     }
