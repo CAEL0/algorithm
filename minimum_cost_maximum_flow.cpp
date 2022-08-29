@@ -56,8 +56,7 @@ int main() {
         memset(isin, false, sizeof(isin));
         res[S] = 0;
         isin[S] = true;
-        queue<int> Q;
-        Q.push(S);
+        queue<int> Q({S});
         while (Q.sz) {
             int cur = Q.front();
             Q.pop();
