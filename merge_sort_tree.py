@@ -1,6 +1,7 @@
 import sys
 from bisect import bisect
 from math import log2, ceil
+input = sys.stdin.readline
 
 
 def merge(k, l, r):
@@ -22,8 +23,8 @@ def merge(k, l, r):
             j += 1
 
 
-n = int(sys.stdin.readline())
-arr = list(map(int, sys.stdin.readline().split()))
+n = int(input())
+arr = [*map(int, input().split())]
 height = ceil(log2(n))
 z = 2 ** height
 tree = [[] for _ in range(2 * z)]
@@ -52,5 +53,5 @@ def larger(a, b, k):
     return res
 
 
-for _ in range(int(sys.stdin.readline())):
-    print(larger(*map(int, sys.stdin.readline().split())))
+for _ in range(int(input())):
+    print(larger(*map(int, input().split())))
