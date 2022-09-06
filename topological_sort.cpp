@@ -9,10 +9,11 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<ll, ll> pll;
+typedef pair<int, int> pii;
 
-int N, M, ind[32005];
-vector<int> graph[32005];
+const int MAX = 32005;
+int N, M, ind[MAX];
+vector<int> G[MAX];
 
 int main() {
     ios::sync_with_stdio(0);
@@ -22,7 +23,7 @@ int main() {
     while (M--) {
         int a, b;
         cin >> a >> b;
-        graph[a].push_back(b);
+        G[a].push_back(b);
         ind[b]++;
     }
     queue<int> qu;
@@ -36,7 +37,7 @@ int main() {
         int x = qu.front();
         qu.pop();
 
-        for (int y: graph[x]) {
+        for (int y: G[x]) {
             if (--ind[y] == 0) {
                 qu.push(y);
                 cout << y << ' ';
