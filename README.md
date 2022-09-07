@@ -92,6 +92,8 @@
 > > > 
 > > > matrix multiplication
 > > #### Number Theory
+> > > combination
+> > > 
 > > > Euler's phi (totient) function
 > > > 
 > > > extended Euclidean algorithm
