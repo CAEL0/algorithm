@@ -29,6 +29,8 @@
 > > > segment tree beats
 > > #### Sparse Table
 > > #### String
+> > > rope
+> > > 
 > > > trie
 >
 > ### Dynamic Programming
