@@ -11,7 +11,8 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, M, imos[5005][5005];
+const int MAX = 5005;
+int N, M, imos[MAX][MAX];
 
 int main() {
     ios::sync_with_stdio(0);
