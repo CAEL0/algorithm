@@ -10,21 +10,21 @@ Topological sorting has many applications especially in ranking problems such as
 
 import sys
 from collections import deque
+input = sys.stdin.readline
 
-n, m = map(int, sys.stdin.readline().split())
-out = [[] for _ in range(n + 1)]
-indegree = [0] * (n + 1)
-for _ in range(m):
-    a, b = map(int, sys.stdin.readline().split())
-    out[a].append(b)
-    indegree[b] += 1
+N, M = map(int, input().split())
+G = [[] for _ in range(N + 1)]
+ind = [0] * (N + 1)
+for _ in range(M):
+    a, b = map(int, input().split())
+    G[a].append(b)
+    ind[b] += 1
 
-res = []
-queue = deque([i for i in range(1, n + 1) if indegree[i] == 0])
+queue = deque([i for i in range(1, N + 1) if ind[i] == 0])
 while queue:
     i = queue.popleft()
-    res.append(i)
-    for j in out[i]:
-        indegree[j] -= 1
-        if indegree[j] == 0:
+    print(i)
+    for j in G[i]:
+        ind[j] -= 1
+        if ind[j] == 0:
             queue.append(j)
