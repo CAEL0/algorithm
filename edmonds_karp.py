@@ -1,10 +1,3 @@
-"""
-In computer science, the Edmonds–Karp algorithm is an implementation of the Ford–Fulkerson method for computing the maximum flow in a flow network in O(V * E ** 2) time.
-The algorithm was first published by Yefim Dinitz (whose name is also transliterated "E. A. Dinic", notably as author of his early papers) in 1970
-and independently published by Jack Edmonds and Richard Karp in 1972.
-Dinic's algorithm includes additional techniques that reduce the running time to O(V ** 2 * E).
-"""
-
 import sys
 from collections import deque
 
