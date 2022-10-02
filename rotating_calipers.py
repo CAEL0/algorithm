@@ -1,16 +1,3 @@
-"""
-In computational geometry, the method of rotating calipers is an algorithm design technique
-that can be used to solve optimization problems including finding the width or diameter of a set of points.
-The method is so named because the idea is analogous to rotating a spring-loaded vernier caliper around the outside of a convex polygon.
-Every time one blade of the caliper lies flat against an edge of the polygon,
-it forms an antipodal pair with the point or edge touching the opposite blade.
-The complete "rotation" of the caliper around the polygon detects all antipodal pairs;
-the set of all pairs, viewed as a graph, forms a thrackle.
-The method of rotating calipers can be interpreted as the projective dual of a sweep line algorithm
-in which the sweep is across slopes of lines rather than across x- or y-coordinates of points.
-"""
-
-
 # BOJ 10254 고속도로
 
 import sys
