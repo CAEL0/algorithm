@@ -1,10 +1,3 @@
-"""
-In number theory, Lucas's theorem expresses the remainder of division of the binomial coefficient mCn
-by a prime number p in terms of the base p expansions of the integers m and n.
-Lucas's theorem first appeared in 1878 in papers by Édouard Lucas.
-"""
-
-
 def extended_gcd(a, b):
     x0, x1, y0, y1 = 1, 0, 0, 1
     while b:
