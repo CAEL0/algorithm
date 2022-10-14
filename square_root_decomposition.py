@@ -1,8 +1,9 @@
 import sys
+input = sys.stdin.readline
 
-n, q = map(int, sys.stdin.readline().split())
+n, q = map(int, input().split())
 k = int(n ** 0.5)
-arr = [int(sys.stdin.readline()) for _ in range(n)]
+arr = [int(input()) for _ in range(n)]
 group = [[float('inf'), -float('inf')] for _ in range(k + 2)]
 
 for i in range(n):
@@ -11,7 +12,7 @@ for i in range(n):
     group[idx][1] = max(group[idx][1], arr[i])
 
 for _ in range(q):
-    a, b = map(lambda x: int(x) - 1, sys.stdin.readline().split())
+    a, b = map(lambda x: int(x) - 1, input().split())
     idx1 = a // k
     idx2 = b // k
     ans = [float('inf'), -float('inf')]
@@ -32,17 +33,18 @@ for _ in range(q):
 #--------------------------------------------------------------------------------
 
 import sys
+input = sys.stdin.readline
 
-n, m, o = map(int, sys.stdin.readline().split())
+n, m, o = map(int, input().split())
 k = int(n ** 0.5)
-arr = [int(sys.stdin.readline()) for _ in range(n)]
+arr = [int(input()) for _ in range(n)]
 group = [0] * (k + 2)
 
 for i in range(n):
     group[i // k] += arr[i]
 
 for _ in range(m + o):
-    a, b, c = map(int, sys.stdin.readline().split())
+    a, b, c = map(int, input().split())
     if a == 1:
         b -= 1
         group[b // k] += c - arr[b]
