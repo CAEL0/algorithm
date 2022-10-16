@@ -1,12 +1,13 @@
 import sys
+input = sys.stdin.readline
 
-v, e = map(int, sys.stdin.readline().split())
+v, e = map(int, input().split())
 
 graph = [[] for _ in range(v + 1)]
 reverse = [[] for _ in range(v + 1)]
 
 for _ in range(e):
-    a, b = map(int, sys.stdin.readline().split())
+    a, b = map(int, input().split())
     graph[a].append(b)
     reverse[b].append(a)
 
