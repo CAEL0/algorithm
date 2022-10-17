@@ -1,11 +1,12 @@
 import sys
 from collections import deque
+input = sys.stdin.readline
 
-n, m = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 graph = [[0] * (n + 1) for _ in range(n + 1)]
 
 for _ in range(m):
-    start, end, capacity = map(int, sys.stdin.readline().split())
+    start, end, capacity = map(int, input().split())
     graph[start][end] += capacity
 
 ans = 0
@@ -46,12 +47,13 @@ print(ans)
 
 import sys
 from collections import deque
+input = sys.stdin.readline
 
-n, m = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 graph = [[] for _ in range(n + 1)]
 
 for _ in range(m):
-    start, end, capacity = map(int, sys.stdin.readline().split())
+    start, end, capacity = map(int, input().split())
     graph[start].append([end, capacity])
 
 ans = 0
