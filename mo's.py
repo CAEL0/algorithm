@@ -1,13 +1,14 @@
 # BOJ 13547 수열과 쿼리 5
 
 import sys
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
-arr = list(map(int, sys.stdin.readline().split()))
-q = int(sys.stdin.readline())
+n = int(input())
+arr = [*map(int, input().split())]
+q = int(input())
 query = []
 for i in range(q):
-    a, b = map(int, sys.stdin.readline().split())
+    a, b = map(int, input().split())
     query.append((a, b, i))
 query.sort(key=lambda x: (x[0] // 300, x[1]))
 
