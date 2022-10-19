@@ -2,12 +2,13 @@
 
 import sys
 from heapq import heappush, heappop
+input = sys.stdin.readline
 
-v, e = map(int, sys.stdin.readline().split())
+v, e = map(int, input().split())
 graph = [[] for _ in range(v + 1)]
 
 for _ in range(e):
-    a, b, c = map(int, sys.stdin.readline().split())
+    a, b, c = map(int, input().split())
     graph[a].append((b, c))
 
 
