@@ -1,8 +1,9 @@
 import sys
 from math import log2, ceil
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
-arr = list(map(int, sys.stdin.readline().split()))
+n = int(input())
+arr = [*map(int, input().split())]
 height = ceil(log2(n))
 z = 2 ** height
 tree = [[0] * 4 for _ in range(2 * z)]
