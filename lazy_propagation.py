@@ -2,15 +2,16 @@
 
 import sys
 from math import log2, ceil
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
+n = int(input())
 height = ceil(log2(n))
 z = 2 ** height
 tree = [0] * 2 * z
 lazy = [0] * 2 * z
 
 for i in range(n):
-    tree[z + i] = int(sys.stdin.readline())
+    tree[z + i] = int(input())
 
 for h in range(height - 1, -1, -1):
     for i in range(2 ** h, 2 ** (h + 1)):
