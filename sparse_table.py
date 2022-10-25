@@ -1,9 +1,10 @@
-import sys
-
 # BOJ 17435 합성함수와 쿼리
 
-n = int(sys.stdin.readline())
-arr = list(map(int, sys.stdin.readline().split()))
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+arr = [*map(int, input().split())]
 sparse = [[0] * (n + 1) for _ in range(20)]
 for j in range(n):
     sparse[0][j + 1] = arr[j]
