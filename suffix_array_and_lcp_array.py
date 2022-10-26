@@ -1,10 +1,3 @@
-"""
-In computer science, a suffix array is a sorted array of all suffixes of a string.
-It is a data structure used in, among others, full text indices, data compression algorithms, and the field of bibliometrics.
-In computer science, the longest common prefix array (LCP array) is an auxiliary data structure to the suffix array.
-It stores the lengths of the longest common prefixes (LCPs) between all pairs of consecutive suffixes in a sorted suffix array.
-"""
-
 # BOJ 9248 Suffix Array
 
 import sys
