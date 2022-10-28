@@ -1,11 +1,12 @@
 import sys
 from collections import defaultdict
+input = sys.stdin.readline
 
-v, e = map(int, sys.stdin.readline().split())
+v, e = map(int, input().split())
 graph = defaultdict(dict)
 
 for _ in range(e):
-    a, b, c = map(int, sys.stdin.readline().split())
+    a, b, c = map(int, input().split())
     if b in graph[a].keys():
         graph[a][b] = min(graph[a][b], c)
     else:
