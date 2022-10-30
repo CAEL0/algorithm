@@ -140,4 +140,4 @@
 > > > 
 > > > suffix array and lcp array
 > > > 
-> > > Z algorithm
+> > > z algorithm
