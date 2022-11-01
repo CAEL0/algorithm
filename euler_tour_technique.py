@@ -1,11 +1,3 @@
-"""
-The Euler tour technique (ETT), named after Leonhard Euler, is a method in graph theory for representing trees.
-The tree is viewed as a directed graph that contains two directed edges for each edge in the tree.
-The tree can then be represented as a Eulerian circuit of the directed graph, known as the Euler tour representation (ETR) of the tree.
-The ETT allows for efficient, parallel computation of solutions to common problems in algorithmic graph theory.
-It was introduced by Tarjan and Vishkin in 1984.
-"""
-
 # BOJ 14287 회사 문화 3
 
 import sys
