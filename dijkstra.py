@@ -4,24 +4,33 @@ import sys
 from heapq import heappush, heappop
 input = sys.stdin.readline
 
-v, e = map(int, input().split())
-graph = [[] for _ in range(v + 1)]
+V, E = map(int, input().split())
+K = int(input())
+G = [[] for _ in range(V + 1)]
 
-for _ in range(e):
+for _ in range(E):
     a, b, c = map(int, input().split())
-    graph[a].append((b, c))
+    G[a].append((b, c))
 
 
-def dijkstra(graph, start):
-    res = [float('inf')] * (v + 1)
-    res[start] = 0
-    queue = [(0, start)]
-    while queue:
-        old_weight, old_node = heappop(queue)
-        if res[old_node] == old_weight:
-            for new_node, new_weight in graph[old_node]:
-                total_weight = old_weight + new_weight
-                if total_weight < res[new_node]:
-                    res[new_node] = total_weight
-                    heappush(queue, (total_weight, new_node))
-    return res
+def dijkstra(start):
+    dist = [float('inf')] * (V + 1)
+    dist[start] = 0
+    hq = [(0, start)]
+    while hq:
+        cur_w, cur = heappop(hq)
+        if dist[cur] == cur_w:
+            for nxt, nxt_w in G[cur]:
+                sum_w = cur_w + nxt_w
+                if sum_w < dist[nxt]:
+                    dist[nxt] = sum_w
+                    heappush(hq, (sum_w, nxt))
+    return dist
+
+
+dist = dijkstra(K)
+for i in range(1, V + 1):
+    if dist[i] == float('inf'):
+        print('INF')
+    else:
+        print(dist[i])
