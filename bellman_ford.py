@@ -1,23 +1,35 @@
+# BOJ 11657 타임머신
+
 import sys
-from collections import defaultdict
 input = sys.stdin.readline
 
-v, e = map(int, input().split())
-graph = defaultdict(dict)
+V, E = map(int, input().split())
+G = [[] for _ in range(V + 1)]
+for _ in range(E):
+    u, v, w = map(int, input().split())
+    G[u].append((v, w))
 
-for _ in range(e):
-    a, b, c = map(int, input().split())
-    if b in graph[a].keys():
-        graph[a][b] = min(graph[a][b], c)
+
+def bellman_ford(start):
+    dist = [float('inf')] * (V + 1)
+    dist[start] = 0
+    for _ in range(V - 1):
+        for u in range(1, V + 1):
+            for v, w in G[u]:
+                dist[v] = min(dist[v], dist[u] + w)
+    return dist
+
+
+res = bellman_ford(1)
+
+for u in range(1, V + 1):
+    for v, w in G[u]:
+        if res[v] > res[u] + w:
+            print(-1)
+            exit()
+
+for i in range(2, V + 1):
+    if res[i] == float('inf'):
+        print(-1)
     else:
-        graph[a][b] = c
-
-
-def bellman_ford(graph, start):
-    res = [float('inf')] * (v + 1)
-    res[start] = 0
-    for _ in range(v - 1):
-        for start in graph.keys():
-            for end, weight in graph[start].items():
-                res[end] = min(res[end], res[start] + weight)
-    return res
+        print(res[i])
