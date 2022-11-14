@@ -1,27 +1,36 @@
+# BOJ 11404 플로이드
+
 import sys
-from collections import defaultdict
 input = sys.stdin.readline
 
-v, e = map(int, input().split())
-graph = defaultdict(dict)
+V = int(input())
+E = int(input())
+G = [[] for _ in range(V + 1)]
 
-for _ in range(e):
-    a, b, c = map(int, input().split())
-    if b in graph[a].keys():
-        graph[a][b] = min(graph[a][b], c)
-    else:
-        graph[a][b] = c
+for _ in range(E):
+    u, v, w = map(int, input().split())
+    G[u].append((v, w))
 
 
-def floyd_warshall(graph):
-    res = [[float('inf')] * (v + 1) for _ in range(v + 1)]
-    for start in graph.keys():
-        res[start][start] = 0
-        for end in graph[start].keys():
-            res[start][end] = min(res[start][end], graph[start][end])
+def floyd_warshall():
+    dist = [[float('inf')] * (V + 1) for _ in range(V + 1)]
+    for u in range(1, V + 1):
+        dist[u][u] = 0
+        for v, w in G[u]:
+            dist[u][v] = min(dist[u][v], w)
 
-    for k in range(1, v + 1):
-        for i in range(1, v + 1):
-            for j in range(1, v + 1):
-                res[i][j] = min(res[i][j], res[i][k] + res[k][j])
-    return res
+    for k in range(1, V + 1):
+        for i in range(1, V + 1):
+            for j in range(1, V + 1):
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+    return dist
+
+
+res = floyd_warshall()
+for i in range(1, V + 1):
+    for j in range(1, V + 1):
+        if res[i][j] == float('inf'):
+            print(0, end=' ')
+        else:
+            print(res[i][j], end=' ')
+    print()
