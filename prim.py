@@ -4,27 +4,27 @@ import sys
 from heapq import heappush, heappop
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
-for _ in range(m):
-    a, b, c = map(int, input().split())
-    graph[a].append((c, b))
-    graph[b].append((c, a))
+V, E = map(int, input().split())
+G = [[] for _ in range(V + 1)]
+for _ in range(E):
+    u, v, w = map(int, input().split())
+    G[u].append((w, v))
+    G[v].append((w, u))
 
-visit = [0] * (n + 1)
-visit[1] = 1
+vst = [0] * (V + 1)
+vts[1] = 1
 ans = 0
-new = 1
+cur = 1
 hq = []
-for _ in range(n - 1):
-    for (w, node) in graph[new]:
-        if not visit[node]:
-            heappush(hq, (w, node))
+for _ in range(V - 1):
+    for (w, nxt) in G[cur]:
+        if not vst[nxt]:
+            heappush(hq, (w, nxt))
 
     while True:
-        (w, new) = heappop(hq)
-        if not visit[new]:
-            visit[new] = 1
+        (w, cur) = heappop(hq)
+        if not vst[cur]:
+            vst[cur] = 1
             ans += w
             break
 
