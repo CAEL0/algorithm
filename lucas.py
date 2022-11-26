@@ -1,32 +1,22 @@
-def extended_gcd(a, b):
-    x0, x1, y0, y1 = 1, 0, 0, 1
-    while b:
-        z, a, b = a // b, b, a % b
-        x0, x1 = x1, x0 - z * x1
-        y0, y1 = y1, y0 - z * y1
-    return x0, y0
-
-
-def combination(a, b, p):
-    if a < b:
+def combination(n, k, mod):
+    if n < k:
         return 0
 
-    b = min(b, a - b)
-    num = den = 1
-    for i in range(b):
-        num = num * (a - i) % p
-        den = den * (i + 1) % p
-
-    x, y = extended_gcd(den, p)
-    return num * x % p
-
-
-def lucas(n, k, p):
     k = min(k, n - k)
-    res = 1
-    while k:
-        res = res * combination(n % p, k % p, p) % p
-        n //= p
-        k //= p
+    num = den = 1
+    for i in range(k):
+        num = num * (n - i) % mod
+        den = den * (i + 1) % mod
     
-    return res
+    return num * pow(den, mod - 2) % mod
+
+
+def lucas(n, k, mod):
+    k = min(k, n - k)
+    ret = 1
+    while k:
+        ret = ret * combination(n % mod, k % mod, mod) % mod
+        n //= mod
+        k //= mod
+
+    return ret
