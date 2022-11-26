@@ -1,3 +1,9 @@
+# BOJ 11402 이항 계수 4
+
+import sys
+input = sys.stdin.readline
+
+
 def combination(n, k, mod):
     if n < k:
         return 0
@@ -20,3 +26,7 @@ def lucas(n, k, mod):
         k //= mod
 
     return ret
+
+
+n, k, p = map(int, input().split())
+print(lucas(n, k, p))
