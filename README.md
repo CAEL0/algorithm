@@ -28,6 +28,7 @@
 
 - ### Dynamic Programming
   - convex hull trick
+  - knapsack problem
   - Knuth's optimization
 
 - ### Geometry
