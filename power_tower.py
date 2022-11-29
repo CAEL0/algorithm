@@ -3,6 +3,7 @@
 import sys
 input = sys.stdin.readline
 
+
 def phi(x):
     res = x
     for i in range(2, int(x ** 0.5) + 2):
