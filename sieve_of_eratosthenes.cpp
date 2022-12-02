@@ -21,9 +21,9 @@ int main() {
     fill_n(P, MAX, 1);
     P[0] = P[1] = 0;
 
-    for (int i = 2; i < MAX; i++)
+    for (ll i = 2; i < MAX; i++)
         if (P[i])
-            for (int j = i * i; j < MAX; j += i)
+            for (ll j = i * i; j < MAX; j += i)
                 P[j] = 0;
     
 
