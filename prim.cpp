@@ -12,33 +12,35 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 const int MAX = 10010;
-vector<pii> graph[MAX];
+int V, E;
+vector<pii> G[MAX];
 bool vst[MAX];
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int v, e, a, b, c, w;
-    cin >> v >> e;
+    cin >> V >> E;
 
-    while (e--) {
-        cin >> a >> b >> c;
-        graph[a].push_back(pii(-c, b));
-        graph[b].push_back(pii(-c, a));
+    while (E--) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        G[u].push_back(pii(-w, v));
+        G[v].push_back(pii(-w, u));
     }
     int ans = 0;
     int cur = 1;
-    priority_queue<pii> adj;
+    priority_queue<pii> pq;
     vst[1] = 1;
-    for (int i = 0; i < v - 1; i++) {
-        for (int j = 0; j < graph[cur].size(); j++)
-            if (!vst[graph[cur][j].second])
-                adj.push(graph[cur][j]);
+    for (int i = 0; i < V - 1; i++) {
+        for (int j = 0; j < G[cur].sz; j++)
+            if (!vst[G[cur][j].se])
+                pq.push(G[cur][j]);
         
-        while (true) {
-            tie(w, cur) = adj.top();
-            adj.pop();
+        while (1) {
+            int w;
+            tie(w, cur) = pq.top();
+            pq.pop();
             if (!vst[cur]) {
                 vst[cur] = 1;
                 ans -= w;
