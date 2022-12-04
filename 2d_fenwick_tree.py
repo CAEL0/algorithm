@@ -4,41 +4,41 @@ import sys
 input = sys.stdin.readline
 
 
-def update(i, j, value):
+def update(i, j, v):
     k = i
-    while j < n + 1:
-        while i < n + 1:
-            fenwick_tree[i][j] += value
+    while j < N + 1:
+        while i < N + 1:
+            fw[i][j] += v
             i += i & -i
         j += j & -j
         i = k
 
 
 def summation(i, j):
-    res = 0
+    ret = 0
     k = i
     while j > 0:
         while i > 0:
-            res += fenwick_tree[i][j]
+            ret += fw[i][j]
             i -= i & -i
         j -= j & -j
         i = k
-    return res
+    return ret
 
 
-n, m = map(int, input().split())
-fenwick_tree = [[0] * (n + 1) for _ in range(n + 1)]
+N, Q = map(int, input().split())
+fw = [[0] * (N + 1) for _ in range(N + 1)]
 
-for x in range(n):
-    arr = [*map(int, input().split())]
-    for y in range(n):
-        update(x + 1, y + 1, arr[y])
+for i in range(N):
+    row = [*map(int, input().split())]
+    for j in range(N):
+        update(i + 1, j + 1, row[j])
 
-for _ in range(m):
-    operation = [*map(int, input().split())]
-    if operation[0]:
-        x1, y1, x2, y2 = operation[1:]
+for _ in range(Q):
+    query = [*map(int, input().split())]
+    if query[0]:
+        x1, y1, x2, y2 = query[1:]
         print(summation(x2, y2) - summation(x2, y1 - 1) - summation(x1 - 1, y2) + summation(x1 - 1, y1 - 1))
     else:
-        x, y, c = operation[1:]
+        x, y, c = query[1:]
         update(x, y, c - summation(x, y) + summation(x, y - 1) + summation(x - 1, y) - summation(x - 1, y - 1))
