@@ -1,30 +1,32 @@
+# BOJ 1197 최소 스패닝 트리
+
 import sys
 input = sys.stdin.readline
 
-v, e = map(int, input().split())
-parent = [i for i in range(v + 1)]
-graph = sorted([tuple(map(int, input().split())) for _ in range(e)], key=lambda x: x[2])
+V, E = map(int, input().split())
+P = [i for i in range(V + 1)]
+G = sorted([tuple(map(int, input().split())) for _ in range(E)], key=lambda x: x[2])
 
 
 def union(x, y):
-    parent[find(x)] = find(y)
+    P[find(x)] = find(y)
 
 
 def find(z):
-    if z != parent[z]:
-        parent[z] = find(parent[z])
-    return parent[z]
+    if z != P[z]:
+        P[z] = find(P[z])
+    return P[z]
 
 
 ans = 0
 cnt = 0
-for x, y, w in graph:
-    if find(x) != find(y):
-        union(x, y)
+for u, v, w in G:
+    if find(u) != find(v):
+        union(u, v)
         ans += w
         cnt += 1
     
-    if cnt == v - 1:
+    if cnt == V - 1:
         print(ans)
         break
 else:
