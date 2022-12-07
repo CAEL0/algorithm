@@ -1,3 +1,5 @@
+# BOJ 16900 이름 정하기
+
 import sys
 input = sys.stdin.readline
 
@@ -20,5 +22,13 @@ def z(s):
     return res
 
 
-s = input().rstrip()
+s, k = input().split()
+k = int(k)
+n = len(s)
 res = z(s)
+for i in range(n):
+    if res[i] == n - i:
+        print(n + i * (k - 1))
+        break
+else:
+    print(n * k)
