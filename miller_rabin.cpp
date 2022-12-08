@@ -1,3 +1,5 @@
+# BOJ 5615 아파트 임대
+
 #include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
@@ -6,8 +8,11 @@
 #define se second
 
 using namespace std;
-typedef long long ll;
+typedef unsigned long long ll;
 typedef pair<int, int> pii;
+
+int Q, ans;
+ll N;
 
 ll ipow(ll base, ll exp, ll mod) {
     ll res = 1;
@@ -59,11 +64,10 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int x;
-    cin >> x;
-
-    bool ans;
-    ans = miller_rabin(x);
-    
+    cin >> Q;    
+    while (Q--) {
+        cin >> N;
+        ans += miller_rabin(2 * N + 1);
+    }
     cout << ans;
 }
