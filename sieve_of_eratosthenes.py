@@ -1,7 +1,3 @@
-"""
-In mathematics, the sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to any given limit.
-"""
-
 # BOJ 1978 소수 찾기
 
 import sys
