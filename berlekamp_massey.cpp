@@ -1,3 +1,5 @@
+// BOJ 10562 나이트
+
 #include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
@@ -9,7 +11,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MOD = 1e9 + 7;
+const int MOD = 1e9 + 9;
 
 ll ipow(ll base, ll exp) {
 	ll res = 1;
@@ -94,104 +96,130 @@ int get_nth(vector<int> rec, vector<int> dp, ll n){
         res = (res + (ll)s[i] * dp[i] % MOD) % MOD;
 	return res;
 }
-int guess_nth_term(vector<int> x, ll n) {
+int guess_nth_term(vector<int> v, vector<int> x, ll n) {
 	if (n < x.sz)
         return x[n];
-	
-	vector<int> v = berlekamp_massey(x);
-	if (v.empty())
-        return 0;
 	return get_nth(v, x, n);
 }
-struct elem {
-    int x, y, v;
-};
-vector<int> get_min_poly(int n, vector<elem> M) {
-	vector<int> rnd1, rnd2;
-	mt19937 rng(0x14004);
-	auto randint = [&rng](int lb, int ub) {
-		return uniform_int_distribution<int>(lb, ub)(rng);
-	};
-	for (int i = 0; i < n; i++) {
-		rnd1.push_back(randint(1, MOD - 1));
-		rnd2.push_back(randint(1, MOD - 1));
-	}
-	vector<int> gobs;
-	for(int i = 0; i < 2 * n + 2; i++) {
-		int tmp = 0;
-		for(int j = 0; j < n; j++) {
-			tmp += (ll)rnd2[j] * rnd1[j] % MOD;
-			if (tmp >= MOD)
-                tmp -= MOD;
-		}
-		gobs.push_back(tmp);
-		vector<int> nxt(n);
-		for (auto &i: M) {
-			nxt[i.x] += (ll)i.v * rnd1[i.y] % MOD;
-			if (nxt[i.x] >= MOD)
-                nxt[i.x] -= MOD;
-		}
-		rnd1 = nxt;
-	}
-	auto sol = berlekamp_massey(gobs);
-	reverse(sol.begin(), sol.end());
-	return sol;
-}
-ll det(int n, vector<elem> M) {
-	vector<int> rnd;
-	mt19937 rng(0x14004);
-	auto randint = [&rng](int lb, int ub) {
-		return uniform_int_distribution<int>(lb, ub)(rng);
-	};
-	for (int i = 0; i < n; i++)
-        rnd.push_back(randint(1, MOD - 1));
-	for (auto &i: M)
-		i.v = (ll)i.v * rnd[i.y] % MOD;
-	
-	auto sol = get_min_poly(n, M)[0];
-	if (n % 2 == 0)
-        sol = MOD - sol;
-	for (auto &i: rnd)
-        sol = (ll)sol * ipow(i, MOD - 2) % MOD;
-	return sol;
-}
-
-int mat[101][101];
+int N, M, dp2[105][16], dp3[105][64], dp4[105][256];
+vector<int> v2, v3, v4, bm2, bm3, bm4;
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    for (int i = 0; i < 101; i++)
-        mat[i][i] = 1;
+    for (int i = 0; i < 16; i++)
+        dp2[2][i] = 1;
     
-    int n, k;
-    cin >> n >> k;
-
-    int tmp = 0, arr[n][n];
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> arr[i][j];
-            tmp += arr[i][j];
-        }
-    }
-    vector<int> res;
-    for (int it = 0; it < 20; it++) {
-        int mat_[n][n];
-        tmp = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                mat_[i][j] = 0;
-                for (int l = 0; l < n; l++) {
-                    mat_[i][j] += mat[i][l] * arr[l][j];
-                }
-                tmp += mat_[i][j];
+    for (int n = 3; n < 100; n++) {
+        for (int i = 0; i < 16; i++) {
+            ll res = 0;
+            for (int j = 0; j < 16; j++) {
+                if ((i & 1) && (j & 8)) continue;
+                if ((i & 2) && (j & 4)) continue;
+                if (!(i & 4) != !(j & 1)) continue;
+                if (!(i & 8) != !(j & 2)) continue;
+                res += dp2[n - 1][j];
             }
+            dp2[n][i] = res % MOD;
         }
-        res.push_back(tmp);
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                mat[i][j] = mat_[i][j];
     }
-    cout << guess_nth_term(res, k - 1);
+    for (int i = 0; i < 64; i++) {
+        if ((i & 1) && (i & 32)) continue;
+        if ((i & 4) && (i & 8)) continue;
+        dp3[2][i] = 1;
+    }
+    for (int n = 3; n < 100; n++) {
+        for (int i = 0; i < 64; i++) {
+            if ((i & 1) && (i & 32)) continue;
+            if ((i & 4) && (i & 8)) continue;
+            
+            ll res = 0;
+            for (int j = 0; j < 64; j++) {
+                if ((i & 1) && (j & 16)) continue;
+                if ((i & 2) && (j & 8)) continue;
+                if ((i & 2) && (j & 32)) continue;
+                if ((i & 4) && (j & 16)) continue;
+                if ((i & 8) && (j & 32)) continue;
+                if ((i & 32) && (j & 8)) continue;
+                if (!(i & 8) != !(j & 1)) continue;
+                if (!(i & 16) != !(j & 2)) continue;
+                if (!(i & 32) != !(j & 4)) continue;
+                res += dp3[n - 1][j];
+            }
+            dp3[n][i] = res % MOD;
+        }
+    }
+    for (int i = 0; i < 256; i++) {
+        if ((i & 1) && (i & 64)) continue;
+        if ((i & 2) && (i & 128)) continue;
+        if ((i & 4) && (i & 16)) continue;
+        if ((i & 8) && (i & 32)) continue;
+        dp4[2][i] = 1;
+    }
+    for (int n = 3; n < 100; n++) {
+        for (int i = 0; i < 256; i++) {
+            if ((i & 1) && (i & 64)) continue;
+            if ((i & 2) && (i & 128)) continue;
+            if ((i & 4) && (i & 16)) continue;
+            if ((i & 8) && (i & 32)) continue;
+            
+            ll res = 0;
+            for (int j = 0; j < 256; j++) {
+                if ((i & 1) && (j & 32)) continue;
+                if ((i & 2) && (j & 16)) continue;
+                if ((i & 2) && (j & 64)) continue;
+                if ((i & 4) && (j & 32)) continue;
+                if ((i & 4) && (j & 128)) continue;
+                if ((i & 8) && (j & 64)) continue;
+                if ((i & 16) && (j & 64)) continue;
+                if ((i & 32) && (j & 128)) continue;
+                if ((i & 64) && (j & 16)) continue;
+                if ((i & 128) && (j & 32)) continue;
+                if (!(i & 16) != !(j & 1)) continue;
+                if (!(i & 32) != !(j & 2)) continue;
+                if (!(i & 64) != !(j & 4)) continue;
+                if (!(i & 128) != !(j & 8)) continue;
+                res += dp4[n - 1][j];
+            }
+            dp4[n][i] = res % MOD;
+        }
+    }
+    v2.push_back(4);
+    v3.push_back(8);
+    v4.push_back(16);
+    for (int n = 2; n < 100; n++) {
+        ll res = 0;
+        for (int i = 0; i < 16; i++)
+            res += dp2[n][i];
+        
+        v2.push_back(res % MOD);
+        res = 0;
+        for (int i = 0; i < 64; i++)
+            res += dp3[n][i];
+        
+        v3.push_back(res % MOD);
+        res = 0;
+        for (int i = 0; i < 256; i++)
+            res += dp4[n][i];
+        
+        v4.push_back(res % MOD);
+    }
+    bm2 = berlekamp_massey(v2);
+    bm3 = berlekamp_massey(v3);
+    bm4 = berlekamp_massey(v4);
+    
+    int T;
+    cin >> T;
+    while (T--) {
+        cin >> M >> N;
+        if (M == 2)
+            cout << get_nth(bm2, v2, N - 1) << '\n';
+        else if (M == 3)
+            cout << get_nth(bm3, v3, N - 1) << '\n';
+        else if (M == 4)
+            cout << get_nth(bm4, v4, N - 1) << '\n';
+        else
+            cout << ipow(2, N) << '\n';
+    }
 }
