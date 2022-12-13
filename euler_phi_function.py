@@ -1,5 +1,3 @@
-# construct table
-
 import sys
 input = sys.stdin.readline
 
@@ -10,8 +8,6 @@ for i in range(2, n + 1):
         for j in range(i, n + 1, i):
             phi[j] = phi[j] * (i - 1) // i
 
-
-# euler phi function
 
 def phi(x):
     res = x
