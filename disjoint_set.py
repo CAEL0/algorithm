@@ -3,19 +3,26 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-parent = [i for i in range(n + 1)]
+N, Q = map(int, input().split())
+P = [i for i in range(N + 1)]
 
 
 def union(x, y):
-    u, v = sorted((find(x), find(y)))
-    parent[u] = v
+    P[find(x)] = find(y)
 
 
-def find(c):
-    u = c
-    v = parent[u]
+def find(z):
+    u = z
+    v = P[u]
     while u != v:
-        u, v = v, parent[v]
-    parent[c] = v
+        u, v = v, P[v]
+    P[z] = v
     return v
+
+
+for _ in range(Q):
+    o, x, y = map(int, input().split())
+    if o:
+        print(['NO', 'YES'][find(x) == find(y)])
+    else:
+        union(x, y)
