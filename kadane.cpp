@@ -11,19 +11,20 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, A[100005];
+const int MAX = 100005;
+int N, A[MAX];
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
     cin >> N;
-    for (int i = 0; i < N; i++)
+    for (int i = 1; i <= N; i++)
         cin >> A[i];
 
-    int mx = A[0];
+    int mx = A[1];
     int ans = mx;
-    for (int i = 1; i < N; i++) {
+    for (int i = 2; i <= N; i++) {
         mx = max(mx + A[i], A[i]);
         ans = max(ans, mx);
     }
