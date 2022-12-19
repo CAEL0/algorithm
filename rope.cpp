@@ -2,17 +2,17 @@
 
 #include <iostream>
 #include <bits/stdc++.h>
+#include <ext/rope>
 #define sz size()
 #define bk back()
 #define fi first
 #define se second
 
 using namespace std;
+using namespace __gnu_cxx;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-#include <ext/rope>
-using namespace __gnu_cxx;
 crope R;
 string S;
 int N, Q;
