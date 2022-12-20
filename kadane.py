@@ -3,10 +3,10 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-arr = [*map(int, input().split())]
-ans = [arr[0]]
-for i in range(1, n):
-    ans.append(max(ans[-1] + arr[i], arr[i]))
+N = int(input())
+A = [*map(int, input().split())]
+res = [A[0]]
+for i in range(1, N):
+    res.append(max(res[-1] + A[i], A[i]))
 
-print(max(ans))
+print(max(res))
