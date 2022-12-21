@@ -4,20 +4,20 @@ import sys
 input = sys.stdin.readline
 
 for _ in range(int(input())):
-    n = int(input())
-    a = [*map(int, input().split())]
-    aa = [0] * (n + 1)
-    for i in range(n):
-        aa[i + 1] = aa[i] + a[i]
+    N = int(input())
+    A = [*map(int, input().split())]
+    pre = [0] * (N + 1)
+    for i in range(N):
+        pre[i + 1] = pre[i] + A[i]
     
-    dp = [[0] * n for _ in range(n)]
-    kk = [[0] * n for _ in range(n)]
-    for i in range(-1, n - 1):
+    dp = [[0] * N for _ in range(N)]
+    kk = [[0] * N for _ in range(N)]
+    for i in range(-1, N - 1):
         j = i + 1
         kk[i][j] = j
     
-    for l in range(2, n + 1):
-        for i in range(-1, n - l):
+    for l in range(2, N + 1):
+        for i in range(-1, N - l):
             j = i + l
             mn = float('inf')
             for k in range(max(i + 1, kk[i][j - 1]), min(j, kk[i + 1][j] + 1)):
@@ -26,7 +26,7 @@ for _ in range(int(input())):
                     mn = res
                     idx = k
 
-            mn += aa[j + 1] - aa[i + 1]
+            mn += pre[j + 1] - pre[i + 1]
             dp[i][j] = mn
             kk[i][j] = idx
     
