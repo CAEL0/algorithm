@@ -9,46 +9,46 @@
 
 using namespace std;
 typedef long long ll;
+typedef long double ld;
 typedef pair<ll, ll> pll;
 
-vector<pll> stk;
+const int MAX = 100005;
+int N, A[MAX], B[MAX];
+vector<pll> S;
 
-double cross(int j, int k) {
-    ll x, y, z, w;
-    tie(x, y) = stk[j];
-    tie(z, w) = stk[k];
-    return (double)(w - y) / (x - z);
+ld cross(int j, int k) {
+    auto [x, y] = S[j];
+    auto [z, w] = S[k];
+    return (ld)(w - y) / (x - z);
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int n;
-    cin >> n;
+    cin >> N;
 
-    int a[n], b[n];
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-    for (int i = 0; i < n; i++)
-        cin >> b[i];
+    for (int i = 0; i < N; i++)
+        cin >> A[i];
     
-    stk.push_back(pll(b[0], 0));
+    for (int i = 0; i < N; i++)
+        cin >> B[i];
     
-    for (int i = 1; i < n; i++) {
+    S.push_back(pll(B[0], 0));
+    
+    for (int i = 1; i < N; i++) {
         int left = 0;
-        int right = stk.sz - 1;
+        int right = S.sz - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
-            if (cross(mid, mid + 1) <= a[i])
+            if (cross(mid, mid + 1) <= A[i])
                 left = mid + 1;
             else
                 right = mid;
         }
-        stk.push_back(pll(b[i], stk[left].fi * a[i] + stk[left].se));
-        while (stk.sz > 2 && cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2)) {
-            stk.erase(stk.end() - 2);
-        }
+        S.push_back(pll(B[i], S[left].fi * A[i] + S[left].se));
+        while (S.sz > 2 && cross(S.sz - 2, S.sz - 1) <= cross(S.sz - 3, S.sz - 2))
+            S.erase(S.end() - 2);
     }
-    cout << stk.bk.se;
+    cout << S.bk.se;
 }
