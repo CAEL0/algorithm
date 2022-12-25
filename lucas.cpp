@@ -11,47 +11,50 @@ using namespace std;
 typedef long long ll;
 typedef pair<ll, ll> pll;
 
-ll N, K, M;
-pll extended_gcd(ll x, ll y) {
-    ll a0 = 1, a1 = 0, b0 = 0, b1 = 1, k;
-    while (y) {
-        k = x / y;
-        swap(x, y);
-        y %= x;
-        swap(a0, a1);
-        a1 -= k * a0;
-        swap(b0, b1);
-        b1 -= k * b0;
+const int MAX = 2005;
+ll N, K, MOD, fac[MAX], inv[MAX];
+
+ll ipow(ll base, ll exp) {
+    ll ret = 1;
+    while (exp) {
+        if (exp & 1)
+            ret = ret * base % MOD;
+        exp >>= 1;
+        base = base * base % MOD;
     }
-    return pll(a0, b0);
+    return ret;
 }
-ll combination(ll x, ll y, ll mod) {
-    if (x < y)
+
+ll combination(ll n, ll k) {
+    if (n < k)
         return 0;
-    
-    y = min(y, x - y);
-    ll num = 1, den = 1;
-    for (int i = 0; i < y; i++) {
-        num = num * (x - i) % mod;
-        den = den * (i + 1) % mod;
-    }
-    return (num * extended_gcd(den, mod).fi % mod + mod) % mod;
+    return fac[n] * inv[k] % MOD * inv[(n - k) % MOD] % MOD;
 }
-ll lucas(ll n, ll k, ll mod) {
+
+ll lucas(ll n, ll k) {
     k = min(k, n - k);
-    ll res = 1;
+    ll ret = 1;
     while (k) {
-        res = res * combination(n % mod, k % mod, mod) % mod;
-        n /= mod;
-        k /= mod;
+        ret = ret * combination(n % MOD, k % MOD) % MOD;
+        n /= MOD;
+        k /= MOD;
     }
-    return res;
+    return ret;
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    cin >> N >> K >> M;
-    cout << lucas(N, K, M);
+    cin >> N >> K >> MOD;
+
+    fac[0] = 1;
+    for (int i = 1; i < MOD; i++)
+        fac[i] = fac[i - 1] * i % MOD;
+    
+    inv[MOD - 1] = ipow(fac[MOD - 1], MOD - 2);
+    for (int i = MOD - 2; i >= 0; i--)
+        inv[i] = inv[i + 1] * (i + 1) % MOD;
+
+    cout << lucas(N, K);
 }
