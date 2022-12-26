@@ -4,18 +4,18 @@ import sys
 input = sys.stdin.readline
 
 for _ in range(int(input())):
-    n = int(input())
-    arr = [*map(lambda x: int(x) - 1, input().split())]
+    N = int(input())
+    A = [*map(lambda x: int(x) - 1, input().split())]
     ans = 0
-    visit = [0] * n
-    for i in range(n):
-        if not visit[i]:
-            visit[i] = 1
+    vst = [0] * N
+    for i in range(N):
+        if not vst[i]:
+            vst[i] = 1
             ans += 1
             while True:
-                i = arr[i]
-                if visit[i]:
+                i = A[i]
+                if vst[i]:
                     break
-                visit[i] = 1
+                vst[i] = 1
     
     print(ans)
