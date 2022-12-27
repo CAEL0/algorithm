@@ -3,25 +3,25 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-a = [*map(int, input().split())]
-b = [*map(int, input().split())]
-stack = [(b[0], 0)]
+N = int(input())
+A = [*map(int, input().split())]
+B = [*map(int, input().split())]
+S = [(B[0], 0)]
 
-for i in range(1, n):
+for i in range(1, N):
     left = 0
-    right = len(stack) - 1
+    right = len(S) - 1
     while left < right:
         mid = (left + right) // 2
-        if stack[mid + 1][1] - stack[mid][1] <= a[i] * (stack[mid][0] - stack[mid + 1][0]):
+        if S[mid + 1][1] - S[mid][1] <= A[i] * (S[mid][0] - S[mid + 1][0]):
             left = mid + 1
         else:
             right = mid
     
-    stack.append((b[i], stack[left][0] * a[i] + stack[left][1]))
-    while len(stack) > 2:
-        if (stack[-1][1] - stack[-2][1]) * (stack[-3][0] - stack[-2][0]) >= (stack[-2][1] - stack[-3][1]) * (stack[-2][0] - stack[-1][0]):
+    S.append((B[i], S[left][0] * a[i] + S[left][1]))
+    while len(S) > 2:
+        if (S[-1][1] - S[-2][1]) * (S[-3][0] - S[-2][0]) >= (S[-2][1] - S[-3][1]) * (S[-2][0] - S[-1][0]):
             break
-        stack.pop(-2)
+        S.pop(-2)
 
-print(stack[-1][1])
+print(S[-1][1])
