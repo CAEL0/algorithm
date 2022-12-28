@@ -8,21 +8,21 @@ def ccw(x1, y1, x2, y2, x3, y3):
     return (x2 - x1) * (y3 - y2) - (x3 - x2) * (y2 - y1)
 
 
-n = int(input())
-coord = sorted([tuple(map(int, input().split())) for _ in range(n)])
-stack = [coord[0], coord[1]]
-for i in range(2, n):
-    while (len(stack) > 1) and (ccw(*stack[-2], *stack[-1], *coord[i]) <= 0):
-        stack.pop()
-    stack.append(coord[i])
+N = int(input())
+A = sorted([tuple(map(int, input().split())) for _ in range(N)])
+S = [A[0], A[1]]
+for i in range(2, N):
+    while (len(S) > 1) and (ccw(*S[-2], *S[-1], *A[i]) <= 0):
+        S.pop()
+    S.append(A[i])
 
-stack_ = [coord[-1], coord[-2]]
-for i in range(n - 3, -1, -1):
-    while (len(stack_) > 1) and (ccw(*stack_[-2], *stack_[-1], *coord[i]) <= 0):
-        stack_.pop()
-    stack_.append(coord[i])
+SS = [A[-1], A[-2]]
+for i in range(N - 3, -1, -1):
+    while (len(SS) > 1) and (ccw(*SS[-2], *SS[-1], *A[i]) <= 0):
+        SS.pop()
+    SS.append(A[i])
 
-for i in range(1, len(stack_) - 1):
-    stack.append(stack_[i])
+for i in range(1, len(SS) - 1):
+    S.append(SS[i])
 
-print(len(stack))
+print(len(S))
