@@ -18,9 +18,8 @@ def manacher(s):
         
         while (i - a[i] > 0) and (i + a[i] < m - 1) and (s[i - a[i] - 1] == s[i + a[i] + 1]):
             a[i] += 1
-    
     return max(a)
 
 
-s = input().rstrip()
-print(manacher('#' + '#'.join(s) + '#'))
+S = input().rstrip()
+print(manacher('#' + '#'.join(S) + '#'))
