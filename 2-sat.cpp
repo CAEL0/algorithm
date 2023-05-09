@@ -10,7 +10,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 1000005;
+const int MAX = 100005;
 int idx, scc_num;
 vector<int> stk, vst(MAX), scc_idx(MAX), finish(MAX);
 vector<vector<int>> grp(MAX);
