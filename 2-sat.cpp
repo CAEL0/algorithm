@@ -1,6 +1,5 @@
 // BOJ 11281 2-SAT - 4
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,15 +10,16 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int idx, scc_num;
-vector<int> stk, vst(1000000), scc_idx(1000000), finish(1000000);
-vector<vector<int>> graph(1000000);
+const int MAX = 1000005;
+int N, M, idx, scc_num;
+vector<int> S, vst(MAX), scc_idx(MAX), finish(MAX);
+vector<vector<int>> G(MAX);
 
 int dfs(int cur) {
-    stk.push_back(cur);
+    S.push_back(cur);
     vst[cur] = idx;
     int low = idx++;
-    for (int nxt : graph[cur]) {
+    for (int nxt : G[cur]) {
         if (not vst[nxt])
             low = min(low, dfs(nxt));
         else if (not finish[nxt])
@@ -27,8 +27,8 @@ int dfs(int cur) {
     }
     if (low == vst[cur]) {
         while (true) {
-            int top = stk.back();
-            stk.pop_back();
+            int top = S.bk;
+            S.pop_back();
             finish[top] = 1;
             scc_idx[top] = scc_num;
             if (cur == top)
@@ -43,46 +43,40 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
 
-    int n, m;
-    cin >> n >> m;
-
-    while (m--) {
+    cin >> N >> M;
+    while (M--) {
         int x, y;
         cin >> x >> y;
         if (x < 0) {
             if (y < 0) {
-                graph[(-2) * x - 1].push_back((-2) * y);
-                graph[(-2) * y - 1].push_back((-2) * x);
+                G[(-2) * x - 1].push_back((-2) * y);
+                G[(-2) * y - 1].push_back((-2) * x);
             } else {
-                graph[(-2) * x - 1].push_back(2 * y - 1);
-                graph[2 * y].push_back((-2) * x);
+                G[(-2) * x - 1].push_back(2 * y - 1);
+                G[2 * y].push_back((-2) * x);
             }
         } else if (y < 0) {
-            graph[2 * x].push_back((-2) * y);
-            graph[(-2) * y - 1].push_back(2 * x - 1);
+            G[2 * x].push_back((-2) * y);
+            G[(-2) * y - 1].push_back(2 * x - 1);
         } else {
-            graph[2 * x].push_back(2 * y - 1);
-            graph[2 * y].push_back(2 * x - 1);
+            G[2 * x].push_back(2 * y - 1);
+            G[2 * y].push_back(2 * x - 1);
         }
     }
     idx = 1;
     scc_num = 1;
     
-    for (int i = 1; i < 2 * n + 1; i++)
+    for (int i = 1; i < 2 * N + 1; i++)
         if (not vst[i])
             dfs(i);
     
-    bool flag = true;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < N; i++) {
         if (scc_idx[2 * i + 1] == scc_idx[2 * i + 2]) {
             cout << 0;
-            flag = false;
-            break;
+            return 0;
         }
     }
-    if (flag) {
-        cout << "1\n";
-        for (int i = 0; i < n; i++)
-            cout << (scc_idx[2 * i + 1] < scc_idx[2 * i + 2]) << ' ';
-    }
+    cout << "1\n";
+    for (int i = 0; i < N; i++)
+        cout << (scc_idx[2 * i + 1] < scc_idx[2 * i + 2]) << ' ';
 }
