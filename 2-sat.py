@@ -2,39 +2,40 @@
 
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(10 ** 4)
 
 n, m = map(int, input().split())
-graph = [[] for _ in range(2 * n + 1)]
+grp = [[] for _ in range(2 * n + 1)]
 
 for _ in range(m):
     a, b = map(int, input().split())
-    graph[-a].append(b)
-    graph[-b].append(a)
+    grp[-a].append(b)
+    grp[-b].append(a)
 
-stack = []
+idx = 1
 scc_num = 1
+stk = []
+vst = [0] * (2 * n + 1)
 scc_idx = [0] * (2 * n + 1)
 finish = [0] * (2 * n + 1)
-visit = [0] * (2 * n + 1)
-idx = 1
 
 
 def dfs(cur):
     global idx, scc_num
-    visit[cur] = idx
+    vst[cur] = idx
     low = idx
     idx += 1
-    stack.append(cur)
+    stk.append(cur)
 
-    for nxt in graph[cur]:
-        if not visit[nxt]:
+    for nxt in grp[cur]:
+        if not vst[nxt]:
             low = min(low, dfs(nxt))
         elif not finish[nxt]:
-            low = min(low, visit[nxt])
+            low = min(low, vst[nxt])
 
-    if low == visit[cur]:
-        while stack:
-            top = stack.pop()
+    if low == vst[cur]:
+        while stk:
+            top = stk.pop()
             finish[top] = 1
             scc_idx[top] = scc_num
             if cur == top:
@@ -44,7 +45,7 @@ def dfs(cur):
 
 
 for i in range(1, 2 * n + 1):
-    if not visit[i]:
+    if not vst[i]:
         dfs(i)
 
 res = [0] * n
@@ -61,51 +62,49 @@ else:
 ----------------------------------------------------------------------------------------------------
 
 n, m = map(int, input().split())
-
-graph = [[] for _ in range(2 * n + 1)]
-reverse = [[] for _ in range(2 * n + 1)]
+grp = [[] for _ in range(2 * n + 1)]
+rvs = [[] for _ in range(2 * n + 1)]
 
 for _ in range(m):
     a, b = map(int, input().split())
-    graph[-a].append(b)
-    graph[-b].append(a)
-    reverse[b].append(-a)
-    reverse[a].append(-b)
+    grp[-a].append(b)
+    grp[-b].append(a)
+    rvs[b].append(-a)
+    rvs[a].append(-b)
 
-stack = []
-visit = [0] * (2 * n + 1)
+stk = []
+vst = [0] * (2 * n + 1)
 for i in range(1, 2 * n + 1):
-    if not visit[i]:
-        visit[i] = 1
-        queue = [i]
-        while queue:
-            cur = queue[-1]
-            for nxt in graph[cur]:
-                if not visit[nxt]:
-                    visit[nxt] = 1
-                    queue.append(nxt)
+    if not vst[i]:
+        vst[i] = 1
+        que = [i]
+        while que:
+            cur = que[-1]
+            for nxt in grp[cur]:
+                if not vst[nxt]:
+                    vst[nxt] = 1
+                    que.append(nxt)
                     break
             else:
-                stack.append(queue.pop())
+                stk.append(que.pop())
 
 scc_num = 0
 scc_idx = [0] * (2 * n + 1)
 finish = [0] * (2 * n + 1)
-while stack:
-    node = stack.pop()
+while stk:
+    node = stk.pop()
     if not finish[node]:
         finish[node] = 1
-        queue = [node]
-        while queue:
-            cur = queue[-1]
-            for nxt in reverse[cur]:
+        que = [node]
+        while que:
+            cur = que[-1]
+            for nxt in rvs[cur]:
                 if not finish[nxt]:
                     finish[nxt] = 1
-                    queue.append(nxt)
+                    que.append(nxt)
                     break
             else:
-                scc_idx[queue.pop()] = scc_num
-
+                scc_idx[que.pop()] = scc_num
         scc_num += 1
 
 res = [0] * n
