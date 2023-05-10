@@ -1,6 +1,5 @@
 // BOJ 9250 문자열 집합 판별
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,13 +10,9 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, Q;
-char P[105];
-string S;
-
 struct Trie {
-    Trie* go[26];
-    Trie* fail;
+    Trie *go[26];
+    Trie *fail;
     bool output;
 
     Trie() {
@@ -29,7 +24,7 @@ struct Trie {
             if (go[i])
                 delete go[i];
     }
-    void insert(const char* s) {
+    void insert(const char *s) {
         if (*s == '\0') {
             output = true;
             return;
@@ -37,82 +32,85 @@ struct Trie {
         int nxt = (*s - 'a');
         if (!go[nxt])
             go[nxt] = new Trie;
-        
+
         go[nxt]->insert(s + 1);
     }
 };
-Trie* root;
+Trie *root;
 
-void init() {
+void init(int n) {
     root = new Trie;
-    for (int i = 0; i < N; i++) {
-        cin >> P;
-        root->insert(P);
+    while (n--) {
+        char s[105];
+        cin >> s;
+        root->insert(s);
     }
-    queue<Trie*> qu;
+    queue<Trie *> que;
     root->fail = root;
-    qu.push(root);
-    while (qu.sz) {
-        Trie* cur = qu.front();
-        qu.pop();
+    que.push(root);
+    while (que.sz) {
+        Trie *cur = que.front();
+        que.pop();
         for (int i = 0; i < 26; i++) {
-            Trie* nxt = cur->go[i];
+            Trie *nxt = cur->go[i];
             if (!nxt)
                 continue;
-            
+
             if (cur == root)
                 nxt->fail = root;
             else {
                 Trie *dst = cur->fail;
                 while (dst != root && !(dst->go[i]))
                     dst = dst->fail;
-                
+
                 if (dst->go[i])
                     dst = dst->go[i];
-                
+
                 nxt->fail = dst;
             }
             if (nxt->fail->output)
                 nxt->output = true;
-            
-            qu.push(nxt);
+
+            que.push(nxt);
         }
     }
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N;
-    init();
-    
-    cin >> Q;
-    while (Q--) {
-        cin >> S;
+    int n, q;
+    cin >> n;
+    init(n);
 
-        Trie* cur = root;
-        bool flag = false;
-        for (int i = 0; i < S.length(); i++) {
-            int nxt = S[i] - 'a';
+    cin >> q;
+    while (q--) {
+        string s;
+        cin >> s;
+
+        Trie *cur = root;
+        bool ans = false;
+        for (char c : s) {
+            int nxt = c - 'a';
             while (cur != root && !cur->go[nxt])
                 cur = cur->fail;
-            
+
             if (cur->go[nxt])
                 cur = cur->go[nxt];
-            
+
             if (cur->output) {
-                flag = true;
+                ans = true;
                 break;
             }
         }
-        cout << (flag ? "YES" : "NO") << '\n';
+        cout << (ans ? "YES" : "NO") << '\n';
     }
 }
 
 //--------------------------------------------------------------------------------
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -123,27 +121,19 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, Q;
-char P[105];
-string S;
-
 struct Trie {
-    vector<pair<char, Trie*>> go;
-    Trie* fail;
+    vector<pair<char, Trie *>> go;
+    Trie *fail;
     bool output;
 
-    Trie() {
-        output = false;
-    }
-    ~Trie() {
-        go.clear();
-    }
-    void insert(const char* s) {
+    Trie() { output = false; }
+    ~Trie() { go.clear(); }
+    void insert(const char *s) {
         if (*s == '\0') {
             output = true;
             return;
         }
-        for (auto node: go) {
+        for (auto node : go) {
             if (node.fi == *s) {
                 node.se->insert(s + 1);
                 return;
@@ -153,28 +143,29 @@ struct Trie {
         go.bk.se->insert(s + 1);
     }
 };
-Trie* root;
+Trie *root;
 
-void init() {
+void init(int n) {
     root = new Trie;
-    for (int i = 0; i < N; i++) {
-        cin >> P;
-        root->insert(P);
+    while (n--) {
+        char s[105];
+        cin >> s;
+        root->insert(s);
     }
-    queue<Trie*> qu;
+    queue<Trie *> que;
     root->fail = root;
-    qu.push(root);
-    while (qu.sz) {
-        Trie* cur = qu.front();
-        qu.pop();
-        for (auto &node: cur->go) {
+    que.push(root);
+    while (que.sz) {
+        Trie *cur = que.front();
+        que.pop();
+        for (auto &node : cur->go) {
             if (cur == root)
                 node.se->fail = root;
             else {
                 Trie *dst = cur->fail;
                 while (dst != root) {
                     bool flag = false;
-                    for (auto z: dst->go) {
+                    for (auto z : dst->go) {
                         if (node.fi == z.fi) {
                             flag = true;
                             break;
@@ -182,10 +173,10 @@ void init() {
                     }
                     if (flag)
                         break;
-                    
+
                     dst = dst->fail;
                 }
-                for (auto z: dst->go) {
+                for (auto z : dst->go) {
                     if (node.fi == z.fi) {
                         dst = z.se;
                         break;
@@ -195,29 +186,32 @@ void init() {
             }
             if (node.se->fail->output)
                 node.se->output = true;
-            
-            qu.push(node.se);
+
+            que.push(node.se);
         }
     }
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N;
-    init();
-    
-    cin >> Q;
-    while (Q--) {
-        cin >> S;
+    int n, q;
+    cin >> n;
+    init(n);
 
-        Trie* cur = root;
+    cin >> q;
+    while (q--) {
+        string s;
+        cin >> s;
+
+        Trie *cur = root;
         bool ans = false;
-        for (char nxt: S) {
+        for (char nxt : s) {
             while (cur != root) {
                 bool flag = false;
-                for (auto z: cur->go) {
+                for (auto z : cur->go) {
                     if (nxt == z.fi) {
                         flag = true;
                         break;
@@ -225,10 +219,10 @@ int main() {
                 }
                 if (flag)
                     break;
-                
+
                 cur = cur->fail;
             }
-            for (auto z: cur->go) {
+            for (auto z : cur->go) {
                 if (nxt == z.fi) {
                     cur = z.se;
                     break;
