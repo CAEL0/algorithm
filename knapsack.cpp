@@ -1,6 +1,5 @@
 # BOJ 12865 평범한 배낭
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,23 +10,29 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N, K, W[105], V[105], dp[105][100005];
-
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N >> K;
-    for (int i = 1; i <= N; i++)
-        cin >> W[i] >> V[i];
+    int n, k;
+    cin >> n >> k;
     
-    for (int i = 1; i <= N; i++) {
-        for (int w = 1; w <= K; w++) {
-            if (W[i] > w)
-                dp[i][w] = dp[i - 1][w];
-            else
-                dp[i][w] = max(dp[i - 1][w], dp[i - 1][w - W[i]] + V[i]);
-        }
+    vector<int> w(n), v(n);
+    for (int i = 0; i < n; i++)
+        cin >> w[i] >> v[i];
+    
+    vector<vector<int>> dp(n, vector<int>(k + 1, 0));
+    for (int j = 0; j <= k; j++)
+        if (j >= w[0])
+            dp[0][j] = v[0];
+    
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < w[i]; j++)
+            dp[i][j] = dp[i - 1][j];
+        
+        for (int j = w[i]; j <= k; j++)
+            dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i]);
     }
-    cout << dp[N][K];
+    cout << dp[n - 1][k];
 }
