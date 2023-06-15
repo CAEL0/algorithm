@@ -87,6 +87,7 @@
 
 - ### Miscellaneous
     - Berlekamp-Massey algorithm
+    - Boyer-Moore majority vote algorithm
     - imos method
     - Kadane's algorithm
     - Mo's algorithm
