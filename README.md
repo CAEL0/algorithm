@@ -27,6 +27,7 @@
     - trie
 
 - ### Dynamic Programming
+  - connection profile dp
   - convex hull trick
   - knapsack problem
   - Knuth's optimization
