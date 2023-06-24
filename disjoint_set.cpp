@@ -22,6 +22,9 @@ int find(int z) {
 void uni(int x, int y) {
     x = find(x);
     y = find(y);
+    if (x == y)
+        return;
+    
     if (rnk[x] < rnk[y])
         swap(x, y);
     
