@@ -1,4 +1,4 @@
-# BOJ 5615 아파트 임대
+// BOJ 5615 아파트 임대
 
 #include <iostream>
 #include <bits/stdc++.h>
