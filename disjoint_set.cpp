@@ -1,6 +1,5 @@
 // BOJ 1717 집합의 표현
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -12,7 +11,14 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 const int MAX = 1000005;
-int N, Q, dsu[MAX], rnk[MAX];
+int n, q, dsu[MAX], rnk[MAX];
+
+void init() {
+    for (int i = 1; i <= n; i++) {
+        dsu[i] = i;
+        rnk[i] = 1;
+    }
+}
 
 int find(int z) {
     if (z != dsu[z])
@@ -24,29 +30,25 @@ void uni(int x, int y) {
     y = find(y);
     if (x == y)
         return;
-    
+
     if (rnk[x] < rnk[y])
         swap(x, y);
-    
+
     rnk[x] += rnk[y];
     dsu[y] = x;
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N >> Q;
-
-    for (int i = 1; i <= N; i++) {
-        dsu[i] = i;
-        rnk[i] = 1;
-    }
-
-    while (Q--) {
-        int q, x, y;
-        cin >> q >> x >> y;
-        if (q == 1)
+    cin >> n >> q;
+    init();
+    while (q--) {
+        int op, x, y;
+        cin >> op >> x >> y;
+        if (op == 1)
             cout << (find(x) == find(y) ? "YES" : "NO") << '\n';
         else
             uni(x, y);
