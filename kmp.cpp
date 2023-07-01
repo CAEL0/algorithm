@@ -1,6 +1,5 @@
 // BOJ 1786 찾기
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -9,28 +8,29 @@
 
 using namespace std;
 typedef long long ll;
-typedef pair<ll, ll> pll;
+typedef pair<int, int> pii;
 
-int lps[1000005];
+const int MAX = 1000005;
+int lps[MAX];
 vector<int> ans;
 
-void kmp(string T, string P) {
+void kmp(string &x, string &y) {
     int j = 0;
-    for (int i = 1; i < P.length(); i++) {
-        while (j > 0 && P[i] != P[j])
+    for (int i = 1; i < y.sz; i++) {
+        while (j > 0 && y[i] != y[j])
             j = lps[j - 1];
-        
-        if (P[i] == P[j])
+
+        if (y[i] == y[j])
             lps[i] = ++j;
     }
     j = 0;
-    for (int i = 0; i < T.length(); i++) {
-        while (j > 0 && T[i] != P[j])
+    for (int i = 0; i < x.sz; i++) {
+        while (j > 0 && x[i] != y[j])
             j = lps[j - 1];
-        
-        if (T[i] == P[j]) {
-            if (j == P.length() - 1) {
-                ans.push_back(i - P.length() + 2);
+
+        if (x[i] == y[j]) {
+            if (j == y.sz - 1) {
+                ans.push_back(i - y.sz + 2);
                 j = lps[j];
             } else
                 j++;
@@ -40,14 +40,15 @@ void kmp(string T, string P) {
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    string X, Y;
-    getline(cin, X);
-    getline(cin, Y);
-    kmp(X, Y);
+    string x, y;
+    getline(cin, x);
+    getline(cin, y);
+    kmp(x, y);
 
     cout << ans.sz << '\n';
-    for (int i: ans)
+    for (int i : ans)
         cout << i << ' ';
 }
