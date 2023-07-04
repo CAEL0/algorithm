@@ -62,8 +62,7 @@ void rollback(int cnt) {
         stk.pop_back();
 
         dsu[p.se] = p.se;
-        if (k)
-            rnk[p.fi]--;
+        rnk[p.fi] -= k;
     }
 }
 
