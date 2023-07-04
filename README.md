@@ -16,6 +16,7 @@
     - doubly linked list
   - #### Segment Tree
     - lazy propagation
+    - Li Chao tree
     - maximum subarray problem
     - merge sort tree
     - persistent segment tree
