@@ -11,7 +11,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 const int MAX = 100005;
-int dsu[MAX], rnk[MAX], ans[MAX], convert[MAX];
+int dsu[MAX], rnk[MAX], convert[MAX], ans[MAX];
 vector<pii> tree[4 * MAX];
 vector<pair<pii, int>> stk;
 
