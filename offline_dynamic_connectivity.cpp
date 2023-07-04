@@ -11,7 +11,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 const int MAX = 100005;
-int n, m, dsu[MAX], rnk[MAX], ans[MAX], convert[MAX];
+int dsu[MAX], rnk[MAX], ans[MAX], convert[MAX];
 vector<pii> tree[4 * MAX];
 vector<pair<pii, int>> stk;
 
@@ -88,14 +88,15 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    cin >> n >> m;
+    int n, q;
+    cin >> n >> q;
 
     for (int i = 1; i <= n; i++) {
         dsu[i] = i;
         rnk[i] = 1;
     }
     int k = 0;
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < q; i++) {
         int op, x, y;
         cin >> op >> x >> y;
         if (x > y)
@@ -107,7 +108,7 @@ int main() {
     }
     int t = 1;
     map<pii, int> mp;
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < q; i++) {
         auto [op, x, y] = query[i];
         if (op == 1)
             mp[{x, y}] = t;
