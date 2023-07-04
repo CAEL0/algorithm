@@ -90,10 +90,6 @@ int main() {
     int n, q;
     cin >> n >> q;
 
-    for (int i = 1; i <= n; i++) {
-        dsu[i] = i;
-        rnk[i] = 1;
-    }
     int k = 0;
     for (int i = 0; i < q; i++) {
         int op, x, y;
@@ -120,6 +116,10 @@ int main() {
     for (auto it = mp.begin(); it != mp.end(); it++)
         update(1, 1, k, it->se, t - 1, it->fi.fi, it->fi.se);
 
+    for (int i = 1; i <= n; i++) {
+        dsu[i] = i;
+        rnk[i] = 1;
+    }
     solve(1, 1, k);
     for (int i = 1; i <= k; i++)
         cout << ans[i] << '\n';
