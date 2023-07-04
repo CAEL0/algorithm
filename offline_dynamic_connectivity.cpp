@@ -119,7 +119,7 @@ int main() {
             t++;
     }
     for (auto it = mp.begin(); it != mp.end(); it++)
-        update(1, 1, k, it->se, t, it->fi.fi, it->fi.se);
+        update(1, 1, k, it->se, t - 1, it->fi.fi, it->fi.se);
 
     solve(1, 1, k);
     for (int i = 1; i <= k; i++)
