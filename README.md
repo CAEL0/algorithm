@@ -26,6 +26,7 @@
   - #### String
     - rope
     - trie
+  - offline dynamic connectivity
 
 - ### Dynamic Programming
   - connection profile dp
