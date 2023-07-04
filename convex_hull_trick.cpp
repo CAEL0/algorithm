@@ -40,7 +40,7 @@ int main() {
         int left = 0;
         int right = stk.sz - 1;
         while (left < right) {
-            int mid = left + (right - left) / 2;
+            int mid = (left + right) >> 1;
             if (cross(mid, mid + 1) <= a[i])
                 left = mid + 1;
             else
