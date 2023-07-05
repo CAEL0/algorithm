@@ -34,7 +34,7 @@ int main() {
     for (int i = 0; i < n; i++)
         cin >> b[i];
 
-    stk.push_back(pll(b[0], 0));
+    stk.push_back({b[0], 0});
 
     for (int i = 1; i < n; i++) {
         while (2 < stk.sz &&
@@ -50,7 +50,7 @@ int main() {
             else
                 right = mid - 1;
         }
-        stk.push_back(pll(b[i], stk[left].fi * a[i] + stk[left].se));
+        stk.push_back({b[i], stk[left].fi * a[i] + stk[left].se});
     }
     cout << stk.bk.se;
 }
@@ -91,7 +91,7 @@ int main() {
     for (int i = 0; i < n; i++)
         cin >> b[i];
 
-    stk.push_back(pll(b[0], 0));
+    stk.push_back({b[0], 0});
 
     int idx = 0;
     for (int i = 1; i < n; i++) {
@@ -102,7 +102,7 @@ int main() {
         while (idx + 1 < stk.sz && cross(idx, idx + 1) <= a[i])
             idx++;
 
-        stk.push_back(pll(b[i], stk[idx].fi * a[i] + stk[idx].se));
+        stk.push_back({b[i], stk[idx].fi * a[i] + stk[idx].se});
     }
     cout << stk.bk.se;
 }
