@@ -30,24 +30,25 @@ int main() {
 
     for (int i = 0; i < n; i++)
         cin >> a[i];
-    
+
     for (int i = 0; i < n; i++)
         cin >> b[i];
-    
+
     stk.push_back(pll(b[0], 0));
-    
+
     for (int i = 1; i < n; i++) {
         int left = 0;
-        int right = stk.sz - 1;
-        while (left < right) {
+        int right = stk.sz - 2;
+        while (left <= right) {
             int mid = (left + right) >> 1;
             if (cross(mid, mid + 1) <= a[i])
                 left = mid + 1;
             else
-                right = mid;
+                right = mid - 1;
         }
         stk.push_back(pll(b[i], stk[left].fi * a[i] + stk[left].se));
-        while (stk.sz > 2 && cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2))
+        while (stk.sz > 2 &&
+               cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2))
             stk.erase(stk.end() - 2);
     }
     cout << stk.bk.se;
