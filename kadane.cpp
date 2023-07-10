@@ -1,6 +1,5 @@
 // BOJ 1912 연속합
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,21 +10,22 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 100005;
-int N, A[MAX];
-
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N;
-    for (int i = 1; i <= N; i++)
-        cin >> A[i];
+    int n;
+    cin >> n;
+    
+    vector<int> v(n);
+    for (int i = 0; i < n; i++)
+        cin >> v[i];
 
-    int mx = A[1];
+    int mx = v[0];
     int ans = mx;
-    for (int i = 2; i <= N; i++) {
-        mx = max(mx + A[i], A[i]);
+    for (int i = 1; i < n; i++) {
+        mx = max(mx + v[i], v[i]);
         ans = max(ans, mx);
     }
     cout << ans;
