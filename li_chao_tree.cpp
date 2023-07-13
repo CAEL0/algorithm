@@ -21,7 +21,7 @@ struct Node {
     Line line;
 };
 
-struct Li_Chao {
+struct LiChao {
     vector<Node> tree;
 
     void init() {
