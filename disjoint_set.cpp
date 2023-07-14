@@ -11,46 +11,56 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 const int MAX = 1000005;
-int n, q, dsu[MAX], rnk[MAX];
 
-void init() {
-    for (int i = 1; i <= n; i++) {
-        dsu[i] = i;
-        rnk[i] = 1;
+struct DisjointSet {
+    int n, dsu[MAX], rnk[MAX];
+
+    DisjointSet(int n) { this->n = n; }
+
+    void init() {
+        for (int i = 1; i <= n; i++) {
+            dsu[i] = i;
+            rnk[i] = 1;
+        }
     }
-}
 
-int find(int z) {
-    if (z != dsu[z])
-        dsu[z] = find(dsu[z]);
-    return dsu[z];
-}
-void uni(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if (x == y)
-        return;
+    int find(int z) {
+        if (z != dsu[z])
+            dsu[z] = find(dsu[z]);
+        return dsu[z];
+    }
 
-    if (rnk[x] < rnk[y])
-        swap(x, y);
+    void uni(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y)
+            return;
 
-    rnk[x] += rnk[y];
-    dsu[y] = x;
-}
+        if (rnk[x] < rnk[y])
+            swap(x, y);
+
+        rnk[x] += rnk[y];
+        dsu[y] = x;
+    }
+};
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
+    int n, q;
     cin >> n >> q;
-    init();
+
+    DisjointSet ds = DisjointSet(n);
+    ds.init();
+
     while (q--) {
         int op, x, y;
         cin >> op >> x >> y;
         if (op == 1)
-            cout << (find(x) == find(y) ? "YES" : "NO") << '\n';
+            cout << (ds.find(x) == ds.find(y) ? "YES" : "NO") << '\n';
         else
-            uni(x, y);
+            ds.uni(x, y);
     }
 }
