@@ -15,13 +15,12 @@ const int MAX = 1000005;
 struct SegmentTree {
     ll tree[4 * MAX];
 
-    ll init(int idx, int s, int e) {
-        if (s == e) {
-            cin >> tree[idx];
-            return tree[idx];
-        }
+    ll init(int idx, int s, int e, vector<ll> &v) {
+        if (s == e)
+            return tree[idx] = v[s - 1];
+        
         int m = (s + e) >> 1;
-        return tree[idx] = init(2 * idx, s, m) + init(2 * idx + 1, m + 1, e);
+        return tree[idx] = init(2 * idx, s, m, v) + init(2 * idx + 1, m + 1, e, v);
     }
 
     ll summation(int idx, int s, int e, int l, int r) {
@@ -60,8 +59,12 @@ int main() {
 
     int n, p, q;
     cin >> n >> p >> q;
+    
+    vector<ll> v(n);
+    for (int i = 0; i < n; i++)
+        cin >> v[i];
 
-    st.init(1, 1, n);
+    st.init(1, 1, n, v);
 
     q += p;
     while (q--) {
