@@ -94,6 +94,7 @@
     - Boyer-Moore majority vote algorithm
     - imos method
     - Kadane's algorithm
+    - Knuth's algorithm X
     - Mo's algorithm
     - parallel binary search
     - permutation cycle decomposition
