@@ -125,7 +125,6 @@ bool search(Node *head, vector<int> &ans) {
     Node *col;
     Node *ptr = head->right;
 
-    int idx = 0;
     while (ptr != head) {
         if (ptr->size == 0)
             return false;
@@ -135,7 +134,6 @@ bool search(Node *head, vector<int> &ans) {
             col = ptr;
         }
 
-        idx++;
         ptr = ptr->right;
     }
 
