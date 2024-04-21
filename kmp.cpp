@@ -10,12 +10,10 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 1000005;
-int lps[MAX];
-vector<int> ans;
-
-void kmp(string &x, string &y) {
+void kmp(string &x, string &y, vector<int> &ans) {
+    vector<int> lps(y.sz);
     int j = 0;
+
     for (int i = 1; i < y.sz; i++) {
         while (j > 0 && y[i] != y[j])
             j = lps[j - 1];
@@ -23,18 +21,20 @@ void kmp(string &x, string &y) {
         if (y[i] == y[j])
             lps[i] = ++j;
     }
+
     j = 0;
     for (int i = 0; i < x.sz; i++) {
         while (j > 0 && x[i] != y[j])
             j = lps[j - 1];
 
-        if (x[i] == y[j]) {
-            if (j == y.sz - 1) {
-                ans.push_back(i - y.sz + 2);
-                j = lps[j];
-            } else
-                j++;
-        }
+        if (x[i] != y[j])
+            continue;
+
+        if (j + 1 == y.sz) {
+            ans.push_back(i - y.sz + 2);
+            j = lps[j];
+        } else
+            j++;
     }
 }
 
@@ -46,7 +46,9 @@ int main() {
     string x, y;
     getline(cin, x);
     getline(cin, y);
-    kmp(x, y);
+
+    vector<int> ans;
+    kmp(x, y, ans);
 
     cout << ans.sz << '\n';
     for (int i : ans)
