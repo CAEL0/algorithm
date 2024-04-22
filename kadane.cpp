@@ -22,11 +22,13 @@ int main() {
     for (int i = 0; i < n; i++)
         cin >> v[i];
 
-    int mx = v[0];
-    int ans = mx;
-    for (int i = 1; i < n; i++) {
+    int mx = 0;
+    int ans = INT_MIN;
+    
+    for (int i = 0; i < n; i++) {
         mx = max(mx + v[i], v[i]);
         ans = max(ans, mx);
     }
+    
     cout << ans;
 }
