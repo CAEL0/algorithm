@@ -27,6 +27,7 @@
     - rope
     - trie
   - offline dynamic connectivity
+  - policy based data structures
 
 - ### Dynamic Programming
   - connection profile dp
