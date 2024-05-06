@@ -1,6 +1,5 @@
 // BOJ 1708 볼록 껍질
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -10,53 +9,50 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
 
-int n, x, y;
-
-int f(pii u) {
-    if (u.fi > x) return 0;
-    if (u.fi < x) return 2;
-    return 1;
-}
-bool cmp1(pii u, pii v) {
-    return u.se == v.se ? u.fi < v.fi: u.se < v.se;
-}
-bool cmp2(pii u, pii v) {
-    if (f(u) != f(v)) return f(u) < f(v);
-    if (f(u) == 1) return u.se < v.se;
-    double tanu = (double)(u.se - y) / (u.fi - x);
-    double tanv = (double)(v.se - y) / (v.fi - x);
-    return tanu == tanv ? u.fi < v.fi: tanu < tanv;
-}
-ll ccw(pii u, pii v, pii w) {
-    return (ll)(v.fi - u.fi) * (w.se - v.se) - (ll)(w.fi - v.fi) * (v.se - u.se);
-}
+ll ccw(pll &u, pll &v, pll &w) { return (v.fi - u.fi) * (w.se - v.se) - (w.fi - v.fi) * (v.se - u.se); }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
+    int n;
     cin >> n;
-    pii arr[n];
-    for (int i = 0; i < n; i++) {
-        cin >> x >> y;
-        arr[i] = pii(x, y);
-    }
-    sort(arr, arr + n, cmp1);
-    x = arr[0].fi;
-    y = arr[0].se;
-    sort(arr + 1, arr + n, cmp2);
-    
-    vector<pii> stk;
-    stk.push_back(arr[0]);
-    stk.push_back(arr[1]);
-    
+
+    vector<pll> points(n);
+    for (int i = 0; i < n; i++)
+        cin >> points[i].fi >> points[i].se;
+
+    sort(points.begin(), points.end(), [](pll &p, pll &q) {
+        if (p.se == q.se)
+            return p.fi > q.fi;
+        return p.se < q.se;
+    });
+
+    sort(points.begin() + 1, points.end(), [&](pll &p, pll &q) {
+        ll k = ccw(points[0], p, q);
+
+        if (k)
+            return k > 0;
+
+        if (p.se == q.se)
+            return p.fi < q.fi;
+        return p.se < q.se;
+    });
+
+    vector<pll> v = {points[0], points[1]};
+
     for (int i = 2; i < n; i++) {
-        while (stk.sz > 1 && ccw(*(stk.end() - 2), *(stk.end() - 1), arr[i]) <= 0)
-            stk.pop_back();
-        stk.push_back(arr[i]);
+        while (v.sz >= 2 && ccw(v[v.sz - 2], v.bk, points[i]) <= 0)
+            v.pop_back();
+
+        v.push_back(points[i]);
     }
-    if (stk.sz > 2 && ccw(*(stk.end() - 2), *(stk.end() - 1), stk[0]) <= 0)
-        stk.pop_back();
-    cout << stk.sz;
+
+    if (v.sz >= 3 && ccw(v[v.sz - 2], v.bk, v[0]) <= 0)
+        v.pop_back();
+
+    cout << v.sz;
 }
