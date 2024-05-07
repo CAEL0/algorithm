@@ -40,6 +40,7 @@
   - #### Convex Hull
     - Graham scan
     - monotone chain
+    - point in convex polygon
   - rotating calipers
 
 - ### Graph Theory
