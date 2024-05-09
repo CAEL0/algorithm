@@ -10,8 +10,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 1000005;
-
 struct SegmentTree {
     vector<ll> tree;
 
