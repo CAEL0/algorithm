@@ -95,6 +95,7 @@
     - Berlekamp-Massey algorithm
     - Boyer-Moore majority vote algorithm
     - imos method
+    - int128
     - Kadane's algorithm
     - Knuth's algorithm X
     - Mo's algorithm
