@@ -10,17 +10,20 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 1000005;
-
 struct DisjointSet {
-    int n, dsu[MAX], rnk[MAX];
+    int n;
+    vector<int> dsu, rank;
 
-    DisjointSet(int n) { this->n = n; }
+    DisjointSet(int _n) {
+        n = _n;
+        dsu.resize(n + 1);
+        rank.resize(n + 1);
+    }
 
     void init() {
         for (int i = 1; i <= n; i++) {
             dsu[i] = i;
-            rnk[i] = 1;
+            rank[i] = 1;
         }
     }
 
@@ -30,18 +33,20 @@ struct DisjointSet {
         return dsu[z];
     }
 
-    void uni(int x, int y) {
+    void merge(int x, int y) {
         x = find(x);
         y = find(y);
         if (x == y)
             return;
 
-        if (rnk[x] < rnk[y])
+        if (rank[x] < rank[y])
             swap(x, y);
 
-        rnk[x] += rnk[y];
+        rank[x] += rank[y];
         dsu[y] = x;
     }
+
+    bool is_same(int x, int y) { return find(x) == find(y); }
 };
 
 int main() {
@@ -58,9 +63,10 @@ int main() {
     while (q--) {
         int op, x, y;
         cin >> op >> x >> y;
+
         if (op == 1)
-            cout << (ds.find(x) == ds.find(y) ? "YES" : "NO") << '\n';
+            cout << (ds.is_same(x, y) ? "YES" : "NO") << '\n';
         else
-            ds.uni(x, y);
+            ds.merge(x, y);
     }
 }
