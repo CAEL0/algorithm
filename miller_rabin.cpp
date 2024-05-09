@@ -30,7 +30,7 @@ bool miller_rabin(ull x) {
     if (x == 1)
         return false;
 
-    ull s = 0;
+    int s = 0;
     ull d = x - 1;
 
     while (!(d & 1)) {
