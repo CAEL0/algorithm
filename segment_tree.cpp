@@ -13,17 +13,19 @@ typedef pair<int, int> pii;
 const int MAX = 1000005;
 
 struct SegmentTree {
-    ll tree[4 * MAX];
+    vector<ll> tree;
+
+    SegmentTree(int n) { tree.resize(4 * n); }
 
     ll init(int idx, int s, int e, vector<ll> &v) {
         if (s == e)
             return tree[idx] = v[s - 1];
-        
+
         int m = (s + e) >> 1;
         return tree[idx] = init(2 * idx, s, m, v) + init(2 * idx + 1, m + 1, e, v);
     }
 
-    ll summation(int idx, int s, int e, int l, int r) {
+    ll sum(int idx, int s, int e, int l, int r) {
         if (r < s || e < l)
             return 0;
 
@@ -31,8 +33,7 @@ struct SegmentTree {
             return tree[idx];
 
         int m = (s + e) >> 1;
-        return summation(2 * idx, s, m, l, r) +
-               summation(2 * idx + 1, m + 1, e, l, r);
+        return sum(2 * idx, s, m, l, r) + sum(2 * idx + 1, m + 1, e, l, r);
     }
 
     void update(int idx, int s, int e, int l, ll v) {
@@ -43,6 +44,7 @@ struct SegmentTree {
             tree[idx] = v;
             return;
         }
+
         int m = (s + e) >> 1;
         update(2 * idx, s, m, l, v);
         update(2 * idx + 1, m + 1, e, l, v);
@@ -55,25 +57,25 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    SegmentTree st = SegmentTree();
-
     int n, p, q;
     cin >> n >> p >> q;
-    
+
     vector<ll> v(n);
     for (int i = 0; i < n; i++)
         cin >> v[i];
 
+    SegmentTree st = SegmentTree(n);
     st.init(1, 1, n, v);
 
     q += p;
     while (q--) {
         ll op, x, y;
         cin >> op >> x >> y;
+
         if (op == 1)
             st.update(1, 1, n, x, y);
         else
-            cout << st.summation(1, 1, n, x, y) << '\n';
+            cout << st.sum(1, 1, n, x, y) << '\n';
     }
 }
 
