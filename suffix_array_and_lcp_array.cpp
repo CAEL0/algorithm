@@ -11,7 +11,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 void suffix_array(string &s, vector<int> &sa, vector<int> &pos) {
-    int n = s.length();
+    int n = s.sz;
     for (int i = 0; i < n; i++) {
         sa[i] = i;
         pos[i] = s[i];
@@ -100,19 +100,8 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    string s;
-    cin >> s;
-
+void suffix_array(string &s, vector<int> &sa, vector<int> &pos) {
     int n = s.sz;
-
-    vector<int> sa(n);
-    vector<int> pos(n + 1, 0);
-
     for (int i = 0; i < n; i++) {
         sa[i] = i;
         pos[i] = s[i];
@@ -121,14 +110,11 @@ int main() {
     int d = 1;
     int k = max(n, 200);
 
-    vector<int> cnt(k);
-    vector<int> idx(n);
-    vector<int> tmp(n);
+    vector<int> cnt(k), idx(n), tmp(n);
 
     while (1) {
         fill(cnt.begin(), cnt.end(), 0);
         fill(idx.begin(), idx.end(), 0);
-        fill(tmp.begin(), tmp.end(), 0);
 
         cnt[0] = d;
         for (int i = d; i < n; i++)
@@ -155,6 +141,8 @@ int main() {
             sa[cnt[pos[idx[i]]]] = idx[i];
         }
 
+        fill(tmp.begin(), tmp.end(), 0);
+
         for (int i = 0; i < n - 1; i++) {
             int x = sa[i];
             int y = sa[i + 1];
@@ -173,15 +161,16 @@ int main() {
 
         d *= 2;
     }
+}
 
+void longest_common_prefix(string &s, vector<int> &sa, vector<int> &pos, vector<int> &lcp) {
+    int n = s.sz;
     int j = 0;
     int z = 0;
-    vector<int> lcp(n, 0);
 
     for (int i = 0; i < n; i++) {
         if (pos[i] == 1) {
-            if (z > 0)
-                z -= 1;
+            z = max(z - 1, 0);
             continue;
         }
 
@@ -190,9 +179,23 @@ int main() {
             z++;
 
         lcp[pos[i] - 1] = z;
-        if (z > 0)
-            z--;
+        z = max(z - 1, 0);
     }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    string s;
+    cin >> s;
+
+    int n = s.sz;
+    vector<int> sa(n), pos(n + 1), lcp(n);
+
+    suffix_array(s, sa, pos);
+    longest_common_prefix(s, sa, pos, lcp);
 
     for (int i = 0; i < n; i++)
         cout << sa[i] + 1 << ' ';
