@@ -121,7 +121,7 @@ int main() {
     vector<vector<pll>> graph(n + 1);
 
     while (m--) {
-        int u, v, w;
+        ll u, v, w;
         cin >> u >> v >> w;
 
         graph[u].push_back(pll(v, w));
