@@ -16,8 +16,8 @@ struct Node {
 };
 
 vector<int> dijkstra(int start, vector<vector<pii>> &graph) {
-    vector<int> ret(graph.sz, INT_MAX);
-    ret[start] = 0;
+    vector<int> dist(graph.sz, INT_MAX);
+    dist[start] = 0;
 
     priority_queue<Node> pq;
     pq.push({start, 0});
@@ -26,18 +26,18 @@ vector<int> dijkstra(int start, vector<vector<pii>> &graph) {
         Node cur = pq.top();
         pq.pop();
 
-        if (ret[cur.x] != cur.d)
+        if (dist[cur.x] != cur.d)
             continue;
 
         for (pii &nxt : graph[cur.x]) {
-            if (cur.d + nxt.se < ret[nxt.fi]) {
-                ret[nxt.fi] = cur.d + nxt.se;
-                pq.push({nxt.fi, ret[nxt.fi]});
+            if (cur.d + nxt.se < dist[nxt.fi]) {
+                dist[nxt.fi] = cur.d + nxt.se;
+                pq.push({nxt.fi, dist[nxt.fi]});
             }
         }
     }
 
-    return ret;
+    return dist;
 }
 
 int main() {
@@ -49,7 +49,7 @@ int main() {
     cin >> n >> m >> start;
 
     vector<vector<pii>> graph(n + 1);
-
+    
     while (m--) {
         int u, v, w;
         cin >> u >> v >> w;
