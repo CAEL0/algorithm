@@ -10,51 +10,56 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 500005;
-int N, d, sa[MAX], pos[MAX], tmp[MAX], lcp[MAX];
-string S;
-
-bool cmp(int i, int j) {
-    if (pos[i] != pos[j])
-        return pos[i] < pos[j];
-    
-    i += d;
-    j += d;
-    return (i < N && j < N) ? (pos[i] < pos[j]) : (i > j);
-}
-void SA() {
-    N = S.length();
-    for (int i = 0; i < N; i++) {
+void suffix_array(string &s, vector<int> &sa, vector<int> &pos) {
+    int n = s.length();
+    for (int i = 0; i < n; i++) {
         sa[i] = i;
-        pos[i] = S[i];
+        pos[i] = s[i];
     }
-    d = 1;
+
+    vector<int> tmp(n);
+    int d = 1;
+
+    auto cmp = [&](int i, int j) {
+        if (pos[i] != pos[j])
+            return pos[i] < pos[j];
+
+        i += d;
+        j += d;
+        return (i < n && j < n) ? (pos[i] < pos[j]) : (i > j);
+    };
+
     while (1) {
-        sort(sa, sa + N, cmp);
-        fill_n(tmp, N, 0);
-        for (int i = 0; i < N - 1; i++)
+        sort(sa.begin(), sa.end(), cmp);
+        fill(tmp.begin(), tmp.end(), 0);
+
+        for (int i = 0; i < n - 1; i++)
             tmp[i + 1] = tmp[i] + cmp(sa[i], sa[i + 1]);
-        
-        for (int i = 0; i < N; i++)
+
+        for (int i = 0; i < n; i++)
             pos[sa[i]] = tmp[i];
-        
-        if (tmp[N - 1] == N - 1)
+
+        if (tmp[n - 1] == n - 1)
             break;
-        
+
         d *= 2;
     }
 }
-void LCP() {
+
+void longest_common_prefix(string &s, vector<int> &sa, vector<int> &pos, vector<int> &lcp) {
+    int n = s.sz;
     int k = 0;
-    for (int i = 0; i < N; i++) {
+
+    for (int i = 0; i < n; i++) {
         if (!pos[i]) {
             k = max(k - 1, 0);
             continue;
         }
+
         int j = sa[pos[i] - 1];
-        while (max(i, j) + k < N && S[i + k] == S[j + k])
+        while (max(i, j) + k < n && s[i + k] == s[j + k])
             k++;
-        
+
         lcp[pos[i]] = k;
         k = max(k - 1, 0);
     }
@@ -62,16 +67,24 @@ void LCP() {
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> S;
-    SA();
-    LCP();
-    for (int i = 0; i < N; i++)
+    string s;
+    cin >> s;
+
+    int n = s.sz;
+    vector<int> sa(n), pos(n), lcp(n);
+
+    suffix_array(s, sa, pos);
+    longest_common_prefix(s, sa, pos, lcp);
+
+    for (int i = 0; i < n; i++)
         cout << sa[i] + 1 << ' ';
     cout << '\n';
+
     cout << "x ";
-    for (int i = 1; i < N; i++)
+    for (int i = 1; i < n; i++)
         cout << lcp[i] << ' ';
 }
 
