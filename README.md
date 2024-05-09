@@ -101,6 +101,7 @@
     - Mo's algorithm
     - parallel binary search
     - permutation cycle decomposition
+    - prefix sum
     - small to large trick
     - square root decomposition
     - Sprague-Grundy theorem
