@@ -19,7 +19,7 @@ struct SegmentTree {
 
     ll init(int idx, int s, int e, vector<ll> &v) {
         if (s == e)
-            return tree[idx] = v[s - 1];
+            return tree[idx] = v[s];
 
         int m = (s + e) >> 1;
         return tree[idx] = init(2 * idx, s, m, v) + init(2 * idx + 1, m + 1, e, v);
@@ -60,8 +60,8 @@ int main() {
     int n, p, q;
     cin >> n >> p >> q;
 
-    vector<ll> v(n);
-    for (int i = 0; i < n; i++)
+    vector<ll> v(n + 1);
+    for (int i = 1; i <= n; i++)
         cin >> v[i];
 
     SegmentTree st = SegmentTree(n);
