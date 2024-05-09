@@ -8,41 +8,40 @@
 
 using namespace std;
 typedef long long ll;
-typedef unsigned long long ull;
 typedef pair<int, int> pii;
 
-ull ipow(ull base, ull exp, ull mod) {
-    ull ret = 1;
+ll ipow(ll base, ll exp, ll mod) {
+    ll ret = 1;
     base %= mod;
 
     while (exp) {
         if (exp & 1)
-            ret = ret * base % mod;
+            ret = (__int128)ret * base % mod;
 
         exp >>= 1;
-        base = base * base % mod;
+        base = (__int128)base * base % mod;
     }
 
     return ret;
 }
 
-bool miller_rabin(ull x) {
+bool miller_rabin(ll x) {
     if (x == 1)
         return false;
 
     int s = 0;
-    ull d = x - 1;
+    ll d = x - 1;
 
     while (!(d & 1)) {
         s++;
         d >>= 1;
     }
 
-    for (ull a : {2, 7, 61}) {
+    for (ll a : {2, 7, 61}) {
         if (a >= x - 1)
             break;
 
-        ull b = ipow(a, d, x);
+        ll b = ipow(a, d, x);
         if (b == 1 || b == x - 1)
             continue;
 
@@ -51,7 +50,7 @@ bool miller_rabin(ull x) {
 
         bool flag = true;
         for (int i = 0; i < s - 1; i++) {
-            b = b * b % x;
+            b = (__int128)b * b % x;
 
             if (b == x - 1) {
                 flag = false;
@@ -76,7 +75,7 @@ int main() {
     int ans = 0;
 
     while (q--) {
-        ull x;
+        ll x;
         cin >> x;
 
         ans += miller_rabin(2 * x + 1);
