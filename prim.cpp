@@ -1,6 +1,5 @@
 // BOJ 1197 최소 스패닝 트리
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -10,43 +9,51 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
-
-const int MAX = 10010;
-int V, E;
-vector<pii> G[MAX];
-bool vst[MAX];
+typedef pair<ll, ll> pll;
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> V >> E;
+    int n, m;
+    cin >> n >> m;
 
-    while (E--) {
-        int u, v, w;
+    vector<vector<pll>> graph(n + 1);
+    for (int i = 0; i < m; i++) {
+        ll u, v, w;
         cin >> u >> v >> w;
-        G[u].push_back(pii(-w, v));
-        G[v].push_back(pii(-w, u));
+
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
     }
-    int ans = 0;
+
+    auto cmp = [](pll &p, pll &q) { return p.se > q.se; };
+    priority_queue<pll, vector<pll>, decltype(cmp)> pq(cmp);
+
+    vector<bool> vst(n + 1);
+    vst[1] = true;
+
+    ll ans = 0;
     int cur = 1;
-    priority_queue<pii> pq;
-    vst[1] = 1;
-    for (int i = 0; i < V - 1; i++) {
-        for (int j = 0; j < G[cur].sz; j++)
-            if (!vst[G[cur][j].se])
-                pq.push(G[cur][j]);
-        
+
+    for (int i = 1; i < n; i++) {
+        for (pll &edge : graph[cur])
+            if (!vst[edge.fi])
+                pq.push(edge);
+
         while (1) {
-            int w;
-            tie(w, cur) = pq.top();
+            pll edge = pq.top();
             pq.pop();
-            if (!vst[cur]) {
-                vst[cur] = 1;
-                ans -= w;
+
+            if (!vst[edge.fi]) {
+                cur = edge.fi;
+                vst[cur] = true;
+                ans += edge.se;
                 break;
             }
         }
     }
+
     cout << ans;
 }
