@@ -1,10 +1,10 @@
 // BOJ 12795 반평면 땅따먹기
 
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define sz size()
 #define bk back()
+#define fi first
+#define se second
 
 using namespace std;
 typedef long long ll;
@@ -24,9 +24,8 @@ struct Node {
 struct LiChao {
     vector<Node> tree;
 
-    void init() {
-        tree.push_back({-1, -1, (ll)-2e12, (ll)2e12, {0, (ll)-2e18}});
-    }
+    void init() { tree.push_back({-1, -1, (ll)-2e12, (ll)2e12, {0, (ll)-2e18}}); }
+
     ll maximum(int idx, ll x) {
         if (idx == -1)
             return LLONG_MIN;
@@ -38,6 +37,7 @@ struct LiChao {
             ret = max(ret, maximum(tree[idx].r, x));
         return ret;
     }
+
     void update(int idx, Line line) {
         ll s = tree[idx].s;
         ll e = tree[idx].e;
@@ -51,9 +51,12 @@ struct LiChao {
             tree[idx].line = hi;
             return;
         }
+
         ll m = (s + e) >> 1;
+
         if (lo.val(m) < hi.val(m)) {
             tree[idx].line = hi;
+
             if (tree[idx].r == -1) {
                 tree[idx].r = tree.sz;
                 tree.push_back({-1, -1, m + 1, e, lo});
@@ -61,6 +64,7 @@ struct LiChao {
                 update(tree[idx].r, lo);
         } else {
             tree[idx].line = lo;
+            
             if (tree[idx].l == -1) {
                 tree[idx].l = tree.sz;
                 tree.push_back({-1, -1, s, m, hi});
