@@ -1,79 +1,91 @@
 // BOJ 2150 Strongly Connected Component
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
 #define fi first
 #define se second
- 
+
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 200005;
-int N, M, T;
-bool vst[MAX];
-vector<int> stk, res;
-vector<vector<int>> scc;
-vector<int> graph[MAX], rev[MAX];
+void dfs1(int cur, vector<int> &v, vector<bool> &vst, vector<vector<int>> &graph) {
+    for (int nxt : graph[cur]) {
+        if (!vst[nxt]) {
+            vst[nxt] = true;
+            dfs1(nxt, v, vst, graph);
+        }
+    }
 
-void dfs1(int cur) {
-    for (int nxt: graph[cur]) {
-        if (!vst[nxt]) {
-            vst[nxt] = true;
-            dfs1(nxt);
-        }
-    }
-    stk.push_back(cur);
+    v.push_back(cur);
 }
-void dfs2(int cur) {
-    for (int nxt: rev[cur]) {
+
+void dfs2(int cur, vector<int> &w, vector<bool> &vst, vector<vector<int>> &reversed) {
+    for (int nxt : reversed[cur]) {
         if (!vst[nxt]) {
             vst[nxt] = true;
-            dfs2(nxt);
+            dfs2(nxt, w, vst, reversed);
         }
     }
-    res.push_back(cur);
+
+    w.push_back(cur);
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
- 
-    cin >> N >> M;
-    while (M--) {
-        int u, v;
-        cin >> u >> v;
-        graph[u].push_back(v);
-        rev[v].push_back(u);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> graph(n + 1), reversed(n + 1);
+
+    while (m--) {
+        int x, y;
+        cin >> x >> y;
+
+        graph[x].push_back(y);
+        reversed[y].push_back(x);
     }
-    for (int i = 1; i <= N; i++) {
+
+    vector<int> v;
+    vector<bool> vst(n + 1);
+
+    for (int i = 1; i <= n; i++) {
         if (!vst[i]) {
             vst[i] = true;
-            dfs1(i);
+            dfs1(i, v, vst, graph);
         }
     }
-    memset(vst, false, sizeof(vst));
-    while (stk.sz) {
-        int i = stk.bk;
-        stk.pop_back();
+
+    vector<int> w;
+    vector<vector<int>> scc;
+    fill(vst.begin(), vst.end(), false);
+
+    while (v.sz) {
+        int i = v.bk;
+        v.pop_back();
+
         if (!vst[i]) {
             vst[i] = true;
-            res.clear();
-            dfs2(i);
-            scc.push_back(res);
+
+            w.clear();
+            dfs2(i, w, vst, reversed);
+            scc.push_back(w);
         }
     }
-    cout << scc.sz << '\n';
-    for (auto &res: scc) {
-        sort(res.begin(), res.end());
-        res.push_back(-1);
-    }
+
+    for (auto &w : scc)
+        sort(w.begin(), w.end());
+
     sort(scc.begin(), scc.end());
-    for (auto &res: scc) {
-        for (int i: res)
-            cout << i << ' ';
-        cout << '\n';
+
+    cout << scc.sz << '\n';
+    for (auto &w : scc) {
+        for (int x : w)
+            cout << x << ' ';
+        cout << -1 << '\n';
     }
 }
