@@ -1,6 +1,5 @@
 // BOJ 2150 Strongly Connected Component
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,60 +10,72 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 10005;
-int V, E, idx = 1, vst[MAX];
-bool fin[MAX];
-vector<int> graph[MAX], stk;
-vector<vector<int>> scc;
-
-int dfs(int cur) {
+int dfs(int cur, int &idx, vector<int> &v, vector<int> &vst, vector<bool> &finish, vector<vector<int>> &graph, vector<vector<int>> &scc) {
+    v.push_back(cur);
     vst[cur] = idx;
     int low = idx++;
-    stk.push_back(cur);
 
-    for (int nxt: graph[cur]) {
+    for (int nxt : graph[cur]) {
         if (!vst[nxt])
-            low = min(low, dfs(nxt));
-        else if (!fin[nxt])
+            low = min(low, dfs(nxt, idx, v, vst, finish, graph, scc));
+        else if (!finish[nxt])
             low = min(low, vst[nxt]);
     }
-    if (low == vst[cur]) {
-        vector<int> res;
-        while (stk.sz) {
-            int top = stk.bk;
-            stk.pop_back();
-            fin[top] = true;
-            res.push_back(top);
-            if (cur == top)
-                break;
-        }
-        scc.push_back(res);
+
+    if (low != vst[cur])
+        return low;
+
+    vector<int> w;
+    while (1) {
+        int top = v.bk;
+        v.pop_back();
+
+        finish[top] = true;
+        w.push_back(top);
+
+        if (cur == top)
+            break;
     }
+
+    scc.push_back(w);
     return low;
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> V >> E;
-    while (E--) {
-        int a, b;
-        cin >> a >> b;
-        graph[a].push_back(b);
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> graph(n + 1);
+
+    while (m--) {
+        int x, y;
+        cin >> x >> y;
+
+        graph[x].push_back(y);
     }
-    for (int i = 1; i <= V; i++)
-        if (!vst[i])
-            dfs(i);
 
-    for (auto &res: scc)
-        sort(res.begin(), res.end());
+    int idx = 1;
+    vector<int> v, vst(n + 1);
+    vector<bool> finish(n + 1);
+    vector<vector<int>> scc;
+
+    for (int i = 1; i <= n; i++)
+        if (!vst[i])
+            dfs(i, idx, v, vst, finish, graph, scc);
+
+    for (auto &w : scc)
+        sort(w.begin(), w.end());
+
     sort(scc.begin(), scc.end());
 
     cout << scc.sz << '\n';
-    for (vector<int> res: scc) {
-        for (int i: res)
-            cout << i << ' ';
+    for (auto &w : scc) {
+        for (int x : w)
+            cout << x << ' ';
         cout << -1 << '\n';
     }
 }
