@@ -10,7 +10,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int dfs(int cur, int &idx, int &scc_num, vector<int> &v, vector<int> &vst, vector<int> &scc_idx, vector<int> &finish, vector<vector<int>> &graph) {
+int dfs(int cur, int &idx, int &scc_num, vector<int> &v, vector<int> &vst, vector<int> &scc_idx, vector<bool> &finish, vector<vector<int>> &graph) {
     v.push_back(cur);
     vst[cur] = idx;
     int low = idx++;
@@ -29,7 +29,7 @@ int dfs(int cur, int &idx, int &scc_num, vector<int> &v, vector<int> &vst, vecto
         int top = v.bk;
         v.pop_back();
 
-        finish[top] = 1;
+        finish[top] = true;
         scc_idx[top] = scc_num;
 
         if (cur == top)
@@ -71,7 +71,8 @@ int main() {
 
     int idx = 1;
     int scc_num = 1;
-    vector<int> v, vst(2 * n + 1), scc_idx(2 * n + 1), finish(2 * n + 1);
+    vector<int> v, vst(2 * n + 1), scc_idx(2 * n + 1);
+    vector<bool> finish(2 * n + 1);
 
     for (int i = 1; i <= 2 * n; i++)
         if (!vst[i])
