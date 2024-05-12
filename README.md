@@ -35,6 +35,7 @@
   - divide and conquer optimization
   - knapsack problem
   - Knuth's optimization
+  - travelling salesman problem
 
 - ### Geometry
   - #### Convex Hull
