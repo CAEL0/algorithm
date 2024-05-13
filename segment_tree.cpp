@@ -62,7 +62,7 @@ int main() {
     for (int i = 1; i <= n; i++)
         cin >> v[i];
 
-    SegmentTree st = SegmentTree(n);
+    SegmentTree st(n);
     st.init(1, 1, n, v);
 
     q += p;
