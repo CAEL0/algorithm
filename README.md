@@ -84,6 +84,7 @@
     - combination
     - Euler's phi (totient) function
     - extended Euclidean algorithm
+    - floor sum
     - Lucas' theorem
     - power tower
   - #### Primality Test
