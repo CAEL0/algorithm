@@ -34,18 +34,18 @@ struct SegmentTree {
         return sum(2 * idx, s, m, l, r) + sum(2 * idx + 1, m + 1, e, l, r);
     }
 
-    void update(int idx, int s, int e, int l, ll v) {
+    void update(int idx, int s, int e, int l, ll k) {
         if (l < s || e < l)
             return;
 
         if (s == e) {
-            tree[idx] = v;
+            tree[idx] = k;
             return;
         }
 
         int m = (s + e) >> 1;
-        update(2 * idx, s, m, l, v);
-        update(2 * idx + 1, m + 1, e, l, v);
+        update(2 * idx, s, m, l, k);
+        update(2 * idx + 1, m + 1, e, l, k);
         tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
     }
 };
