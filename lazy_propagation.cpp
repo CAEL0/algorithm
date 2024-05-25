@@ -1,6 +1,5 @@
 // BOJ 10999 구간 합 구하기 2
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,75 +10,96 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 3000005;
-int N, M, K;
-ll tree[MAX], lazy[MAX];
+struct LazySegmentTree {
+    vector<ll> tree, lazy;
 
-ll init(int idx, int s, int e) {
-    if (s == e) {
-        cin >> tree[idx];
-        return tree[idx];
+    LazySegmentTree(int n) {
+        tree.resize(4 * n);
+        lazy.resize(4 * n);
     }
-    int m = (s + e) >> 1;
-    return tree[idx] = init(2 * idx, s, m) + init(2 * idx + 1, m + 1, e);
-}
-void propagate(int idx, int s, int e) {
-    if (lazy[idx]) {
-        if (s != e) {
-            lazy[2 * idx] += lazy[idx];
-            lazy[2 * idx + 1] += lazy[idx];
+
+    ll init(int idx, int s, int e, vector<ll> &v) {
+        if (s == e)
+            return tree[idx] = v[s];
+
+        int m = (s + e) >> 1;
+        return tree[idx] = init(2 * idx, s, m, v) + init(2 * idx + 1, m + 1, e, v);
+    }
+
+    void propagate(int idx, int s, int e) {
+        if (lazy[idx]) {
+            if (s != e) {
+                lazy[2 * idx] += lazy[idx];
+                lazy[2 * idx + 1] += lazy[idx];
+            }
+
+            tree[idx] += (e - s + 1) * lazy[idx];
+            lazy[idx] = 0;
         }
-        tree[idx] += (e - s + 1) * lazy[idx];
-        lazy[idx] = 0;
     }
-}
-ll summation(int idx, int s, int e, int l, int r) {
-    propagate(idx, s, e);
-    if (r < s || e < l)
-        return 0;
-    
-    if (l <= s && e <= r)
-        return tree[idx];
-    
-    int m = (s + e) >> 1;
-    return summation(2 * idx, s, m, l, r) + summation(2 * idx + 1, m + 1, e, l, r);
-}
-void update(int idx, int s, int e, int l, int r, ll v) {
-    propagate(idx, s, e);
-    if (r < s || e < l)
-        return;
-    
-    if (l <= s && e <= r) {
-        lazy[idx] = v;
+
+    ll sum(int idx, int s, int e, int l, int r) {
         propagate(idx, s, e);
-        return;
+
+        if (r < s || e < l)
+            return 0;
+
+        if (l <= s && e <= r)
+            return tree[idx];
+
+        int m = (s + e) >> 1;
+        return sum(2 * idx, s, m, l, r) + sum(2 * idx + 1, m + 1, e, l, r);
     }
-    int m = (s + e) >> 1;
-    update(2 * idx, s, m, l, r, v);
-    update(2 * idx + 1, m + 1, e, l, r, v);
-    tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
-}
+
+    void update(int idx, int s, int e, int l, int r, ll k) {
+        propagate(idx, s, e);
+
+        if (r < s || e < l)
+            return;
+
+        if (l <= s && e <= r) {
+            lazy[idx] = k;
+            propagate(idx, s, e);
+            return;
+        }
+
+        int m = (s + e) >> 1;
+        update(2 * idx, s, m, l, r, k);
+        update(2 * idx + 1, m + 1, e, l, r, k);
+        tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
+    }
+};
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N >> M >> K;
+    int n, p, q;
+    cin >> n >> p >> q;
 
-    init(1, 1, N);
-    
-    for (int i = 0; i < M + K; i++) {
-        int a;
-        cin >> a;
-        if (a == 1) {
-            int b, c;
-            ll d;
-            cin >> b >> c >> d;
-            update(1, 1, N, b, c, d);
+    vector<ll> v(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> v[i];
+
+    LazySegmentTree lst(n);
+    lst.init(1, 1, n, v);
+
+    q += p;
+    while (q--) {
+        int op;
+        cin >> op;
+
+        if (op == 1) {
+            ll x, y, k;
+            cin >> x >> y >> k;
+
+            lst.update(1, 1, n, x, y, k);
         } else {
-            int b, c;
-            cin >> b >> c;
-            cout << summation(1, 1, N, b, c) << '\n';
+            int x, y;
+            cin >> x >> y;
+
+            cout << lst.sum(1, 1, n, x, y) << '\n';
         }
     }
 }
