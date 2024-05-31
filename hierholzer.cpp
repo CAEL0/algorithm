@@ -1,6 +1,5 @@
 // BOJ 1199 오일러 회로
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,46 +10,56 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int N;
-int graph[1005][1005];
+void dfs(int cur, vector<vector<int>> &graph) {
+    for (int nxt = 1; nxt < graph.sz; nxt++) {
+        int k = 0;
 
-void dfs(int i) {
-    for (int j = 1; j <= N; j++) {
-        int tmp = 0;
-        while (graph[i][j] > 2) {
-            graph[i][j] -= 2;
-            graph[j][i] -= 2;
-            tmp++;
+        while (graph[cur][nxt] > 2) {
+            graph[cur][nxt] -= 2;
+            graph[nxt][cur] -= 2;
+            k++;
         }
-        if (graph[i][j]) {
-            graph[i][j]--;
-            graph[j][i]--;
-            dfs(j);
-            cout << j << ' ';
-            while (tmp--) {
-                cout << i << ' ' << j << ' ';
-            }
+
+        if (graph[cur][nxt]) {
+            graph[cur][nxt]--;
+            graph[nxt][cur]--;
+
+            dfs(nxt, graph);
+
+            cout << nxt << ' ';
+
+            while (k--)
+                cout << cur << ' ' << nxt << ' ';
         }
     }
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N;
+    int n;
+    cin >> n;
 
-    for (int i = 1; i <= N; i++) {
-        int deg = 0;
-        for (int j = 1; j <= N; j++) {
+    vector<vector<int>> graph(n + 1, vector<int>(n + 1));
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
             cin >> graph[i][j];
-            deg += graph[i][j];
-        }
-        if (deg & 1) {
+
+    for (int i = 1; i <= n; i++) {
+        int degree = 0;
+
+        for (int j = 1; j <= n; j++)
+            degree += graph[i][j];
+
+        if (degree & 1) {
             cout << -1;
             return 0;
         }
     }
-    dfs(1);
+
+    dfs(1, graph);
+
     cout << 1;
 }
