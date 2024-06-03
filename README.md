@@ -26,6 +26,7 @@
   - #### String
     - rope
     - trie
+  - binary trie
   - offline dynamic connectivity
   - policy based data structures
 
