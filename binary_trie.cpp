@@ -41,6 +41,23 @@ struct Trie {
         }
     }
 
+    int minimum(int cur, int x, int bit) {
+        if (bit == 0)
+            return 0;
+
+        if (x & bit) {
+            if (nodes[cur].one == -1)
+                return bit + minimum(nodes[cur].zero, x, bit >> 1);
+
+            return minimum(nodes[cur].one, x, bit >> 1);
+        }
+
+        if (nodes[cur].zero == -1)
+            return bit + minimum(nodes[cur].one, x, bit >> 1);
+
+        return minimum(nodes[cur].zero, x, bit >> 1);
+    }
+
     int maximum(int cur, int x, int bit) {
         if (bit == 0)
             return 0;
