@@ -1,6 +1,5 @@
 // BOJ 2188 축사 배정
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,40 +10,49 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 205;
-int N, M, B[MAX];
-vector<int> G[MAX];
-bool vst[MAX];
-
-bool dfs(int cur) {
+bool dfs(int cur, vector<int> &b, vector<bool> &vst, vector<vector<int>> &graph) {
     vst[cur] = true;
-    for (int nxt: G[cur]) {
-        if (!B[nxt] || (!vst[B[nxt]] && dfs(B[nxt]))) {
-            B[nxt] = cur;
+
+    for (int nxt : graph[cur]) {
+        if (b[nxt] == 0 || (!vst[b[nxt]] && dfs(b[nxt], b, vst, graph))) {
+            b[nxt] = cur;
             return true;
         }
     }
+
     return false;
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N >> M;
-    for (int i = 1; i <= N; i++) {
-        int s;
-        cin >> s;
-        while (s--) {
-            int tmp;
-            cin >> tmp;
-            G[i].push_back(tmp);
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> graph(n + 1);
+
+    for (int i = 1; i <= n; i++) {
+        int k;
+        cin >> k;
+
+        while (k--) {
+            int x;
+            cin >> x;
+
+            graph[i].push_back(x);
         }
     }
+
+    vector<int> b(m + 1);
+    vector<bool> vst(n + 1);
     int ans = 0;
-    for (int i = 1; i <= N; i++) {
-        fill_n(vst, N + 1, false);
-        ans += dfs(i);
+
+    for (int i = 1; i <= n; i++) {
+        fill(vst.begin(), vst.end(), false);
+        ans += dfs(i, b, vst, graph);
     }
+
     cout << ans;
 }
