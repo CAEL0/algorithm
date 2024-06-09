@@ -86,6 +86,7 @@
     - Euler's phi (totient) function
     - extended Euclidean algorithm
     - floor sum
+    - integer partition
     - Lucas' theorem
     - power tower
   - #### Primality Test
