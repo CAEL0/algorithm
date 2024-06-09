@@ -27,6 +27,7 @@
     - rope
     - trie
   - binary trie
+  - bitset
   - offline dynamic connectivity
   - policy based data structures
 
