@@ -87,6 +87,7 @@
     - Euler's phi (totient) function
     - extended Euclidean algorithm
     - floor sum
+    - harmonic lemma
     - integer partition
     - Lucas' theorem
     - power tower
