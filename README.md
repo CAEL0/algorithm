@@ -90,6 +90,7 @@
     - harmonic lemma
     - integer partition
     - Lucas' theorem
+    - multiplicative functions
     - power tower
   - #### Primality Test
     - Miller-Rabin primality test
