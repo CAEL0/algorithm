@@ -57,7 +57,7 @@ int main() {
     int n, q;
     cin >> n >> q;
 
-    DisjointSet ds = DisjointSet(n);
+    DisjointSet ds(n);
     ds.init();
 
     while (q--) {
