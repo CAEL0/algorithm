@@ -11,87 +11,74 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 struct Trie {
-    Trie *go[26];
+    vector<Trie *> go;
     Trie *fail;
     bool output;
 
     Trie() {
-        fill_n(go, 26, nullptr);
+        go.resize(26);
         output = false;
     }
-    ~Trie() {
-        for (int i = 0; i < 26; i++)
-            if (go[i])
-                delete go[i];
-    }
-    void insert(const char *s) {
-        if (*s == '\0') {
+
+    void insert(string &s, int idx) {
+        if (idx == s.sz) {
             output = true;
             return;
         }
-        int nxt = (*s - 'a');
+
+        int nxt = (s[idx] - 'a');
         if (!go[nxt])
             go[nxt] = new Trie;
 
-        go[nxt]->insert(s + 1);
+        go[nxt]->insert(s, idx + 1);
     }
 };
-Trie *root;
 
-void init(int n) {
-    root = new Trie;
-    while (n--) {
-        char s[105];
-        cin >> s;
-        root->insert(s);
-    }
-    queue<Trie *> que;
-    root->fail = root;
-    que.push(root);
-    while (que.sz) {
-        Trie *cur = que.front();
-        que.pop();
-        for (int i = 0; i < 26; i++) {
-            Trie *nxt = cur->go[i];
-            if (!nxt)
-                continue;
+struct AhoCorasick {
+    Trie *root;
 
-            if (cur == root)
-                nxt->fail = root;
-            else {
-                Trie *dst = cur->fail;
-                while (dst != root && !(dst->go[i]))
-                    dst = dst->fail;
+    AhoCorasick(vector<string> &v) {
+        root = new Trie;
+        root->fail = root;
 
-                if (dst->go[i])
-                    dst = dst->go[i];
+        for (string &s : v)
+            root->insert(s, 0);
 
-                nxt->fail = dst;
+        deque<Trie *> dq = {root};
+
+        while (dq.sz) {
+            Trie *cur = dq.front();
+            dq.pop_front();
+
+            for (int i = 0; i < 26; i++) {
+                Trie *nxt = cur->go[i];
+                if (nxt == nullptr)
+                    continue;
+
+                if (cur == root)
+                    nxt->fail = root;
+                else {
+                    Trie *dst = cur->fail;
+                    while (dst != root && !(dst->go[i]))
+                        dst = dst->fail;
+
+                    if (dst->go[i])
+                        dst = dst->go[i];
+
+                    nxt->fail = dst;
+                }
+
+                if (nxt->fail->output)
+                    nxt->output = true;
+
+                dq.push_back(nxt);
             }
-            if (nxt->fail->output)
-                nxt->output = true;
-
-            que.push(nxt);
         }
     }
-}
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    int n, q;
-    cin >> n;
-    init(n);
-
-    cin >> q;
-    while (q--) {
-        string s;
-        cin >> s;
-
+    bool find(string &s) {
         Trie *cur = root;
-        bool ans = false;
+
         for (char c : s) {
             int nxt = c - 'a';
             while (cur != root && !cur->go[nxt])
@@ -100,12 +87,36 @@ int main() {
             if (cur->go[nxt])
                 cur = cur->go[nxt];
 
-            if (cur->output) {
-                ans = true;
-                break;
-            }
+            if (cur->output)
+                return true;
         }
-        cout << (ans ? "YES" : "NO") << '\n';
+
+        return false;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n;
+    cin >> n;
+
+    vector<string> v(n);
+    for (int i = 0; i < n; i++)
+        cin >> v[i];
+
+    AhoCorasick ac(v);
+
+    int q;
+    cin >> q;
+
+    while (q--) {
+        string s;
+        cin >> s;
+
+        cout << (ac.find(s) ? "YES" : "NO") << '\n';
     }
 }
 
