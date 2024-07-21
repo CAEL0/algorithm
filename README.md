@@ -72,6 +72,7 @@
     - Kosaraju's algorithm
     - Tarjan's algorithm
   - #### Tree
+    - centroid
     - Euler tour technique
     - lowest common ancestor
   - Hierholzer's algorithm
