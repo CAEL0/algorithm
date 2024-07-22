@@ -73,6 +73,7 @@
     - Tarjan's algorithm
   - #### Tree
     - centroid
+    - centroid decomposition
     - Euler tour technique
     - lowest common ancestor
   - Hierholzer's algorithm
