@@ -13,42 +13,33 @@ typedef pair<int, int> pii;
 struct LongestCommonAncestor {
     int n, k;
     vector<int> depth;
-    vector<vector<int>> graph, sparse;
+    vector<vector<int>> sparse;
 
     LongestCommonAncestor(int _n) {
         n = _n;
         k = ceil(log2(n)) + 1;
 
         depth.resize(n + 1);
-        graph.resize(n + 1);
         sparse.resize(k);
         for (int i = 0; i < k; i++)
             sparse[i].resize(n + 1);
     }
 
-    void init() {
-        for (int i = 1; i < n; i++) {
-            int a, b;
-            cin >> a >> b;
-
-            graph[a].push_back(b);
-            graph[b].push_back(a);
-        }
-
-        dfs(1, 1);
+    void init(vector<vector<int>> &graph) {
+        dfs(1, 1, graph);
 
         for (int i = 0; i < k - 1; i++)
             for (int j = 1; j <= n; j++)
                 sparse[i + 1][j] = sparse[i][sparse[i][j]];
     }
 
-    void dfs(int cur, int d) {
+    void dfs(int cur, int d, vector<vector<int>> &graph) {
         depth[cur] = d;
 
         for (int nxt : graph[cur]) {
             if (!depth[nxt]) {
                 sparse[0][nxt] = cur;
-                dfs(nxt, d + 1);
+                dfs(nxt, d + 1, graph);
             }
         }
     }
@@ -87,16 +78,25 @@ int main() {
     int n;
     cin >> n;
 
-    LongestCommonAncestor lca = LongestCommonAncestor(n);
-    lca.init();
+    vector<vector<int>> graph(n + 1);
+    for (int i = 1; i < n; i++) {
+        int x, y;
+        cin >> x >> y;
+
+        graph[x].push_back(y);
+        graph[y].push_back(x);
+    }
+
+    LongestCommonAncestor lca(n);
+    lca.init(graph);
 
     int q;
     cin >> q;
 
     while (q--) {
-        int a, b;
-        cin >> a >> b;
+        int x, y;
+        cin >> x >> y;
 
-        cout << lca.get(a, b) << '\n';
+        cout << lca.get(x, y) << '\n';
     }
 }
