@@ -140,6 +140,16 @@ int main() {
     CentroidDecomposition cd(n);
     cd.init(1, 0, graph);
 
+    vector<vector<int>> pre(n + 1);
+    for (int x = 1; x <= n; x++) {
+        int y = x;
+
+        while (y) {
+            pre[x].push_back(lca.get_dist(x, y));
+            y = cd.parent[y];
+        }
+    }
+
     vector<multiset<int>> v(n + 1);
     vector<bool> color(n + 1);
 
@@ -153,9 +163,10 @@ int main() {
         if (op == 1) {
             color[x] = !color[x];
             int y = x;
+            int idx = 0;
 
             while (y) {
-                int d = lca.get_dist(x, y);
+                int d = pre[x][idx++];
 
                 if (color[x])
                     v[y].insert(d);
@@ -167,14 +178,14 @@ int main() {
         } else {
             int ans = INT_MAX;
             int y = x;
+            int idx = 0;
 
             while (y) {
-                if (v[y].sz) {
-                    int d = lca.get_dist(x, y);
-                    ans = min(ans, d + *v[y].begin());
-                }
+                if (v[y].sz)
+                    ans = min(ans, pre[x][idx] + *v[y].begin());
 
                 y = cd.parent[y];
+                idx++;
             }
 
             cout << (ans == INT_MAX ? -1 : ans) << '\n';
