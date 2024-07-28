@@ -11,13 +11,9 @@ typedef long long ll;
 typedef long double ld;
 typedef pair<ll, ll> pll;
 
-const int MAX = 100005;
-int n, a[MAX], b[MAX];
-vector<pll> stk;
-
-ld cross(int i, int j) {
-    auto [x, y] = stk[i];
-    auto [z, w] = stk[j];
+ld cross(int i, int j, vector<pll> &v) {
+    auto [x, y] = v[i];
+    auto [z, w] = v[j];
     return (ld)(w - y) / (x - z);
 }
 
@@ -26,33 +22,39 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
+    int n;
     cin >> n;
 
+    vector<int> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
 
+    vector<int> b(n);
     for (int i = 0; i < n; i++)
         cin >> b[i];
 
-    stk.push_back({b[0], 0});
+    vector<pll> v = {{b[0], 0}};
 
     for (int i = 1; i < n; i++) {
-        while (2 < stk.sz &&
-               cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2))
-            stk.erase(stk.end() - 2);
-        
+        while (2 < v.sz && cross(v.sz - 2, v.sz - 1, v) <= cross(v.sz - 3, v.sz - 2, v))
+            v.erase(v.end() - 2);
+
         int left = 0;
-        int right = stk.sz - 2;
+        int right = v.sz - 2;
+
         while (left <= right) {
-            int mid = (left + right) >> 1;
-            if (cross(mid, mid + 1) <= a[i])
+            int mid = (left + right) / 2;
+
+            if (cross(mid, mid + 1, v) <= a[i])
                 left = mid + 1;
             else
                 right = mid - 1;
         }
-        stk.push_back({b[i], stk[left].fi * a[i] + stk[left].se});
+
+        v.push_back({b[i], v[left].fi * a[i] + v[left].se});
     }
-    cout << stk.bk.se;
+
+    cout << v.bk.se;
 }
 
 //--------------------------------------------------------------------------------
@@ -68,13 +70,9 @@ typedef long long ll;
 typedef long double ld;
 typedef pair<ll, ll> pll;
 
-const int MAX = 100005;
-int n, a[MAX], b[MAX];
-vector<pll> stk;
-
-ld cross(int i, int j) {
-    auto [x, y] = stk[i];
-    auto [z, w] = stk[j];
+ld cross(int i, int j, vector<pll> &v) {
+    auto [x, y] = v[i];
+    auto [z, w] = v[j];
     return (ld)(w - y) / (x - z);
 }
 
@@ -83,26 +81,29 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
+    int n;
     cin >> n;
 
+    vector<int> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
 
+    vector<int> b(n);
     for (int i = 0; i < n; i++)
         cin >> b[i];
 
-    stk.push_back({b[0], 0});
-
+    vector<pll> v = {{b[0], 0}};
     int idx = 0;
-    for (int i = 1; i < n; i++) {
-        while (2 < stk.sz &&
-               cross(stk.sz - 2, stk.sz - 1) <= cross(stk.sz - 3, stk.sz - 2))
-            stk.erase(stk.end() - 2);
 
-        while (idx + 1 < stk.sz && cross(idx, idx + 1) <= a[i])
+    for (int i = 1; i < n; i++) {
+        while (2 < v.sz && cross(v.sz - 2, v.sz - 1, v) <= cross(v.sz - 3, v.sz - 2, v))
+            v.erase(v.end() - 2);
+
+        while (idx + 1 < v.sz && cross(idx, idx + 1, v) <= a[i])
             idx++;
 
-        stk.push_back({b[i], stk[idx].fi * a[i] + stk[idx].se});
+        v.push_back({b[i], v[idx].fi * a[i] + v[idx].se});
     }
-    cout << stk.bk.se;
+
+    cout << v.bk.se;
 }
