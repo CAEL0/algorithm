@@ -34,5 +34,6 @@ int main() {
         for (int j = w[i]; j <= k; j++)
             dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i]);
     }
+    
     cout << dp[n - 1][k];
 }
