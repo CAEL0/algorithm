@@ -17,6 +17,7 @@ int main() {
 
     int t;
     cin >> t;
+
     while (t--) {
         int n;
         cin >> n;
@@ -25,25 +26,28 @@ int main() {
         for (int i = 0; i < n; i++)
             cin >> v[i];
 
-        ll k;
+        ll k = -1;
         int cnt = 0;
+
         for (ll &x : v) {
             if (cnt == 0) {
                 k = x;
                 cnt = 1;
                 continue;
             }
+
             if (x == k)
                 cnt++;
             else
                 cnt--;
         }
-        cnt = 0;
+
+        int ans = 0;
         for (ll &x : v)
             if (x == k)
-                cnt++;
+                ans++;
 
-        if (cnt > n / 2)
+        if (ans > n / 2)
             cout << k << '\n';
         else
             cout << "SYJKGW\n";
