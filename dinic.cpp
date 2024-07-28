@@ -1,6 +1,5 @@
 // BOJ 13161 분단의 슬픔
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,101 +10,127 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 505;
-const int INF = 2e9;
-const int S = MAX - 2;
-const int E = MAX - 1;
-int N, A[MAX], C[MAX][MAX], F[MAX][MAX], lvl[MAX], work[MAX];
-vector<int> G[MAX];
-bool vst[MAX];
+int dfs(int cur, int f, vector<vector<int>> &graph, vector<vector<int>> &capacity, vector<vector<int>> &flow, vector<int> &level, vector<int> &work, int sink) {
+    if (cur == sink)
+        return f;
 
-int dfs(int cur, int flow) {
-    if (cur == E)
-        return flow;
-    
-    for (int &i = work[cur]; i < G[cur].sz; i++) {
-        int nxt = G[cur][i];
-        if (C[cur][nxt] > F[cur][nxt] && lvl[nxt] == lvl[cur] + 1) {
-            int res = dfs(nxt, min(C[cur][nxt] - F[cur][nxt], flow));
-            if (res > 0) {
-                F[cur][nxt] += res;
-                F[nxt][cur] -= res;
-                return res;
-            }
+    for (int &i = work[cur]; i < graph[cur].sz; i++) {
+        int nxt = graph[cur][i];
+
+        if (capacity[cur][nxt] <= flow[cur][nxt] || level[nxt] != level[cur] + 1)
+            continue;
+
+        int k = dfs(nxt, min(capacity[cur][nxt] - flow[cur][nxt], f), graph, capacity, flow, level, work, sink);
+        if (k > 0) {
+            flow[cur][nxt] += k;
+            flow[nxt][cur] -= k;
+            return k;
         }
     }
+
     return 0;
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> N;
-    for (int i = 1; i <= N; i++) {
-        cin >> A[i];
-        if (A[i] == 1) {
-            G[S].push_back(i);
-            G[i].push_back(S);
-            C[S][i] = INF;
-        } else if (A[i] == 2) {
-            G[i].push_back(E);
-            G[E].push_back(i);
-            C[i][E] = INF;
+    int n;
+    cin >> n;
+
+    int source = n + 1;
+    int sink = n + 2;
+
+    vector<int> v(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> v[i];
+
+    vector<vector<int>> graph(n + 3);
+    vector<vector<int>> capacity(n + 3, vector<int>(n + 3));
+    vector<vector<int>> flow(n + 3, vector<int>(n + 3));
+
+    for (int i = 1; i <= n; i++) {
+        if (v[i] == 1) {
+            graph[source].push_back(i);
+            graph[i].push_back(source);
+            capacity[source][i] = INT_MAX;
+        } else if (v[i] == 2) {
+            graph[i].push_back(sink);
+            graph[sink].push_back(i);
+            capacity[i][sink] = INT_MAX;
         }
     }
-    for (int i = 1; i <= N; i++) {
-        for (int j = 1; j <= N; j++) {
-            cin >> C[i][j];
-            if (i != j) {
-                G[i].push_back(j);
-                G[j].push_back(i);
-            }
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            cin >> capacity[i][j];
+
+            if (capacity[i][j])
+                graph[i].push_back(j);
         }
     }
+
     int ans = 0;
+    vector<int> level(n + 3);
+    vector<int> work(n + 3);
+    deque<int> dq;
+
     while (1) {
-        memset(lvl, -1, sizeof(lvl));
-        lvl[S] = 0;
-        queue<int> Q({S});
-        while (Q.sz) {
-            int cur = Q.front();
-            Q.pop();
-            for (int nxt: G[cur]) {
-                if (C[cur][nxt] > F[cur][nxt] && lvl[nxt] == -1) {
-                    lvl[nxt] = lvl[cur] + 1;
-                    Q.push(nxt);
+        fill(level.begin(), level.end(), -1);
+        level[source] = 0;
+
+        dq.clear();
+        dq.push_back(source);
+
+        while (dq.sz) {
+            int cur = dq.front();
+            dq.pop_front();
+
+            for (int nxt : graph[cur]) {
+                if (capacity[cur][nxt] > flow[cur][nxt] && level[nxt] == -1) {
+                    level[nxt] = level[cur] + 1;
+                    dq.push_back(nxt);
                 }
             }
         }
-        if (lvl[E] == -1)
+
+        if (level[sink] == -1)
             break;
-        
-        memset(work, 0, sizeof(work));
+
+        fill(work.begin(), work.end(), 0);
+
         while (1) {
-            int flow = dfs(S, INF);
-            ans += flow;
-            if (!flow)
+            int k = dfs(source, INT_MAX, graph, capacity, flow, level, work, sink);
+            ans += k;
+            if (k == 0)
                 break;
         }
     }
-    queue<int> Q({S});
-    while (Q.sz) {
-        int cur = Q.front();
-        Q.pop();
-        for (int nxt: G[cur]) {
-            if (C[cur][nxt] > F[cur][nxt] && !vst[nxt]) {
+
+    dq.clear();
+    dq.push_back(source);
+    vector<bool> vst(n + 3);
+
+    while (dq.sz) {
+        int cur = dq.front();
+        dq.pop_front();
+
+        for (int nxt : graph[cur]) {
+            if (capacity[cur][nxt] > flow[cur][nxt] && !vst[nxt]) {
                 vst[nxt] = true;
-                Q.push(nxt);
+                dq.push_back(nxt);
             }
         }
     }
+
     cout << ans << '\n';
-    for (int i = 1; i <= N; i++)
+    for (int i = 1; i <= n; i++)
         if (vst[i])
             cout << i << ' ';
     cout << '\n';
-    for (int i = 1; i <= N; i++)
+
+    for (int i = 1; i <= n; i++)
         if (!vst[i])
             cout << i << ' ';
     cout << '\n';
