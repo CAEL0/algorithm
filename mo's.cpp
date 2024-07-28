@@ -1,6 +1,5 @@
 // BOJ 13547 수열과 쿼리 5
 
-#include <iostream>
 #include <bits/stdc++.h>
 #define sz size()
 #define bk back()
@@ -11,127 +10,175 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int q, k, cnt;
-int arr[100000], res[1000001], ans[100000];
+void add(int s, int e, vector<int> &v, vector<int> &w, int &cnt) {
+    for (int j = s; j < e; j++) {
+        if (w[v[j]] == 0)
+            cnt++;
 
-struct Query {
-    int s, e, idx;
-    bool operator < (Query &x) {
-        if (s / k != x.s / k) return s / k < x.s / k;
-        return e < x.e;
+        w[v[j]]++;
     }
-};
-void add(int s, int e) {
-    for (int j = s; j < e; j++)
-        cnt += (res[arr[j]]++ == 0);
 }
-void sub(int s, int e) {
-    for (int j = s; j < e; j++)
-        cnt -= (--res[arr[j]] == 0);
+
+void sub(int s, int e, vector<int> &v, vector<int> &w, int &cnt) {
+    for (int j = s; j < e; j++) {
+        if (w[v[j]] == 1)
+            cnt--;
+
+        w[v[j]]--;
+    }
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
     int n;
     cin >> n;
+
+    vector<int> v(n);
     for (int i = 0; i < n; i++)
-        cin >> arr[i];
+        cin >> v[i];
+
+    int q;
     cin >> q;
-    k = sqrt(q);
-    Query query[q];
+
+    vector<pair<pii, int>> queries(q);
     for (int i = 0; i < q; i++) {
-        cin >> query[i].s >> query[i].e;
-        query[i].idx = i;
+        cin >> queries[i].fi.fi >> queries[i].fi.se;
+
+        queries[i].se = i;
     }
-    sort(query, query + q);
-    
-    int s = query[0].s;
-    int e = query[0].e;
-    int idx = query[0].idx;
-    add(s - 1, e);
-    ans[idx] = cnt;
+
+    int k = sqrt(q);
+    sort(queries.begin(), queries.end(), [&](auto &x, auto &y) {
+        if (x.fi.fi / k != y.fi.fi / k)
+            return x.fi.fi / k < y.fi.fi / k;
+        return x.fi.se < y.fi.se;
+    });
+
+    vector<int> w(1000005);
+    int s = queries[0].fi.fi;
+    int e = queries[0].fi.se;
+    int cnt = 0;
+
+    add(s - 1, e, v, w, cnt);
+
+    vector<int> ans(q);
+    ans[queries[0].se] = cnt;
 
     for (int i = 1; i < q; i++) {
-        int ss = query[i].s;
-        int ee = query[i].e;
-        if (ss < s) add(ss - 1, s - 1);
-        else sub(s - 1, ss - 1);
-        if (e < ee) add(e, ee);
-        else sub(ee, e);
-        ans[query[i].idx] = cnt;
+        int ss = queries[i].fi.fi;
+        int ee = queries[i].fi.se;
+
+        if (ss < s)
+            add(ss - 1, s - 1, v, w, cnt);
+        else
+            sub(s - 1, ss - 1, v, w, cnt);
+
+        if (e < ee)
+            add(e, ee, v, w, cnt);
+        else
+            sub(ee, e, v, w, cnt);
+
+        ans[queries[i].se] = cnt;
         s = ss;
         e = ee;
     }
+
     for (int i = 0; i < q; i++)
         cout << ans[i] << '\n';
 }
 
 //--------------------------------------------------------------------------------
 
-// BOJ 13548
+// BOJ 13548 수열과 쿼리 6
 
-#include <iostream>
 #include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
 
 using namespace std;
+typedef long long ll;
+typedef pair<int, int> pii;
 
-const int MAX = 100010, k = 316;
-int cnt, arr[MAX], res1[MAX], res2[MAX], ans[MAX];
+void add(int j, vector<int> &v, vector<int> &w, vector<int> &u, int &cnt) {
+    u[w[v[j]]]--;
+    w[v[j]]++;
+    u[w[v[j]]]++;
 
-struct Query {
-    int s, e, idx;
-    bool operator < (Query &x) {
-        return s / k == x.s / k ? e < x.e: s / k < x.s / k;
-    }
-};
-void add(int j) {
-    res2[res1[arr[j]]]--;
-    res1[arr[j]]++;
-    res2[res1[arr[j]]]++;
-    if (res2[cnt + 1] > 0)
+    if (u[cnt + 1] > 0)
         cnt++;
 }
-void sub(int j) {
-    res2[res1[arr[j]]]--;
-    if (res2[cnt] == 0)
+
+void sub(int j, vector<int> &v, vector<int> &w, vector<int> &u, int &cnt) {
+    u[w[v[j]]]--;
+    if (u[cnt] == 0)
         cnt--;
-    res1[arr[j]]--;
-    res2[res1[arr[j]]]++;
+
+    w[v[j]]--;
+    u[w[v[j]]]++;
 }
 
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    int n, q;
+    int n;
     cin >> n;
+
+    vector<int> v(n + 1);
     for (int i = 1; i <= n; i++)
-        cin >> arr[i];
+        cin >> v[i];
 
+    int q;
     cin >> q;
-    Query qry[q];
-    for (int i = 0; i < q; i++) {
-        cin >> qry[i].s >> qry[i].e;
-        qry[i].idx = i;
-    }
-    sort(qry, qry + q);
-    
-    int s = qry[0].s;
-    int e = qry[0].e;
-    for (int i = s; i <= e; i++)
-        add(i);
 
-    ans[qry[0].idx] = cnt;
+    vector<pair<pii, int>> queries(q);
+    for (int i = 0; i < q; i++) {
+        cin >> queries[i].fi.fi >> queries[i].fi.se;
+
+        queries[i].se = i;
+    }
+
+    int k = sqrt(q);
+    sort(queries.begin(), queries.end(), [&](auto &x, auto &y) {
+        if (x.fi.fi / k != y.fi.fi / k)
+            return x.fi.fi / k < y.fi.fi / k;
+        return x.fi.se < y.fi.se;
+    });
+
+    vector<int> w(1000005);
+    vector<int> u(1000005);
+    int s = queries[0].fi.fi;
+    int e = queries[0].fi.se;
+    int cnt = 0;
+
+    for (int i = s; i <= e; i++)
+        add(i, v, w, u, cnt);
+
+    vector<int> ans(q);
+    ans[queries[0].se] = cnt;
 
     for (int i = 1; i < q; i++) {
-        while (e < qry[i].e) add(++e);
-        while (s > qry[i].s) add(--s);
-        while (e > qry[i].e) sub(e--);
-        while (s < qry[i].s) sub(s++);
-        ans[qry[i].idx] = cnt;
+        while (e < queries[i].fi.se)
+            add(++e, v, w, u, cnt);
+
+        while (s > queries[i].fi.fi)
+            add(--s, v, w, u, cnt);
+
+        while (e > queries[i].fi.se)
+            sub(e--, v, w, u, cnt);
+
+        while (s < queries[i].fi.fi)
+            sub(s++, v, w, u, cnt);
+
+        ans[queries[i].se] = cnt;
     }
+
     for (int i = 0; i < q; i++)
         cout << ans[i] << '\n';
 }
