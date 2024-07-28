@@ -10,16 +10,64 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 100005;
-int dsu[MAX], rnk[MAX], convert[MAX], ans[MAX];
-vector<pii> tree[4 * MAX];
-vector<pair<pii, int>> stk;
+struct DisjointSet {
+    int n;
+    vector<int> dsu, rank;
+    vector<pair<pii, int>> v;
 
-struct Query {
-    int op, x, y;
-} query[MAX];
+    DisjointSet(int _n) {
+        n = _n;
+        dsu.resize(n + 1);
+        rank.resize(n + 1);
+    }
 
-void update(int idx, int s, int e, int l, int r, int x, int y) {
+    void init() {
+        for (int i = 1; i <= n; i++) {
+            dsu[i] = i;
+            rank[i] = 1;
+        }
+    }
+
+    int find(int z) {
+        if (z == dsu[z])
+            return z;
+        return find(dsu[z]);
+    }
+
+    bool merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y)
+            return false;
+
+        if (rank[x] < rank[y])
+            swap(x, y);
+
+        dsu[y] = x;
+
+        if (rank[x] == rank[y]) {
+            rank[x]++;
+            v.push_back({{x, y}, 1});
+        } else
+            v.push_back({{x, y}, 0});
+
+        return true;
+    }
+
+    void rollback(int cnt) {
+        while (cnt--) {
+            auto [p, k] = v.bk;
+            v.pop_back();
+
+            dsu[p.se] = p.se;
+            rank[p.fi] -= k;
+        }
+    }
+
+    bool is_same(int x, int y) { return find(x) == find(y); }
+};
+
+void update(int idx, int s, int e, int l, int r, int x, int y, vector<vector<pii>> &tree) {
     if (r < s || e < l)
         return;
 
@@ -27,59 +75,28 @@ void update(int idx, int s, int e, int l, int r, int x, int y) {
         tree[idx].push_back({x, y});
         return;
     }
+
     int m = (s + e) >> 1;
-    update(2 * idx, s, m, l, r, x, y);
-    update(2 * idx + 1, m + 1, e, l, r, x, y);
+    update(2 * idx, s, m, l, r, x, y, tree);
+    update(2 * idx + 1, m + 1, e, l, r, x, y, tree);
 }
 
-int find(int z) {
-    if (z == dsu[z])
-        return z;
-    return find(dsu[z]);
-}
-
-int uni(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if (x == y)
-        return 0;
-
-    if (rnk[x] < rnk[y])
-        swap(x, y);
-
-    dsu[y] = x;
-    if (rnk[x] == rnk[y]) {
-        rnk[x]++;
-        stk.push_back({{x, y}, 1});
-    } else
-        stk.push_back({{x, y}, 0});
-    return 1;
-}
-
-void rollback(int cnt) {
-    while (cnt--) {
-        auto [p, k] = stk.bk;
-        stk.pop_back();
-
-        dsu[p.se] = p.se;
-        rnk[p.fi] -= k;
-    }
-}
-
-void solve(int idx, int s, int e) {
+void solve(int idx, int s, int e, vector<pair<pii, int>> &queries, vector<int> &convert, vector<vector<pii>> &tree, DisjointSet &ds, vector<int> &ans) {
     int cnt = 0;
     for (pii &p : tree[idx])
-        cnt += uni(p.fi, p.se);
+        cnt += ds.merge(p.fi, p.se);
 
     if (s == e) {
-        ans[s] = (find(query[convert[s]].x) == find(query[convert[s]].y));
-        rollback(cnt);
+        ans[s] = (ds.is_same(queries[convert[s]].fi.fi, queries[convert[s]].fi.se));
+        ds.rollback(cnt);
         return;
     }
+
     int m = (s + e) >> 1;
-    solve(2 * idx, s, m);
-    solve(2 * idx + 1, m + 1, e);
-    rollback(cnt);
+    solve(2 * idx, s, m, queries, convert, tree, ds, ans);
+    solve(2 * idx + 1, m + 1, e, queries, convert, tree, ds, ans);
+
+    ds.rollback(cnt);
 }
 
 int main() {
@@ -90,37 +107,50 @@ int main() {
     int n, q;
     cin >> n >> q;
 
+    vector<pair<pii, int>> queries(q);
+    vector<int> convert(q);
     int k = 0;
+
     for (int i = 0; i < q; i++) {
         int op, x, y;
         cin >> op >> x >> y;
+
         if (x > y)
             swap(x, y);
 
-        query[i] = {op, x, y};
+        queries[i] = {{x, y}, op};
+
         if (op == 3)
             convert[++k] = i;
     }
+
     int t = 1;
     map<pii, int> mp;
+    vector<vector<pii>> tree(4 * k);
+
     for (int i = 0; i < q; i++) {
-        auto [op, x, y] = query[i];
+        int x = queries[i].fi.fi;
+        int y = queries[i].fi.se;
+        int op = queries[i].se;
+
         if (op == 1)
             mp[{x, y}] = t;
         else if (op == 2) {
-            update(1, 1, k, mp[{x, y}], t - 1, x, y);
+            update(1, 1, k, mp[{x, y}], t - 1, x, y, tree);
             mp.erase({x, y});
         } else if (op == 3)
             t++;
     }
-    for (auto it = mp.begin(); it != mp.end(); it++)
-        update(1, 1, k, it->se, t - 1, it->fi.fi, it->fi.se);
 
-    for (int i = 1; i <= n; i++) {
-        dsu[i] = i;
-        rnk[i] = 1;
-    }
-    solve(1, 1, k);
+    for (auto it = mp.begin(); it != mp.end(); it++)
+        update(1, 1, k, it->se, t - 1, it->fi.fi, it->fi.se, tree);
+
+    DisjointSet ds(n);
+    ds.init();
+
+    vector<int> ans(k + 1);
+    solve(1, 1, k, queries, convert, tree, ds, ans);
+
     for (int i = 1; i <= k; i++)
         cout << ans[i] << '\n';
 }
