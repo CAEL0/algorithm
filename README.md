@@ -103,7 +103,7 @@
 - ### Miscellaneous
     - Berlekamp-Massey algorithm
     - Boyer-Moore majority vote algorithm
-    - imos method
+    - imos
     - int128
     - Kadane's algorithm
     - Knuth's algorithm X
