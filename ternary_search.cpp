@@ -38,8 +38,8 @@ int main() {
     ll right = v[n - 1];
 
     while (left + 3 <= right) {
-        ll p = ((ll)2 * left + right) / 3;
-        ll q = ((ll)left + 2 * right) / 3;
+        ll p = (right + 2 * left) / 3;
+        ll q = (left + 2 * right) / 3;
 
         if (f(p, v) >= f(q, v))
             left = p;
