@@ -34,6 +34,7 @@
 - ### Dynamic Programming
   - connection profile dp
   - convex hull trick
+  - digit dp
   - divide and conquer optimization
   - knapsack problem
   - Knuth's optimization
