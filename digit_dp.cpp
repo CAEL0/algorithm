@@ -77,5 +77,5 @@ int main() {
             w.pop_back();
     }
 
-    cout << (f(true, true, v.sz - 1, k, v, dp) - f(true, true, w.sz - 1, k, w, dp) + MOD) % MOD;
+    cout << (f(true, true, v.sz - 1, k, v, dp) - f(true, true, (int)w.sz - 1, k, w, dp) + MOD) % MOD;
 }
