@@ -10,12 +10,12 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-struct LongestCommonAncestor {
+struct LowestCommonAncestor {
     int n, k;
     vector<int> depth;
     vector<vector<int>> sparse;
 
-    LongestCommonAncestor(int _n) {
+    LowestCommonAncestor(int _n) {
         n = _n;
         k = ceil(log2(n)) + 1;
 
@@ -87,7 +87,7 @@ int main() {
         graph[y].push_back(x);
     }
 
-    LongestCommonAncestor lca(n);
+    LowestCommonAncestor lca(n);
     lca.init(graph);
 
     int q;
