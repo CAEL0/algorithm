@@ -18,6 +18,7 @@
     - lazy propagation
     - Li Chao tree
     - maximum subarray problem
+    - median
     - merge sort tree
     - persistent segment tree
     - range update point query
