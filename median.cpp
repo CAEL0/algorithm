@@ -11,6 +11,68 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 struct Median {
+    priority_queue<ll> left;
+    priority_queue<ll, vector<ll>, greater<ll>> right;
+
+    ll get_median() { return left.top(); }
+
+    void add(ll x) {
+        if (left.empty()) {
+            left.push(x);
+            return;
+        }
+
+        ll median = get_median();
+        if (x <= median) {
+            if (left.sz > right.sz) {
+                left.pop();
+                right.push(median);
+            }
+
+            left.push(x);
+        } else {
+            right.push(x);
+
+            if (left.sz < right.sz) {
+                left.push(right.top());
+                right.pop();
+            }
+        }
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n;
+    cin >> n;
+
+    Median m;
+    while (n--) {
+        int x;
+        cin >> x;
+
+        m.add(x);
+
+        cout << m.get_median() << '\n';
+    }
+}
+
+//--------------------------------------------------------------------------------
+
+#include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> pii;
+
+struct Median {
     map<ll, ll> left, right;
     ll left_sum = 0;
     ll right_sum = 0;
