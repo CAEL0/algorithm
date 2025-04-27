@@ -57,7 +57,6 @@ int main() {
         }
     }
 
-    int max_flow = 0;
     int min_cost = 0;
     vector<int> prv(mx);
     vector<int> dist(mx);
@@ -109,6 +108,7 @@ int main() {
         }
     }
 
+    int max_flow = 0;
     for (int i = 1; i <= n; i++)
         max_flow += flow[source][i];
 
