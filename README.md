@@ -18,7 +18,6 @@
     - lazy propagation
     - Li Chao tree
     - maximum subarray problem
-    - median
     - merge sort tree
     - persistent segment tree
     - range update point query
@@ -29,6 +28,7 @@
     - trie
   - binary trie
   - bitset
+  - median
   - offline dynamic connectivity
   - policy based data structures
 
