@@ -10,10 +10,10 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-struct LazySegmentTree {
+struct SegmentTree {
     vector<ll> tree, lazy;
 
-    LazySegmentTree(int n) {
+    SegmentTree(int n) {
         tree.resize(4 * n);
         lazy.resize(4 * n);
     }
@@ -82,8 +82,8 @@ int main() {
     for (int i = 1; i <= n; i++)
         cin >> v[i];
 
-    LazySegmentTree lst(n);
-    lst.init(1, 1, n, v);
+    SegmentTree st(n);
+    st.init(1, 1, n, v);
 
     q += p;
     while (q--) {
@@ -94,12 +94,12 @@ int main() {
             ll x, y, k;
             cin >> x >> y >> k;
 
-            lst.update(1, 1, n, x, y, k);
+            st.update(1, 1, n, x, y, k);
         } else {
             int x, y;
             cin >> x >> y;
 
-            cout << lst.sum(1, 1, n, x, y) << '\n';
+            cout << st.sum(1, 1, n, x, y) << '\n';
         }
     }
 }
