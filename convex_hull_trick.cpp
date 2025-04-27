@@ -8,14 +8,9 @@
 
 using namespace std;
 typedef long long ll;
-typedef long double ld;
 typedef pair<ll, ll> pll;
 
-ld cross(int i, int j, vector<pll> &v) {
-    auto [x, y] = v[i];
-    auto [z, w] = v[j];
-    return (ld)(w - y) / (x - z);
-}
+double cross(int i, int j, vector<pll> &v) { return (double)(v[j].se - v[i].se) / (v[i].fi - v[j].fi); }
 
 int main() {
     ios::sync_with_stdio(0);
@@ -33,15 +28,13 @@ int main() {
     for (int i = 0; i < n; i++)
         cin >> b[i];
 
-    vector<pll> v = {{b[0], 0}};
-
+    vector<pll> v = {make_pair(b[0], 0)};
     for (int i = 1; i < n; i++) {
         while (2 < v.sz && cross(v.sz - 2, v.sz - 1, v) <= cross(v.sz - 3, v.sz - 2, v))
             v.erase(v.end() - 2);
 
         int left = 0;
         int right = v.sz - 2;
-
         while (left <= right) {
             int mid = (left + right) / 2;
 
@@ -51,7 +44,7 @@ int main() {
                 right = mid - 1;
         }
 
-        v.push_back({b[i], v[left].fi * a[i] + v[left].se});
+        v.push_back(make_pair(b[i], v[left].fi * a[i] + v[left].se));
     }
 
     cout << v.bk.se;
