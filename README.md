@@ -15,6 +15,7 @@
     - singly linked list
     - doubly linked list
   - #### Segment Tree
+    - dynamic segment tree
     - gold mine segment tree
     - lazy propagation
     - Li Chao tree
