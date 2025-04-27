@@ -31,7 +31,6 @@ struct LiChao {
             return LLONG_MIN;
 
         ll ret = tree[idx].line.val(x);
-
         if (x <= (tree[idx].s + tree[idx].e) / 2)
             ret = max(ret, maximum(tree[idx].l, x));
         else
@@ -45,7 +44,6 @@ struct LiChao {
         ll e = tree[idx].e;
         Line lo = tree[idx].line;
         Line hi = line;
-
         if (lo.val(s) > hi.val(s))
             swap(lo, hi);
 
@@ -55,7 +53,6 @@ struct LiChao {
         }
 
         ll m = (s + e) >> 1;
-
         if (lo.val(m) < hi.val(m)) {
             tree[idx].line = hi;
 
@@ -95,7 +92,7 @@ int main() {
             ll a, b;
             cin >> a >> b;
 
-            li_chao.update(0, {a, b});
+            li_chao.update(0, Line{a, b});
         } else {
             ll x;
             cin >> x;
