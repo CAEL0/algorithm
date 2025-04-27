@@ -31,12 +31,12 @@ struct LiChao {
             return LLONG_MIN;
 
         ll ret = tree[idx].line.val(x);
-        
+
         if (x <= (tree[idx].s + tree[idx].e) / 2)
             ret = max(ret, maximum(tree[idx].l, x));
         else
             ret = max(ret, maximum(tree[idx].r, x));
-        
+
         return ret;
     }
 
@@ -66,7 +66,7 @@ struct LiChao {
                 update(tree[idx].r, lo);
         } else {
             tree[idx].line = lo;
-            
+
             if (tree[idx].l == -1) {
                 tree[idx].l = tree.sz;
                 tree.push_back({-1, -1, s, m, hi});
@@ -74,13 +74,14 @@ struct LiChao {
                 update(tree[idx].l, hi);
         }
     }
-} li_chao;
+};
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
+    LiChao li_chao;
     li_chao.init();
 
     int q;
