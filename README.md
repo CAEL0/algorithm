@@ -16,14 +16,15 @@
     - doubly linked list
   - #### Segment Tree
     - dynamic segment tree
+    - dynamic segment tree with lazy propagation
     - gold mine segment tree
-    - lazy propagation
     - Li Chao tree
     - maximum subarray problem
     - merge sort tree
     - persistent segment tree
     - range update point query
     - segment tree beats
+    - segment tree with lazy propagation
   - #### Sparse Table
   - #### String
     - rope
