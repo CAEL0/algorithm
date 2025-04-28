@@ -21,7 +21,6 @@ struct FenwickTree {
 
     ll sum(int k) {
         ll ret = 0;
-
         while (k > 0) {
             ret += tree[k];
             k -= (k & -k);
@@ -38,7 +37,6 @@ struct FenwickTree {
             idx <<= 1;
 
         ll ret = 0;
-
         while (idx) {
             if (ret + idx <= n && tree[ret + idx] < k) {
                 k -= tree[ret + idx];
@@ -53,7 +51,6 @@ struct FenwickTree {
 
     void update(int k, ll v) {
         ll gap = v - sum(k, k);
-
         while (k <= n) {
             tree[k] += gap;
             k += (k & -k);
@@ -77,7 +74,6 @@ int main() {
     cin >> n >> p >> q;
 
     FenwickTree ft(n);
-
     for (int i = 1; i <= n; i++) {
         ll x;
         cin >> x;
