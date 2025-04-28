@@ -1,6 +1,5 @@
 // BOJ 16994 로프와 쿼리
 
-#include <iostream>
 #include <bits/stdc++.h>
 #include <ext/rope>
 #define sz size()
@@ -13,32 +12,37 @@ using namespace __gnu_cxx;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-crope R;
-string S;
-int N, Q;
-
 int main() {
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
 
-    cin >> S >> Q;
-    R.append(S.c_str());
-    N = S.sz;
-    while (Q--) {
-        int q;
-        cin >> q;
-        if (q == 1) {
+    string s;
+    int q;
+    cin >> s >> q;
+
+    int n = s.sz;
+
+    crope rope(s.c_str());
+    while (q--) {
+        int op;
+        cin >> op;
+
+        if (op == 1) {
             int x, y;
             cin >> x >> y;
-            R = R.substr(x, y - x + 1) + R.substr(0, x) + R.substr(y + 1, N);
-        } else if (q == 2) {
+
+            rope = rope.substr(x, y - x + 1) + rope.substr(0, x) + rope.substr(y + 1, n);
+        } else if (op == 2) {
             int x, y;
             cin >> x >> y;
-            R = R.substr(0, x) + R.substr(y + 1, N) + R.substr(x, y - x + 1);
-        } else {
+
+            rope = rope.substr(0, x) + rope.substr(y + 1, n) + rope.substr(x, y - x + 1);
+        } else if (op == 3) {
             int x;
             cin >> x;
-            cout << R[x] << '\n';
+
+            cout << rope[x] << '\n';
         }
     }
 }
