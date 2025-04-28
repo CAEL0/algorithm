@@ -42,7 +42,8 @@
   - divide and conquer optimization
   - knapsack problem
   - Knuth's optimization
-  - travelling salesman problem
+  - sum over subsets dp
+  - traveling salesman problem
 
 - ### Geometry
   - #### Convex Hull
