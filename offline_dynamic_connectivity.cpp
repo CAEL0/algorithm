@@ -47,9 +47,9 @@ struct DisjointSet {
 
         if (rank[x] == rank[y]) {
             rank[x]++;
-            v.push_back({{x, y}, 1});
+            v.push_back(make_pair(make_pair(x, y), 1));
         } else
-            v.push_back({{x, y}, 0});
+            v.push_back(make_pair(make_pair(x, y), 0));
 
         return true;
     }
@@ -67,27 +67,27 @@ struct DisjointSet {
     bool is_same(int x, int y) { return find(x) == find(y); }
 };
 
-void update(int idx, int s, int e, int l, int r, int x, int y, vector<vector<pii>> &tree) {
+void update(int idx, int s, int e, int l, int r, pii p, vector<vector<pii>> &tree) {
     if (r < s || e < l)
         return;
 
     if (l <= s && e <= r) {
-        tree[idx].push_back({x, y});
+        tree[idx].push_back(p);
         return;
     }
 
     int m = (s + e) >> 1;
-    update(2 * idx, s, m, l, r, x, y, tree);
-    update(2 * idx + 1, m + 1, e, l, r, x, y, tree);
+    update(2 * idx, s, m, l, r, p, tree);
+    update(2 * idx + 1, m + 1, e, l, r, p, tree);
 }
 
 void solve(int idx, int s, int e, vector<pair<pii, int>> &queries, vector<int> &convert, vector<vector<pii>> &tree, DisjointSet &ds, vector<int> &ans) {
     int cnt = 0;
-    for (pii &p : tree[idx])
+    for (pii p : tree[idx])
         cnt += ds.merge(p.fi, p.se);
 
     if (s == e) {
-        ans[s] = (ds.is_same(queries[convert[s]].fi.fi, queries[convert[s]].fi.se));
+        ans[s] = ds.is_same(queries[convert[s]].fi.fi, queries[convert[s]].fi.se);
         ds.rollback(cnt);
         return;
     }
@@ -110,16 +110,11 @@ int main() {
     vector<pair<pii, int>> queries(q);
     vector<int> convert(q);
     int k = 0;
-
     for (int i = 0; i < q; i++) {
         int op, x, y;
         cin >> op >> x >> y;
 
-        if (x > y)
-            swap(x, y);
-
-        queries[i] = {{x, y}, op};
-
+        queries[i] = make_pair(make_pair(min(x, y), max(x, y)), op);
         if (op == 3)
             convert[++k] = i;
     }
@@ -127,23 +122,20 @@ int main() {
     int t = 1;
     map<pii, int> mp;
     vector<vector<pii>> tree(4 * k);
-
     for (int i = 0; i < q; i++) {
-        int x = queries[i].fi.fi;
-        int y = queries[i].fi.se;
-        int op = queries[i].se;
+        auto [p, op] = queries[i];
 
         if (op == 1)
-            mp[{x, y}] = t;
+            mp[p] = t;
         else if (op == 2) {
-            update(1, 1, k, mp[{x, y}], t - 1, x, y, tree);
-            mp.erase({x, y});
+            update(1, 1, k, mp[p], t - 1, p, tree);
+            mp.erase(p);
         } else if (op == 3)
             t++;
     }
 
-    for (auto it = mp.begin(); it != mp.end(); it++)
-        update(1, 1, k, it->se, t - 1, it->fi.fi, it->fi.se, tree);
+    for (auto [p, tt] : mp)
+        update(1, 1, k, tt, t - 1, p, tree);
 
     DisjointSet ds(n);
     ds.init();
