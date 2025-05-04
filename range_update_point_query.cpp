@@ -45,6 +45,7 @@ struct SegmentTree {
             tree[idx] += x;
             return;
         }
+        
         int m = (s + e) >> 1;
         range(2 * idx, s, m, l, r, x);
         range(2 * idx + 1, m + 1, e, l, r, x);
@@ -78,7 +79,7 @@ int main() {
             cin >> l >> r >> x;
 
             st.range(1, 1, n, l, r, x);
-        } else {
+        } else if (op == 2) {
             int l;
             cin >> l;
 
@@ -99,61 +100,79 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-const int MAX = 100005;
-int N, Q, A[MAX];
-ll tree[MAX];
+struct FenwickTree {
+    int n;
+    vector<ll> tree;
 
-struct Fenwick {
-    void init() {
-        for (int k = 1; k <= N; k++)
-            if (k + (k & -k) <= N)
-                tree[k + (k & -k)] += tree[k];
+    FenwickTree(int _n) {
+        n = _n;
+        tree.resize(n + 1);
     }
-    void range(int k, ll v) {
-        while (k < MAX) {
-            tree[k] += v;
-            k += (k & -k);
-        }
+
+    void init(vector<int> &v) {
+        for (int i = 1; i <= n; i++)
+            tree[i] = v[i] - v[i - 1];
+
+        for (int idx = 1; idx <= n; idx++)
+            if (idx + (idx & -idx) <= n)
+                tree[idx + (idx & -idx)] += tree[idx];
     }
-    void range(int l, int r, ll v) {
-        range(l, v);
-        range(r + 1, -v);
-    }
-    ll point(int k) {
+
+    ll point(int idx) {
         ll ret = 0;
-        while (k > 0) {
-            ret += tree[k];
-            k -= (k & -k);
+        while (idx > 0) {
+            ret += tree[idx];
+            idx -= (idx & -idx);
         }
+
         return ret;
     }
-} fw;
+
+    void range(int idx, ll k) {
+        while (idx <= n) {
+            tree[idx] += k;
+            idx += (idx & -idx);
+        }
+    }
+
+    void range(int l, int r, ll k) {
+        range(l, k);
+        range(r + 1, -k);
+    }
+};
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    cin >> N;
-    for (int i = 1; i <= N; i++) {
-        cin >> A[i];
-        tree[i] = A[i] - A[i - 1];
-    }
-    fw.init();
+    int n;
+    cin >> n;
 
-    cin >> Q;
-    while (Q--) {
-        int q;
-        cin >> q;
-        if (q & 1) {
-            int i, j, k;
-            cin >> i >> j >> k;
-            fw.range(i, k);
-            fw.range(j + 1, -k);
-        } else {
-            int x;
-            cin >> x;
-            cout << fw.point(x) << '\n';
+    vector<int> v(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> v[i];
+
+    FenwickTree ft(n);
+    ft.init(v);
+
+    int q;
+    cin >> q;
+
+    while (q--) {
+        int op;
+        cin >> op;
+
+        if (op == 1) {
+            int l, r, k;
+            cin >> l >> r >> k;
+
+            ft.range(l, r, k);
+        } else if (op == 2) {
+            int l;
+            cin >> l;
+
+            cout << ft.point(l) << '\n';
         }
     }
 }
