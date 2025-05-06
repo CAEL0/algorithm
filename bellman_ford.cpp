@@ -9,7 +9,6 @@
 using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
 
 int main() {
     ios::sync_with_stdio(0);
@@ -19,30 +18,24 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    vector<vector<pll>> graph(n + 1);
-
-    while (m--) {
-        int u, v, w;
-        cin >> u >> v >> w;
-
-        graph[u].push_back({v, w});
-    }
+    vector<pair<pii, ll>> edges(m);
+    for (int i = 0; i < m; i++)
+        cin >> edges[i].fi.fi >> edges[i].fi.se >> edges[i].se;
 
     vector<ll> dist(n + 1, LLONG_MAX);
     dist[1] = 0;
+    for (int j = 1; j < n; j++)
+        for (int i = 0; i < m; i++)
+            if (dist[edges[i].fi.fi] != LLONG_MAX)
+                dist[edges[i].fi.se] = min(dist[edges[i].fi.se], dist[edges[i].fi.fi] + edges[i].se);
 
-    for (int i = 1; i < n; i++)
-        for (int cur = 1; cur <= n; cur++)
-            for (pll &nxt : graph[cur])
-                if (dist[cur] != LLONG_MAX)
-                    dist[nxt.fi] = min(dist[nxt.fi], dist[cur] + nxt.se);
+    for (int i = 0; i < m; i++) {
+        if (dist[edges[i].fi.fi] == LLONG_MAX)
+            continue;
 
-    for (int cur = 1; cur <= n; cur++) {
-        for (pll &nxt : graph[cur]) {
-            if (dist[cur] != LLONG_MAX && dist[nxt.fi] > dist[cur] + nxt.se) {
-                cout << -1;
-                return 0;
-            }
+        if (dist[edges[i].fi.se] > dist[edges[i].fi.fi] + edges[i].se) {
+            cout << -1;
+            return 0;
         }
     }
 
