@@ -120,6 +120,7 @@
     - small to large trick
     - square root decomposition
     - Sprague-Grundy theorem
+    - system of difference constraints
     - ternary search
 
 - ### String
