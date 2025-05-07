@@ -38,7 +38,7 @@ int main() {
 
         in_dq[cur] = false;
 
-        if (++cnt[cur] == n) {
+        if (++cnt[cur] == n + 1) {
             cout << -1;
             return 0;
         }
