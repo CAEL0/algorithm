@@ -40,8 +40,11 @@
   - convex hull trick
   - digit dp
   - divide and conquer optimization
+  - Hirschberg's algorithm
   - knapsack problem
   - Knuth's optimization
+  - longest common subsequence
+  - longest common subsequence with bitset
   - sum over subsets dp
   - traveling salesman problem
 
@@ -126,8 +129,6 @@
 - ### String
     - Aho-Corasick algorithm
     - Knuth-Morris-Pratt algorithm
-    - longest common subsequence
-    - longest common subsequence with bitset
     - Manacher's algorithm
     - suffix array and lcp array
     - z algorithm
