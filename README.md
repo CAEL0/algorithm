@@ -127,6 +127,7 @@
     - Aho-Corasick algorithm
     - Knuth-Morris-Pratt algorithm
     - longest common subsequence
+    - longest common subsequence with bitset
     - Manacher's algorithm
     - suffix array and lcp array
     - z algorithm
