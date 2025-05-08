@@ -126,6 +126,7 @@
 - ### String
     - Aho-Corasick algorithm
     - Knuth-Morris-Pratt algorithm
+    - longest common subsequence
     - Manacher's algorithm
     - suffix array and lcp array
     - z algorithm
