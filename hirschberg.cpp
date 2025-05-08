@@ -11,7 +11,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 
 string f(int a, int b, int c, int d, string &x, string &y) {
-    if (a > b || c > d)
+    if (c > d)
         return "";
 
     if (a == b) {
