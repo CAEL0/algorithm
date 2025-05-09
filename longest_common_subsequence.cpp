@@ -10,14 +10,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    string x, y;
-    cin >> x >> y;
-
+string lcs(string &x, string &y) {
     int n = x.sz;
     int m = y.sz;
 
@@ -31,12 +24,12 @@ int main() {
         }
     }
 
-    string ans;
+    string ret;
     int i = n;
     int j = m;
     while (i > 0 && j > 0) {
         if (x[i - 1] == y[j - 1]) {
-            ans += x[i - 1];
+            ret += x[i - 1];
             i--;
             j--;
         } else if (dp[i][j] == dp[i - 1][j])
@@ -45,7 +38,19 @@ int main() {
             j--;
     }
 
-    reverse(ans.begin(), ans.end());
+    reverse(ret.begin(), ret.end());
+    return ret;
+}
 
-    cout << dp[n][m] << '\n' << ans;
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    string x, y;
+    cin >> x >> y;
+
+    string ans = lcs(x, y);
+
+    cout << ans.sz << '\n' << ans;
 }
