@@ -116,6 +116,7 @@
     - int128
     - Kadane's algorithm
     - Knuth's algorithm X
+    - longest increasing subsequence
     - Mo's algorithm
     - parallel binary search
     - permutation cycle decomposition
