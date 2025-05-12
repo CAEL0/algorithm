@@ -71,8 +71,6 @@ int main() {
             sub(e--, v, counter, cnt);
 
         ans[queries[i].se] = cnt;
-        s = ss;
-        e = ee;
     }
 
     for (int i = 0; i < q; i++)
