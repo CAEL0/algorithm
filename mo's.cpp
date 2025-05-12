@@ -61,11 +61,11 @@ int main() {
         while (ss < s)
             add(--s, v, counter, cnt);
 
-        while (s < ss)
-            sub(s++, v, counter, cnt);
-
         while (e < ee)
             add(++e, v, counter, cnt);
+
+        while (s < ss)
+            sub(s++, v, counter, cnt);
 
         while (ee < e)
             sub(e--, v, counter, cnt);
@@ -151,17 +151,17 @@ int main() {
     ans[queries[0].se] = cnt;
 
     for (int i = 1; i < q; i++) {
-        while (e < queries[i].fi.se)
-            add(++e, v, counter1, counter2, cnt);
-
         while (s > queries[i].fi.fi)
             add(--s, v, counter1, counter2, cnt);
 
-        while (e > queries[i].fi.se)
-            sub(e--, v, counter1, counter2, cnt);
+        while (e < queries[i].fi.se)
+            add(++e, v, counter1, counter2, cnt);
 
         while (s < queries[i].fi.fi)
             sub(s++, v, counter1, counter2, cnt);
+
+        while (e > queries[i].fi.se)
+            sub(e--, v, counter1, counter2, cnt);
 
         ans[queries[i].se] = cnt;
     }
