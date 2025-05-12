@@ -10,16 +10,14 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-void add(int s, int e, vector<int> &v, vector<int> &counter, int &cnt) {
-    for (int j = s; j <= e; j++)
-        if (counter[v[j]]++ == 0)
-            cnt++;
+void add(int j, vector<int> &v, vector<int> &counter, int &cnt) {
+    if (counter[v[j]]++ == 0)
+        cnt++;
 }
 
-void sub(int s, int e, vector<int> &v, vector<int> &counter, int &cnt) {
-    for (int j = s; j <= e; j++)
-        if (--counter[v[j]] == 0)
-            cnt--;
+void sub(int j, vector<int> &v, vector<int> &counter, int &cnt) {
+    if (--counter[v[j]] == 0)
+        cnt--;
 }
 
 int main() {
@@ -51,29 +49,26 @@ int main() {
         return x.fi.se < y.fi.se;
     });
 
-    vector<int> counter(1000005);
     int s = queries[0].fi.fi;
-    int e = queries[0].fi.se;
+    int e = s - 1;
     int cnt = 0;
-
-    add(s, e, v, counter, cnt);
-
+    vector<int> counter(1000005);
     vector<int> ans(q);
-    ans[queries[0].se] = cnt;
-
-    for (int i = 1; i < q; i++) {
+    for (int i = 0; i < q; i++) {
         int ss = queries[i].fi.fi;
         int ee = queries[i].fi.se;
 
-        if (ss < s)
-            add(ss, s - 1, v, counter, cnt);
-        else
-            sub(s, ss - 1, v, counter, cnt);
+        while (ss < s)
+            add(--s, v, counter, cnt);
 
-        if (e < ee)
-            add(e + 1, ee, v, counter, cnt);
-        else
-            sub(ee + 1, e, v, counter, cnt);
+        while (s < ss)
+            sub(s++, v, counter, cnt);
+
+        while (e < ee)
+            add(++e, v, counter, cnt);
+
+        while (ee < e)
+            sub(e--, v, counter, cnt);
 
         ans[queries[i].se] = cnt;
         s = ss;
