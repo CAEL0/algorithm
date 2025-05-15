@@ -55,19 +55,16 @@ int main() {
     vector<int> counter(1000005);
     vector<int> ans(q);
     for (int i = 0; i < q; i++) {
-        int ss = queries[i].fi.fi;
-        int ee = queries[i].fi.se;
-
-        while (ss < s)
+        while (queries[i].fi.fi < s)
             add(--s, v, counter, cnt);
 
-        while (e < ee)
+        while (e < queries[i].fi.se)
             add(++e, v, counter, cnt);
 
-        while (s < ss)
+        while (s < queries[i].fi.fi)
             sub(s++, v, counter, cnt);
 
-        while (ee < e)
+        while (queries[i].fi.se < e)
             sub(e--, v, counter, cnt);
 
         ans[queries[i].se] = cnt;
@@ -138,20 +135,14 @@ int main() {
         return x.fi.se < y.fi.se;
     });
 
+    int s = queries[0].fi.fi;
+    int e = s - 1;
+    int cnt = 0;
     vector<int> counter1(1000005);
     vector<int> counter2(1000005);
-    int s = queries[0].fi.fi;
-    int e = queries[0].fi.se;
-    int cnt = 0;
-
-    for (int i = s; i <= e; i++)
-        add(i, v, counter1, counter2, cnt);
-
     vector<int> ans(q);
-    ans[queries[0].se] = cnt;
-
-    for (int i = 1; i < q; i++) {
-        while (s > queries[i].fi.fi)
+    for (int i = 0; i < q; i++) {
+        while (queries[i].fi.fi < s)
             add(--s, v, counter1, counter2, cnt);
 
         while (e < queries[i].fi.se)
@@ -160,7 +151,7 @@ int main() {
         while (s < queries[i].fi.fi)
             sub(s++, v, counter1, counter2, cnt);
 
-        while (e > queries[i].fi.se)
+        while (queries[i].fi.se < e)
             sub(e--, v, counter1, counter2, cnt);
 
         ans[queries[i].se] = cnt;
