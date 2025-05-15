@@ -42,7 +42,7 @@ int main() {
         queries[i].se = i;
     }
 
-    int k = sqrt(q);
+    int k = sqrt(n);
     sort(queries.begin(), queries.end(), [&](auto &x, auto &y) {
         if (x.fi.fi / k != y.fi.fi / k)
             return x.fi.fi / k < y.fi.fi / k;
@@ -128,7 +128,7 @@ int main() {
         queries[i].se = i;
     }
 
-    int k = sqrt(q);
+    int k = sqrt(n);
     sort(queries.begin(), queries.end(), [&](auto &x, auto &y) {
         if (x.fi.fi / k != y.fi.fi / k)
             return x.fi.fi / k < y.fi.fi / k;
