@@ -102,6 +102,7 @@
     - integer partition
     - Lucas' theorem
     - multiplicative functions
+    - polynomial interpolation
     - power tower
   - #### Primality Test
     - Miller-Rabin primality test
