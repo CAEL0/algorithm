@@ -12,7 +12,6 @@ typedef pair<int, int> pii;
 
 vector<int> manacher(string &s) {
     int n = 2 * s.sz + 1;
-
     vector<char> w(n);
     for (int i = 0; i < n; i++) {
         if (i & 1)
@@ -24,17 +23,16 @@ vector<int> manacher(string &s) {
     int r = -1;
     int c = -1;
     vector<int> ret(n);
-
     for (int i = 1; i < n; i++) {
         if (r < i - 1 + ret[i - 1]) {
             r = i - 1 + ret[i - 1];
             c = i - 1;
         }
 
-        if (r >= i)
+        if (i <= r)
             ret[i] = min(r - i, ret[2 * c - i]);
 
-        while (i - ret[i] > 0 && i + ret[i] < n - 1 && w[i - ret[i] - 1] == w[i + ret[i] + 1])
+        while (0 < i - ret[i] && i + ret[i] < n - 1 && w[i - ret[i] - 1] == w[i + ret[i] + 1])
             ret[i]++;
     }
 
