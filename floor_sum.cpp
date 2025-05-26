@@ -12,7 +12,6 @@ typedef pair<int, int> pii;
 
 ll f(ll a, ll b, ll c, ll n) {
     ll ret = 0;
-
     while (1) {
         if (a >= c) {
             ret += n * (n + 1) / 2 * (a / c);
