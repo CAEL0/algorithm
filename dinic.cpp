@@ -14,12 +14,11 @@ int dfs(int cur, int f, vector<vector<int>> &graph, vector<vector<int>> &capacit
     if (cur == sink)
         return f;
 
-    while (work[cur] < graph[cur].sz) {
+    work[cur]--;
+    while (++work[cur] < graph[cur].sz) {
         int nxt = graph[cur][work[cur]];
-        if (capacity[cur][nxt] <= flow[cur][nxt] || level[nxt] != level[cur] + 1) {
-            work[cur]++;
+        if (capacity[cur][nxt] <= flow[cur][nxt] || level[nxt] != level[cur] + 1)
             continue;
-        }
 
         int k = dfs(nxt, min(capacity[cur][nxt] - flow[cur][nxt], f), graph, capacity, flow, level, work, sink);
         if (k > 0) {
@@ -27,8 +26,6 @@ int dfs(int cur, int f, vector<vector<int>> &graph, vector<vector<int>> &capacit
             flow[nxt][cur] -= k;
             return k;
         }
-        
-        work[cur]++;
     }
 
     return 0;
