@@ -14,11 +14,12 @@ int dfs(int cur, int f, vector<vector<int>> &graph, vector<vector<int>> &capacit
     if (cur == sink)
         return f;
 
-    for (int &i = work[cur]; i < graph[cur].sz; i++) {
-        int nxt = graph[cur][i];
-
-        if (capacity[cur][nxt] <= flow[cur][nxt] || level[nxt] != level[cur] + 1)
+    while (work[cur] < graph[cur].sz) {
+        int nxt = graph[cur][work[cur]];
+        if (capacity[cur][nxt] <= flow[cur][nxt] || level[nxt] != level[cur] + 1) {
+            work[cur]++;
             continue;
+        }
 
         int k = dfs(nxt, min(capacity[cur][nxt] - flow[cur][nxt], f), graph, capacity, flow, level, work, sink);
         if (k > 0) {
@@ -26,6 +27,8 @@ int dfs(int cur, int f, vector<vector<int>> &graph, vector<vector<int>> &capacit
             flow[nxt][cur] -= k;
             return k;
         }
+        
+        work[cur]++;
     }
 
     return 0;
@@ -41,7 +44,6 @@ int main() {
 
     int source = n + 1;
     int sink = n + 2;
-
     vector<int> v(n + 1);
     for (int i = 1; i <= n; i++)
         cin >> v[i];
@@ -49,7 +51,6 @@ int main() {
     vector<vector<int>> graph(n + 3);
     vector<vector<int>> capacity(n + 3, vector<int>(n + 3));
     vector<vector<int>> flow(n + 3, vector<int>(n + 3));
-
     for (int i = 1; i <= n; i++) {
         if (v[i] == 1) {
             graph[source].push_back(i);
@@ -75,14 +76,10 @@ int main() {
     vector<int> level(n + 3);
     vector<int> work(n + 3);
     deque<int> dq;
-
     while (1) {
         fill(level.begin(), level.end(), -1);
         level[source] = 0;
-
-        dq.clear();
-        dq.push_back(source);
-
+        dq = {source};
         while (dq.sz) {
             int cur = dq.front();
             dq.pop_front();
@@ -99,7 +96,6 @@ int main() {
             break;
 
         fill(work.begin(), work.end(), 0);
-
         while (1) {
             int k = dfs(source, INT_MAX, graph, capacity, flow, level, work, sink);
             ans += k;
@@ -108,10 +104,8 @@ int main() {
         }
     }
 
-    dq.clear();
-    dq.push_back(source);
+    dq = {source};
     vector<bool> vst(n + 3);
-
     while (dq.sz) {
         int cur = dq.front();
         dq.pop_front();
@@ -125,6 +119,7 @@ int main() {
     }
 
     cout << ans << '\n';
+    
     for (int i = 1; i <= n; i++)
         if (vst[i])
             cout << i << ' ';
