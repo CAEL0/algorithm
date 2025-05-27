@@ -18,8 +18,8 @@ void add_edge(int from, int to, int capacity, vector<vector<pair<pii, int>>> &gr
     graph[to].push_back(make_pair(make_pair(from, from_idx), 0));
 }
 
-int dfs(int cur, int flow, vector<vector<pair<pii, int>>> &graph, vector<int> &level, vector<int> &work, int sink) {
-    if (cur == sink)
+int dfs(int cur, int flow, vector<vector<pair<pii, int>>> &graph, vector<int> &level, vector<int> &work, int source) {
+    if (cur == source)
         return flow;
 
     int ret = 0;
@@ -30,7 +30,7 @@ int dfs(int cur, int flow, vector<vector<pair<pii, int>>> &graph, vector<int> &l
         if (level_cur <= level[nxt.fi.fi] || graph[nxt.fi.fi][nxt.fi.se].se == 0)
             continue;
 
-        int k = dfs(nxt.fi.fi, min(flow - ret, graph[nxt.fi.fi][nxt.fi.se].se), graph, level, work, sink);
+        int k = dfs(nxt.fi.fi, min(flow - ret, graph[nxt.fi.fi][nxt.fi.se].se), graph, level, work, source);
         if (k <= 0)
             continue;
 
@@ -124,10 +124,10 @@ int main() {
         dq.pop_front();
 
         for (int i = 0; i < graph[cur].sz; i++) {
-            pair<pii, int> nxt = graph[cur][i];
-            if (graph[cur][i].se && !vst[nxt.fi.fi]) {
-                vst[nxt.fi.fi] = true;
-                dq.push_back(nxt.fi.fi);
+            int nxt = graph[cur][i].fi.fi;
+            if (graph[cur][i].se && !vst[nxt]) {
+                vst[nxt] = true;
+                dq.push_back(nxt);
             }
         }
     }
