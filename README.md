@@ -132,5 +132,6 @@
     - Aho-Corasick algorithm
     - Knuth-Morris-Pratt algorithm
     - Manacher's algorithm
+    - Rabin-Karp algorithm
     - suffix array and lcp array
     - z algorithm
