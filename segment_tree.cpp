@@ -1,4 +1,4 @@
-//BOJ 2042 구간 합 구하기
+// BOJ 2042 구간 합 구하기
 
 #include <bits/stdc++.h>
 #define sz size()
@@ -44,8 +44,11 @@ struct SegmentTree {
         }
 
         int m = (s + e) >> 1;
-        update(2 * idx, s, m, l, k);
-        update(2 * idx + 1, m + 1, e, l, k);
+        if (l <= m)
+            update(2 * idx, s, m, l, k);
+        else
+            update(2 * idx + 1, m + 1, e, l, k);
+
         tree[idx] = tree[2 * idx] + tree[2 * idx + 1];
     }
 };
