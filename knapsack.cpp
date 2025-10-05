@@ -22,7 +22,7 @@ int main() {
     for (int i = 0; i < n; i++)
         cin >> w[i] >> v[i];
     
-    vector<vector<int>> dp(n, vector<int>(k + 1, 0));
+    vector<vector<int>> dp(n, vector<int>(k + 1));
     for (int j = 0; j <= k; j++)
         if (j >= w[0])
             dp[0][j] = v[0];
