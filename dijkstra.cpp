@@ -11,29 +11,24 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 
-struct Node {
-    ll x, d;
-    bool operator<(const Node &o) const { return d > o.d; }
-};
-
 vector<ll> dijkstra(int start, vector<vector<pll>> &graph) {
     vector<ll> dist(graph.sz, LLONG_MAX);
     dist[start] = 0;
 
-    priority_queue<Node> pq;
-    pq.push({start, 0});
+    priority_queue<pll, vector<pll>, greater<pll>> pq;
+    pq.push(make_pair(0, start));
 
     while (pq.sz) {
-        Node cur = pq.top();
+        auto [d, cur] = pq.top();
         pq.pop();
 
-        if (dist[cur.x] != cur.d)
+        if (dist[cur] != d)
             continue;
 
-        for (pll &nxt : graph[cur.x]) {
-            if (cur.d + nxt.se < dist[nxt.fi]) {
-                dist[nxt.fi] = cur.d + nxt.se;
-                pq.push({nxt.fi, dist[nxt.fi]});
+        for (auto [nxt, dd] : graph[cur]) {
+            if (dist[nxt] > d + dd) {
+                dist[nxt] = d + dd;
+                pq.push(make_pair(dist[nxt], nxt));
             }
         }
     }
@@ -50,16 +45,14 @@ int main() {
     cin >> n >> m >> start;
 
     vector<vector<pll>> graph(n + 1);
-
     while (m--) {
-        ll u, v, w;
-        cin >> u >> v >> w;
+        ll x, y, z;
+        cin >> x >> y >> z;
 
-        graph[u].push_back(pll(v, w));
+        graph[x].push_back(make_pair(y, z));
     }
 
     vector<ll> dist = dijkstra(start, graph);
-
     for (int i = 1; i <= n; i++) {
         if (dist[i] == LLONG_MAX)
             cout << "INF" << '\n';
