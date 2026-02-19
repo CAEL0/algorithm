@@ -26,7 +26,7 @@ int main() {
     for (int j = 0; j < n; j++)
         sparse[0][j + 1] = v[j];
 
-    for (int i = 0; i < 19; i++)
+    for (int i = 0; i + 1 < sparse.sz; i++)
         for (int j = 1; j <= n; j++)
             sparse[i + 1][j] = sparse[i][sparse[i][j]];
 
