@@ -31,6 +31,7 @@
     - trie
   - binary trie
   - bitset
+  - cartesian tree
   - median
   - offline dynamic connectivity
   - policy based data structures
