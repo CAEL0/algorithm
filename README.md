@@ -37,6 +37,7 @@
   - policy based data structures
 
 - ### Dynamic Programming
+  - connected component dp
   - connection profile dp
   - convex hull trick
   - digit dp
