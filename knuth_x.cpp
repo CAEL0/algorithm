@@ -15,13 +15,12 @@ struct Node {
     Node *column, *left, *right, *up, *down;
 };
 
-void make_row(int i, int j, int x, vector<vector<int>> &matrix) {
-    vector<int> row(324, 0);
-
-    row[9 * i + j] = 1;
-    row[81 + 9 * i + x] = 1;
-    row[162 + 9 * j + x] = 1;
-    row[243 + 9 * (i / 3 * 3 + j / 3) + x] = 1;
+void make_row(int i, int j, int x, vector<vector<int>> &matrix, int n, int m) {
+    vector<int> row(m * m * 4, 0);
+    row[m * m * 0 + m * i + j] = 1;
+    row[m * m * 1 + m * i + x] = 1;
+    row[m * m * 2 + m * j + x] = 1;
+    row[m * m * 3 + m * (i / n * n + j / n) + x] = 1;
 
     matrix.push_back(row);
 }
@@ -172,25 +171,27 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    vector<vector<int>> v(9, vector<int>(9));
-    for (int i = 0; i < 9; i++)
-        for (int j = 0; j < 9; j++)
+    int n = 3;
+    int m = n * n;
+
+    vector<vector<int>> v(m, vector<int>(m));
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < m; j++)
             cin >> v[i][j];
 
     vector<vector<int>> matrix;
     vector<pair<pii, int>> data;
-
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
             if (v[i][j]) {
-                make_row(i, j, v[i][j] - 1, matrix);
-                data.push_back({{i, j}, v[i][j]});
+                make_row(i, j, v[i][j] - 1, matrix, n, m);
+                data.push_back(make_pair(make_pair(i, j), v[i][j]));
                 continue;
             }
 
-            for (int k = 0; k < 9; k++) {
-                make_row(i, j, k, matrix);
-                data.push_back({{i, j}, k + 1});
+            for (int k = 0; k < m; k++) {
+                make_row(i, j, k, matrix, n, m);
+                data.push_back(make_pair(make_pair(i, j), k + 1));
             }
         }
     }
@@ -201,12 +202,12 @@ int main() {
     search(&columns.bk, ans);
 
     for (int x : ans) {
-        auto [i, j] = data[x].fi;
-        v[i][j] = data[x].se;
+        pii p = data[x].fi;
+        v[p.fi][p.se] = data[x].se;
     }
 
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++)
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++)
             cout << v[i][j] << ' ';
         cout << '\n';
     }
