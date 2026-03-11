@@ -51,7 +51,6 @@ int main() {
     while (1) {
         lvl[0] = INT_MAX;
         deque<int> dq;
-
         for (int i = 1; i <= n; i++) {
             if (a[i] == 0) {
                 lvl[i] = 0;
