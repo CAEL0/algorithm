@@ -32,7 +32,6 @@ int main() {
     cin >> n >> m;
 
     vector<vector<int>> graph(n + 1);
-
     for (int i = 1; i <= n; i++) {
         int k;
         cin >> k;
@@ -48,7 +47,6 @@ int main() {
     vector<int> b(m + 1);
     vector<bool> vst(n + 1);
     int ans = 0;
-
     for (int i = 1; i <= n; i++) {
         fill(vst.begin(), vst.end(), false);
         ans += dfs(i, b, vst, graph);
