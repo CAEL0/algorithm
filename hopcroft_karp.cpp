@@ -10,18 +10,69 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-bool dfs(int cur, vector<int> &a, vector<int> &b, vector<int> &lvl, vector<vector<int>> &graph) {
-    for (int nxt : graph[cur]) {
-        if (lvl[b[nxt]] == lvl[cur] + 1 && (b[nxt] == 0 || dfs(b[nxt], a, b, lvl, graph))) {
-            a[cur] = nxt;
-            b[nxt] = cur;
-            return true;
-        }
+struct HopcroftKarp {
+    int n, m;
+    vector<int> a, b, lvl;
+    vector<vector<int>> graph;
+
+    HopcroftKarp(int n, int m, vector<vector<int>> &graph) : n(n), m(m), graph(graph) {
+        a.resize(n + 1);
+        b.resize(m + 1);
+        lvl.resize(n + 1);
     }
 
-    lvl[cur] = INT_MAX;
-    return false;
-}
+    int maximum_matching() {
+        int ret = 0;
+        while (1) {
+            lvl[0] = INT_MAX;
+            deque<int> dq;
+            for (int i = 1; i <= n; i++) {
+                if (a[i] == 0) {
+                    lvl[i] = 0;
+                    dq.push_back(i);
+                } else
+                    lvl[i] = INT_MAX;
+            }
+
+            while (dq.sz) {
+                int cur = dq.front();
+                dq.pop_front();
+
+                for (int nxt : graph[cur]) {
+                    if (lvl[b[nxt]] == INT_MAX) {
+                        lvl[b[nxt]] = lvl[cur] + 1;
+                        dq.push_back(b[nxt]);
+                    }
+                }
+            }
+
+            int flow = 0;
+            for (int i = 1; i <= n; i++)
+                if (!a[i] && dfs(i))
+                    flow++;
+
+            if (flow == 0)
+                break;
+
+            ret += flow;
+        }
+
+        return ret;
+    }
+
+    bool dfs(int cur) {
+        for (int nxt : graph[cur]) {
+            if (lvl[b[nxt]] == lvl[cur] + 1 && (b[nxt] == 0 || dfs(b[nxt]))) {
+                a[cur] = nxt;
+                b[nxt] = cur;
+                return true;
+            }
+        }
+
+        lvl[cur] = INT_MAX;
+        return false;
+    }
+};
 
 int main() {
     ios::sync_with_stdio(0);
@@ -44,43 +95,7 @@ int main() {
         }
     }
 
-    int ans = 0;
-    vector<int> a(n + 1);
-    vector<int> b(m + 1);
-    vector<int> lvl(n + 1);
-    while (1) {
-        lvl[0] = INT_MAX;
-        deque<int> dq;
-        for (int i = 1; i <= n; i++) {
-            if (a[i] == 0) {
-                lvl[i] = 0;
-                dq.push_back(i);
-            } else
-                lvl[i] = INT_MAX;
-        }
+    HopcroftKarp hk(n, m, graph);
 
-        while (dq.sz) {
-            int cur = dq.front();
-            dq.pop_front();
-
-            for (int nxt : graph[cur]) {
-                if (lvl[b[nxt]] == INT_MAX) {
-                    lvl[b[nxt]] = lvl[cur] + 1;
-                    dq.push_back(b[nxt]);
-                }
-            }
-        }
-
-        int flow = 0;
-        for (int i = 1; i <= n; i++)
-            if (!a[i] && dfs(i, a, b, lvl, graph))
-                flow++;
-
-        if (flow == 0)
-            break;
-
-        ans += flow;
-    }
-
-    cout << ans;
+    cout << hk.maximum_matching();
 }
