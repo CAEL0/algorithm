@@ -10,18 +10,38 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-bool dfs(int cur, vector<int> &b, vector<bool> &vst, vector<vector<int>> &graph) {
-    vst[cur] = true;
+struct BipartiteMatching {
+    int n, m;
+    vector<int> b;
+    vector<vector<int>> graph;
 
-    for (int nxt : graph[cur]) {
-        if (b[nxt] == 0 || (!vst[b[nxt]] && dfs(b[nxt], b, vst, graph))) {
-            b[nxt] = cur;
-            return true;
+    BipartiteMatching(int n, int m, vector<vector<int>> &graph) : n(n), m(m), graph(graph) { b.resize(m + 1); }
+
+    int maximum_matching() {
+        int ret = 0;
+        vector<bool> vst(n + 1);
+        for (int i = 1; i <= n; i++) {
+            fill(vst.begin(), vst.end(), false);
+            if (dfs(i, vst))
+                ret++;
         }
+
+        return ret;
     }
 
-    return false;
-}
+    bool dfs(int cur, vector<bool> &vst) {
+        vst[cur] = true;
+
+        for (int nxt : graph[cur]) {
+            if (b[nxt] == 0 || (!vst[b[nxt]] && dfs(b[nxt], vst))) {
+                b[nxt] = cur;
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
 
 int main() {
     ios::sync_with_stdio(0);
@@ -44,13 +64,7 @@ int main() {
         }
     }
 
-    vector<int> b(m + 1);
-    vector<bool> vst(n + 1);
-    int ans = 0;
-    for (int i = 1; i <= n; i++) {
-        fill(vst.begin(), vst.end(), false);
-        ans += dfs(i, b, vst, graph);
-    }
+    BipartiteMatching bm(n, m, graph);
 
-    cout << ans;
+    cout << bm.maximum_matching();
 }
