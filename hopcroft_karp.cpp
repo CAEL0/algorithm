@@ -32,7 +32,6 @@ int main() {
     cin >> n >> m;
 
     vector<vector<int>> graph(n + 1);
-
     for (int i = 1; i <= n; i++) {
         int k;
         cin >> k;
@@ -45,11 +44,10 @@ int main() {
         }
     }
 
+    int ans = 0;
     vector<int> a(n + 1);
     vector<int> b(m + 1);
     vector<int> lvl(n + 1);
-    int ans = 0;
-
     while (1) {
         lvl[0] = INT_MAX;
         deque<int> dq;
