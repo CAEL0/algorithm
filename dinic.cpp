@@ -65,7 +65,7 @@ struct Dinic {
 
             fill(work.begin(), work.end(), 0);
             while (1) {
-                int flow = dfs(sink, INT_MAX, level, work, source);
+                int flow = dfs(sink, INT_MAX, level, work);
                 ret += flow;
                 if (flow == 0)
                     break;
@@ -75,7 +75,7 @@ struct Dinic {
         return ret;
     }
 
-    int dfs(int cur, int flow, vector<int> &level, vector<int> &work, int source) {
+    int dfs(int cur, int flow, vector<int> &level, vector<int> &work) {
         if (cur == source)
             return flow;
 
@@ -87,7 +87,7 @@ struct Dinic {
             if (level_cur <= level[nxt.fi.fi] || graph[nxt.fi.fi][nxt.fi.se].se == 0)
                 continue;
 
-            int k = dfs(nxt.fi.fi, min(flow - ret, graph[nxt.fi.fi][nxt.fi.se].se), level, work, source);
+            int k = dfs(nxt.fi.fi, min(flow - ret, graph[nxt.fi.fi][nxt.fi.se].se), level, work);
             if (k <= 0)
                 continue;
 
