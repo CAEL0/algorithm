@@ -17,6 +17,7 @@ struct DisjointSet {
     DisjointSet(int _n) {
         n = _n;
         dsu.resize(n + 1);
+        init();
     }
 
     void init() {
@@ -43,26 +44,24 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    vector<pair<pii, ll>> edges(m);
+    vector<pair<pii, int>> edges(m);
     for (int i = 0; i < m; i++)
         cin >> edges[i].fi.fi >> edges[i].fi.se >> edges[i].se;
 
-    sort(edges.begin(), edges.end(), [](auto &p, auto &q) { return p.se < q.se; });
+    sort(edges.begin(), edges.end(), [](pair<pii, int> &p, pair<pii, int> &q) { return p.se < q.se; });
 
     DisjointSet ds = DisjointSet(n);
-    ds.init();
-
-    ll ans = 0;
+    int ans = 0;
     int cnt = 0;
-
-    for (auto &edge : edges) {
-        if (ds.is_same(edge.fi.fi, edge.fi.se))
+    for (pair<pii, int> &p : edges) {
+        if (ds.is_same(p.fi.fi, p.fi.se))
             continue;
 
-        ds.merge(edge.fi.fi, edge.fi.se);
-        ans += edge.se;
+        ds.merge(p.fi.fi, p.fi.se);
+        ans += p.se;
 
-        if (++cnt == n - 1)
+        cnt++;
+        if (cnt == n - 1)
             break;
     }
 
