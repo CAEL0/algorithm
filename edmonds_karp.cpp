@@ -1,4 +1,4 @@
-// BOJ 2188 축사 배정
+// BOJ 17412 도시 왕복하기 1
 
 #include <bits/stdc++.h>
 #define sz size()
@@ -22,6 +22,12 @@ struct EdmondsKarp {
         flow.resize(n + 3, vector<int>(n + 3));
     }
 
+    EdmondsKarp(int n, int source, int sink) : n(n), source(source), sink(sink) {
+        graph.resize(n + 1);
+        capacity.resize(n + 1, vector<int>(n + 1));
+        flow.resize(n + 1, vector<int>(n + 1));
+    }
+
     void add_from_source(int to, int cap) { add_edge(source, to, cap); }
 
     void add_to_sink(int from, int cap) { add_edge(from, sink, cap); }
@@ -35,7 +41,7 @@ struct EdmondsKarp {
     int maximum_flow() {
         int ret = 0;
         while (1) {
-            vector<int> prv(n + 3, -1);
+            vector<int> prv(graph.sz, -1);
             deque<int> dq = {source};
             while (dq.sz && prv[sink] == -1) {
                 int cur = dq.front();
@@ -85,23 +91,13 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    EdmondsKarp ek(n + m);
-    for (int i = 1; i <= n; i++) {
-        ek.add_from_source(i, 1);
+    EdmondsKarp ek(n, 1, 2);
+    while (m--) {
+        int x, y;
+        cin >> x >> y;
 
-        int k;
-        cin >> k;
-
-        while (k--) {
-            int j;
-            cin >> j;
-
-            ek.add_edge(i, n + j, 1);
-        }
+        ek.add_edge(x, y, 1);
     }
-
-    for (int j = 1; j <= m; j++)
-        ek.add_to_sink(n + j, 1);
 
     cout << ek.maximum_flow();
 }
