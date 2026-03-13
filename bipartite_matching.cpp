@@ -1,4 +1,4 @@
-// BOJ 2188 축사 배정
+// BOJ 11375 열혈강호
 
 #include <bits/stdc++.h>
 #define sz size()
@@ -15,7 +15,12 @@ struct BipartiteMatching {
     vector<int> b;
     vector<vector<int>> graph;
 
-    BipartiteMatching(int n, int m, vector<vector<int>> &graph) : n(n), m(m), graph(graph) { b.resize(m + 1); }
+    BipartiteMatching(int n, int m) : n(n), m(m) {
+        graph.resize(n + 1);
+        b.resize(m + 1);
+    }
+
+    void add_edge(int x, int y) { graph[x].push_back(y); }
 
     int maximum_matching() {
         int ret = 0;
@@ -51,7 +56,7 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    vector<vector<int>> graph(n + 1);
+    BipartiteMatching bm(n, m);
     for (int i = 1; i <= n; i++) {
         int k;
         cin >> k;
@@ -60,11 +65,9 @@ int main() {
             int x;
             cin >> x;
 
-            graph[i].push_back(x);
+            bm.add_edge(i, x);
         }
     }
-
-    BipartiteMatching bm(n, m, graph);
 
     cout << bm.maximum_matching();
 }
