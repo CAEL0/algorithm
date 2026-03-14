@@ -12,11 +12,12 @@ typedef pair<int, int> pii;
 
 struct BipartiteMatching {
     int n, m;
-    vector<int> b;
+    vector<int> a, b;
     vector<vector<int>> graph;
 
     BipartiteMatching(int n, int m) : n(n), m(m) {
         graph.resize(n + 1);
+        a.resize(n + 1);
         b.resize(m + 1);
     }
 
@@ -39,6 +40,7 @@ struct BipartiteMatching {
 
         for (int nxt : graph[cur]) {
             if (b[nxt] == 0 || (!vst[b[nxt]] && dfs(b[nxt], vst))) {
+                a[cur] = nxt;
                 b[nxt] = cur;
                 return true;
             }
