@@ -1,4 +1,4 @@
-// BOJ 2188 축사 배정
+// BOJ 11375 열혈강호
 
 #include <bits/stdc++.h>
 #define sz size()
@@ -15,11 +15,14 @@ struct HopcroftKarp {
     vector<int> a, b, lvl;
     vector<vector<int>> graph;
 
-    HopcroftKarp(int n, int m, vector<vector<int>> &graph) : n(n), m(m), graph(graph) {
+    HopcroftKarp(int n, int m) : n(n), m(m) {
         a.resize(n + 1);
         b.resize(m + 1);
         lvl.resize(n + 1);
+        graph.resize(n + 1);
     }
+
+    void add_edge(int x, int y) { graph[x].push_back(y); }
 
     int maximum_matching() {
         int ret = 0;
@@ -82,20 +85,18 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    vector<vector<int>> graph(n + 1);
+    HopcroftKarp hk(n, m);
     for (int i = 1; i <= n; i++) {
         int k;
         cin >> k;
 
         while (k--) {
-            int x;
-            cin >> x;
+            int j;
+            cin >> j;
 
-            graph[i].push_back(x);
+            hk.add_edge(i, j);
         }
     }
-
-    HopcroftKarp hk(n, m, graph);
 
     cout << hk.maximum_matching();
 }
