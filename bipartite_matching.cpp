@@ -64,10 +64,10 @@ int main() {
         cin >> k;
 
         while (k--) {
-            int x;
-            cin >> x;
+            int j;
+            cin >> j;
 
-            bm.add_edge(i, x);
+            bm.add_edge(i, j);
         }
     }
 
