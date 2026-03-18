@@ -14,6 +14,7 @@ struct HopcroftKarp {
     int n, m;
     vector<int> a, b, lvl;
     vector<bool> left, right;
+    vector<int> left_cover, right_cover;
     vector<vector<int>> graph;
 
     HopcroftKarp(int n, int m) : n(n), m(m) {
@@ -86,6 +87,14 @@ struct HopcroftKarp {
                 dfs2(i);
             }
         }
+
+        for (int i = 1; i <= n; i++)
+            if (!left[i])
+                left_cover.push_back(i);
+
+        for (int j = 1; j <= m; j++)
+            if (right[j])
+                right_cover.push_back(j);
     }
 
     void dfs2(int cur) {
@@ -127,23 +136,13 @@ int main() {
 
     hk.minimum_vertex_cover();
 
-    vector<int> left_ans;
-    for (int i = 1; i <= n; i++)
-        if (!hk.left[i])
-            left_ans.push_back(i);
-
-    vector<int> right_ans;
-    for (int j = 1; j <= m; j++)
-        if (hk.right[j])
-            right_ans.push_back(j);
-
-    cout << left_ans.sz << ' ';
-    for (int x : left_ans)
+    cout << hk.left_cover.sz << ' ';
+    for (int x : hk.left_cover)
         cout << x << ' ';
     cout << '\n';
 
-    cout << right_ans.sz << ' ';
-    for (int x : right_ans)
+    cout << hk.right_cover.sz << ' ';
+    for (int x : hk.right_cover)
         cout << x << ' ';
     cout << '\n';
 }
