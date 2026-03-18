@@ -13,12 +13,15 @@ typedef pair<int, int> pii;
 struct HopcroftKarp {
     int n, m;
     vector<int> a, b, lvl;
+    vector<bool> left, right;
     vector<vector<int>> graph;
 
     HopcroftKarp(int n, int m) : n(n), m(m) {
         a.resize(n + 1);
         b.resize(m + 1);
         lvl.resize(n + 1);
+        left.resize(n + 1);
+        right.resize(m + 1);
         graph.resize(n + 1);
     }
 
@@ -76,7 +79,16 @@ struct HopcroftKarp {
         return false;
     }
 
-    void minimum_vertex_cover(int cur, vector<bool> &left, vector<bool> &right) {
+    void minimum_vertex_cover() {
+        for (int i = 1; i <= n; i++) {
+            if (a[i] == 0 && !left[i]) {
+                left[i] = true;
+                dfs2(i);
+            }
+        }
+    }
+
+    void dfs2(int cur) {
         for (int nxt : graph[cur]) {
             if (a[cur] == nxt || right[nxt])
                 continue;
@@ -84,7 +96,7 @@ struct HopcroftKarp {
             right[nxt] = true;
             if (!left[b[nxt]]) {
                 left[b[nxt]] = true;
-                minimum_vertex_cover(b[nxt], left, right);
+                dfs2(b[nxt]);
             }
         }
     }
@@ -113,23 +125,16 @@ int main() {
 
     cout << hk.maximum_matching() << '\n';
 
-    vector<bool> left(n + 1);
-    vector<bool> right(m + 1);
-    for (int i = 1; i <= n; i++) {
-        if (hk.a[i] == 0 && !left[i]) {
-            left[i] = true;
-            hk.minimum_vertex_cover(i, left, right);
-        }
-    }
+    hk.minimum_vertex_cover();
 
     vector<int> left_ans;
     for (int i = 1; i <= n; i++)
-        if (!left[i])
+        if (!hk.left[i])
             left_ans.push_back(i);
 
     vector<int> right_ans;
     for (int j = 1; j <= m; j++)
-        if (right[j])
+        if (hk.right[j])
             right_ans.push_back(j);
 
     cout << left_ans.sz << ' ';
