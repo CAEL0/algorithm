@@ -18,6 +18,7 @@ struct DisjointSet {
         n = _n;
         dsu.resize(n + 1);
         rank.resize(n + 1);
+        init();
     }
 
     void init() {
@@ -58,8 +59,6 @@ int main() {
     cin >> n >> q;
 
     DisjointSet ds(n);
-    ds.init();
-
     while (q--) {
         int op, x, y;
         cin >> op >> x >> y;
