@@ -109,6 +109,7 @@
     - Miller-Rabin primality test
   - #### Prime Factorization
     - Pollard's rho algorithm
+    - prime factorization
     - sieve of Eratosthenes
 
 - ### Miscellaneous
