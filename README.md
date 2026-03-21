@@ -64,6 +64,7 @@
   - #### Flow Network
     - Dinic's algorithm
     - Edmonds-Karp algorithm
+    - Hall's marriage theorem
     - Hopcroft-Karp algorithm
     - max-flow min-cut theorem
     - minimum cost maximum flow
