@@ -37,18 +37,18 @@ struct SegmentTree {
         return tree[idx] + point(2 * idx, s, m, l) + point(2 * idx + 1, m + 1, e, l);
     }
 
-    void range(int idx, int s, int e, int l, int r, ll x) {
+    void range(int idx, int s, int e, int l, int r, ll k) {
         if (r < s || e < l)
             return;
 
         if (l <= s && e <= r) {
-            tree[idx] += x;
+            tree[idx] += k;
             return;
         }
         
         int m = (s + e) >> 1;
-        range(2 * idx, s, m, l, r, x);
-        range(2 * idx + 1, m + 1, e, l, r, x);
+        range(2 * idx, s, m, l, r, k);
+        range(2 * idx + 1, m + 1, e, l, r, k);
     }
 };
 
