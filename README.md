@@ -95,6 +95,7 @@
   - #### Linear Algebra
     - Gaussian elimination
     - matrix multiplication
+    - xor basis
   - #### Number Theory
     - combination
     - Euler's phi (totient) function
