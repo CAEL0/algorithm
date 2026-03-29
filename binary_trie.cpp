@@ -96,7 +96,7 @@ int main() {
 
     int ans = 0;
     for (int x : v)
-      ans = max(ans, trie.maximum(0, x, bit));
+        ans = max(ans, trie.maximum(0, x, bit));
 
     cout << ans;
 }
