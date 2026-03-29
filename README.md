@@ -68,6 +68,7 @@
     - Hopcroft-Karp algorithm
     - max-flow min-cut theorem
     - minimum cost maximum flow
+    - Stoer-Wagner algorithm
   - #### Minimum Spanning Tree
     - Kruskal's algorithm
     - Prim's algorithm
