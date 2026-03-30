@@ -43,18 +43,18 @@ struct FenwickTree {
         return ret + 1;
     }
 
-    void update(int k, ll v) {
-        ll gap = v - sum(k, k);
-        while (k <= n) {
-            tree[k] += gap;
-            k += (k & -k);
+    void update(int l, ll k) {
+        ll gap = k - sum(l, l);
+        while (l <= n) {
+            tree[l] += gap;
+            l += (l & -l);
         }
     }
 
-    void add(int k, ll v) {
-        while (k <= n) {
-            tree[k] += v;
-            k += (k & -k);
+    void add(int l, ll k) {
+        while (l <= n) {
+            tree[l] += k;
+            l += (l & -l);
         }
     }
 };
