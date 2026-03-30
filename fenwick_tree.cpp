@@ -14,10 +14,7 @@ struct FenwickTree {
     int n;
     vector<ll> tree;
 
-    FenwickTree(int _n) {
-        n = _n;
-        tree.resize(n + 1);
-    }
+    FenwickTree(int n) : n(n) { tree.resize(n + 1); }
 
     ll sum(int k) {
         ll ret = 0;
@@ -25,7 +22,6 @@ struct FenwickTree {
             ret += tree[k];
             k -= (k & -k);
         }
-
         return ret;
     }
 
@@ -42,10 +38,8 @@ struct FenwickTree {
                 k -= tree[ret + idx];
                 ret += idx;
             }
-
             idx >>= 1;
         }
-
         return ret + 1;
     }
 
@@ -88,7 +82,7 @@ int main() {
 
         if (op == 1)
             ft.update(x, y);
-        else
+        else if (op == 2)
             cout << ft.sum(x, y) << '\n';
     }
 }
