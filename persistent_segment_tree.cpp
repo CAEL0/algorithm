@@ -20,9 +20,6 @@ struct PersistentSegmentTree {
 
     PersistentSegmentTree(int mx) {
         root.resize(mx);
-        root[0] = 1;
-
-        tree.push_back({0, 0, 0});
         tree.push_back({0, 0, 0});
     }
 
@@ -83,9 +80,9 @@ int main() {
             pst.root[x] = pst.root[x - 1];
 
             for (int y : v[x]) {
-                int idx = pst.tree.sz;
-                pst.update(pst.root[x], 1, mx, y, 1);
-                pst.root[x] = idx;
+                int idx = pst.root[x];
+                pst.root[x] = pst.tree.sz;
+                pst.update(idx, 1, mx, y, 1);
             }
         }
 
