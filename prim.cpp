@@ -21,14 +21,14 @@ int main() {
 
     vector<vector<pll>> graph(n + 1);
     for (int i = 0; i < m; i++) {
-        ll u, v, w;
-        cin >> u >> v >> w;
+        ll x, y, z;
+        cin >> x >> y >> z;
 
-        graph[u].push_back({v, w});
-        graph[v].push_back({u, w});
+        graph[x].push_back(make_pair(y, z));
+        graph[y].push_back(make_pair(x, z));
     }
 
-    auto cmp = [](pll &p, pll &q) { return p.se > q.se; };
+    auto cmp = [](pll p, pll q) { return p.se > q.se; };
     priority_queue<pll, vector<pll>, decltype(cmp)> pq(cmp);
 
     vector<bool> vst(n + 1);
@@ -36,20 +36,19 @@ int main() {
 
     ll ans = 0;
     int cur = 1;
-
     for (int i = 1; i < n; i++) {
-        for (pll &edge : graph[cur])
-            if (!vst[edge.fi])
-                pq.push(edge);
+        for (pll p : graph[cur])
+            if (!vst[p.fi])
+                pq.push(p);
 
         while (1) {
-            pll edge = pq.top();
+            cur = pq.top().fi;
+            ll d = pq.top().se;
             pq.pop();
 
-            if (!vst[edge.fi]) {
-                cur = edge.fi;
+            if (!vst[cur]) {
                 vst[cur] = true;
-                ans += edge.se;
+                ans += d;
                 break;
             }
         }
