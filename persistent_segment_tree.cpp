@@ -18,8 +18,8 @@ struct PersistentSegmentTree {
     vector<int> root;
     vector<Node> tree;
 
-    PersistentSegmentTree(int mx) {
-        root.resize(mx);
+    PersistentSegmentTree(int m) {
+        root.resize(m + 1);
         tree.push_back({0, 0, 0});
     }
 
@@ -58,7 +58,7 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    int mx = 100005;
+    int m = 100001;
 
     int t;
     cin >> t;
@@ -67,7 +67,7 @@ int main() {
         int n, q;
         cin >> n >> q;
 
-        vector<vector<int>> v(mx);
+        vector<vector<int>> v(m + 1);
         for (int i = 0; i < n; i++) {
             int x, y;
             cin >> x >> y;
@@ -75,14 +75,14 @@ int main() {
             v[x + 1].push_back(y + 1);
         }
 
-        PersistentSegmentTree pst(mx);
-        for (int x = 1; x < mx; x++) {
+        PersistentSegmentTree pst(m);
+        for (int x = 1; x <= m; x++) {
             pst.root[x] = pst.root[x - 1];
 
             for (int y : v[x]) {
                 int idx = pst.root[x];
                 pst.root[x] = pst.tree.sz;
-                pst.update(idx, 1, mx, y, 1);
+                pst.update(idx, 1, m, y, 1);
             }
         }
 
@@ -91,8 +91,8 @@ int main() {
             int x, z, y, w;
             cin >> x >> z >> y >> w;
 
-            ans += pst.sum(pst.root[z + 1], 1, mx, y + 1, w + 1);
-            ans -= pst.sum(pst.root[x], 1, mx, y + 1, w + 1);
+            ans += pst.sum(pst.root[z + 1], 1, m, y + 1, w + 1);
+            ans -= pst.sum(pst.root[x], 1, m, y + 1, w + 1);
         }
 
         cout << ans << '\n';
