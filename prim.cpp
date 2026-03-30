@@ -11,6 +11,43 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 
+struct Prim {
+    int n;
+    vector<vector<pll>> graph;
+
+    Prim(int n, vector<vector<pll>> graph) : n(n), graph(graph) {}
+
+    ll minimum_spanning_tree() {
+        auto cmp = [](pll p, pll q) { return p.se > q.se; };
+        priority_queue<pll, vector<pll>, decltype(cmp)> pq(cmp);
+
+        vector<bool> vst(n + 1);
+        vst[1] = true;
+
+        ll ret = 0;
+        int cur = 1;
+        for (int i = 1; i < n; i++) {
+            for (pll p : graph[cur])
+                if (!vst[p.fi])
+                    pq.push(p);
+
+            while (1) {
+                cur = pq.top().fi;
+                ll d = pq.top().se;
+                pq.pop();
+
+                if (!vst[cur]) {
+                    vst[cur] = true;
+                    ret += d;
+                    break;
+                }
+            }
+        }
+
+        return ret;
+    }
+};
+
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -28,31 +65,7 @@ int main() {
         graph[y].push_back(make_pair(x, z));
     }
 
-    auto cmp = [](pll p, pll q) { return p.se > q.se; };
-    priority_queue<pll, vector<pll>, decltype(cmp)> pq(cmp);
+    Prim prim(n, graph);
 
-    vector<bool> vst(n + 1);
-    vst[1] = true;
-
-    ll ans = 0;
-    int cur = 1;
-    for (int i = 1; i < n; i++) {
-        for (pll p : graph[cur])
-            if (!vst[p.fi])
-                pq.push(p);
-
-        while (1) {
-            cur = pq.top().fi;
-            ll d = pq.top().se;
-            pq.pop();
-
-            if (!vst[cur]) {
-                vst[cur] = true;
-                ans += d;
-                break;
-            }
-        }
-    }
-
-    cout << ans;
+    cout << prim.minimum_spanning_tree();
 }
