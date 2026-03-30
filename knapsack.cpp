@@ -18,7 +18,8 @@ int main() {
     int n, k;
     cin >> n >> k;
     
-    vector<int> w(n), v(n);
+    vector<int> w(n);
+    vector<int> v(n);
     for (int i = 0; i < n; i++)
         cin >> w[i] >> v[i];
     
