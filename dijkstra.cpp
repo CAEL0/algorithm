@@ -19,13 +19,16 @@ vector<ll> dijkstra(int start, vector<vector<pll>> &graph) {
     pq.push(make_pair(0, start));
 
     while (pq.sz) {
-        auto [d, cur] = pq.top();
+        ll d = pq.top().fi;
+        ll cur = pq.top().se;
         pq.pop();
 
         if (dist[cur] != d)
             continue;
 
-        for (auto [nxt, dd] : graph[cur]) {
+        for (pll p : graph[cur]) {
+            ll nxt = p.fi;
+            ll dd = p.se;
             if (dist[nxt] > d + dd) {
                 dist[nxt] = d + dd;
                 pq.push(make_pair(dist[nxt], nxt));
