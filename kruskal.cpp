@@ -36,6 +36,34 @@ struct DisjointSet {
     bool is_same(int x, int y) { return find(x) == find(y); }
 };
 
+struct Kruskal {
+    int n;
+    vector<pair<pii, int>> edges;
+
+    Kruskal(int n, vector<pair<pii, int>> edges) : n(n), edges(edges) {}
+
+    ll minimum_spanning_tree() {
+        sort(edges.begin(), edges.end(), [](pair<pii, int> p, pair<pii, int> q) { return p.se < q.se; });
+
+        DisjointSet ds(n);
+        ll ret = 0;
+        int cnt = 0;
+        for (pair<pii, int> p : edges) {
+            if (ds.is_same(p.fi.fi, p.fi.se))
+                continue;
+
+            ds.merge(p.fi.fi, p.fi.se);
+            ret += p.se;
+
+            cnt++;
+            if (cnt == n - 1)
+                break;
+        }
+
+        return ret;
+    }
+};
+
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -48,22 +76,7 @@ int main() {
     for (int i = 0; i < m; i++)
         cin >> edges[i].fi.fi >> edges[i].fi.se >> edges[i].se;
 
-    sort(edges.begin(), edges.end(), [](pair<pii, int> &p, pair<pii, int> &q) { return p.se < q.se; });
+    Kruskal kruskal(n, edges);
 
-    DisjointSet ds = DisjointSet(n);
-    int ans = 0;
-    int cnt = 0;
-    for (pair<pii, int> &p : edges) {
-        if (ds.is_same(p.fi.fi, p.fi.se))
-            continue;
-
-        ds.merge(p.fi.fi, p.fi.se);
-        ans += p.se;
-
-        cnt++;
-        if (cnt == n - 1)
-            break;
-    }
-
-    cout << ans;
+    cout << kruskal.minimum_spanning_tree();
 }
