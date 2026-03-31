@@ -16,11 +16,11 @@ struct FenwickTree {
 
     FenwickTree(int n) : n(n) { tree.resize(n + 1); }
 
-    ll sum(int k) {
+    ll sum(int i) {
         ll ret = 0;
-        while (k > 0) {
-            ret += tree[k];
-            k -= (k & -k);
+        while (i > 0) {
+            ret += tree[i];
+            i -= (i & -i);
         }
         return ret;
     }
@@ -28,33 +28,33 @@ struct FenwickTree {
     ll sum(int l, int r) { return sum(r) - sum(l - 1); }
 
     ll kth(ll k) {
-        ll idx = 1;
-        while (idx <= n)
-            idx <<= 1;
+        int i = 1;
+        while (i <= n)
+            i <<= 1;
 
         ll ret = 0;
-        while (idx) {
-            if (ret + idx <= n && tree[ret + idx] < k) {
-                k -= tree[ret + idx];
-                ret += idx;
+        while (i) {
+            if (ret + i <= n && tree[ret + i] < k) {
+                k -= tree[ret + i];
+                ret += i;
             }
-            idx >>= 1;
+            i >>= 1;
         }
         return ret + 1;
     }
 
-    void update(int l, ll k) {
-        ll gap = k - sum(l, l);
-        while (l <= n) {
-            tree[l] += gap;
-            l += (l & -l);
+    void update(int i, ll k) {
+        ll gap = k - sum(i, i);
+        while (i <= n) {
+            tree[i] += gap;
+            i += (i & -i);
         }
     }
 
-    void add(int l, ll k) {
-        while (l <= n) {
-            tree[l] += k;
-            l += (l & -l);
+    void add(int i, ll k) {
+        while (i <= n) {
+            tree[i] += k;
+            i += (i & -i);
         }
     }
 };
