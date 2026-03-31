@@ -27,6 +27,21 @@ struct FenwickTree {
 
     ll sum(int l, int r) { return sum(r) - sum(l - 1); }
 
+    void update(int i, ll k) {
+        ll gap = k - sum(i, i);
+        while (i <= n) {
+            tree[i] += gap;
+            i += (i & -i);
+        }
+    }
+
+    void add(int i, ll k) {
+        while (i <= n) {
+            tree[i] += k;
+            i += (i & -i);
+        }
+    }
+
     ll kth(ll k) {
         int i = 1;
         while (i <= n)
@@ -42,21 +57,6 @@ struct FenwickTree {
         }
         return ret + 1;
     }
-
-    void update(int i, ll k) {
-        ll gap = k - sum(i, i);
-        while (i <= n) {
-            tree[i] += gap;
-            i += (i & -i);
-        }
-    }
-
-    void add(int i, ll k) {
-        while (i <= n) {
-            tree[i] += k;
-            i += (i & -i);
-        }
-    }
 };
 
 int main() {
@@ -69,20 +69,27 @@ int main() {
 
     FenwickTree ft(n);
     for (int i = 1; i <= n; i++) {
-        ll x;
-        cin >> x;
+        ll k;
+        cin >> k;
 
-        ft.update(i, x);
+        ft.update(i, k);
     }
 
     q += p;
     while (q--) {
-        ll op, x, y;
-        cin >> op >> x >> y;
+        int op;
+        cin >> op;
 
-        if (op == 1)
-            ft.update(x, y);
-        else if (op == 2)
-            cout << ft.sum(x, y) << '\n';
+        if (op == 1) {
+            ll l, k;
+            cin >> l >> k;
+
+            ft.update(l, k);
+        } else if (op == 2) {
+            int l, r;
+            cin >> l >> r;
+
+            cout << ft.sum(l, r) << '\n';
+        }
     }
 }
