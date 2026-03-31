@@ -79,8 +79,6 @@
     - Dijkstra's algorithm
     - Floyd-Warshall algorithm
     - shortest path faster algorithm
-  - #### Sort
-    - topological sorting
   - #### Strongly Connected Component
     - 2-satisfiability
     - Kosaraju's algorithm
@@ -91,6 +89,7 @@
     - Euler tour technique
     - lowest common ancestor
   - Hierholzer's algorithm
+  - topological sorting
 
 - ### Mathematics
   - #### Fast Fourier Transform
