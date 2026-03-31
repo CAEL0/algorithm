@@ -8,8 +8,8 @@
   - #### Fenwick Tree
     - Fenwick tree
     - Fenwick tree 2D
-    - Fenwick tree 2D range update point query
     - Fenwick tree range update point query
+    - Fenwick tree range update point query 2D
   - #### Heap
     - min heap
   - #### Heavy-Light Decomposition
