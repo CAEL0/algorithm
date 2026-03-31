@@ -6,8 +6,10 @@
   - #### Binary Search Tree
   - #### Disjoint Set (Union Find)
   - #### Fenwick Tree
-    - 2d Fenwick tree
     - Fenwick tree
+    - Fenwick tree 2D
+    - Fenwick tree 2D range update point query
+    - Fenwick tree range update point query
   - #### Heap
     - min heap
   - #### Heavy-Light Decomposition
@@ -22,8 +24,8 @@
     - maximum subarray problem
     - merge sort tree
     - persistent segment tree
-    - range update point query
     - segment tree beats
+    - segment tree range update point query
     - segment tree with lazy propagation
   - #### Sparse Table
   - #### String
