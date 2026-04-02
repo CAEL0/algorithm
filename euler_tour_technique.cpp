@@ -26,6 +26,20 @@ struct SegmentTree {
         init(2 * idx + 1, m + 1, e, v);
     }
 
+    void range(int idx, int s, int e, int l, int r, ll k) {
+        if (r < s || e < l)
+            return;
+
+        if (l <= s && e <= r) {
+            tree[idx] += k;
+            return;
+        }
+
+        int m = (s + e) >> 1;
+        range(2 * idx, s, m, l, r, k);
+        range(2 * idx + 1, m + 1, e, l, r, k);
+    }
+
     ll point(int idx, int s, int e, int l) {
         if (l < s || e < l)
             return 0;
@@ -34,20 +48,10 @@ struct SegmentTree {
             return tree[idx];
 
         int m = (s + e) >> 1;
-        return tree[idx] + point(2 * idx, s, m, l) + point(2 * idx + 1, m + 1, e, l);
-    }
+        if (l <= m)
+            return tree[idx] + point(2 * idx, s, m, l);
 
-    void range(int idx, int s, int e, int l, int r, ll x) {
-        if (r < s || e < l)
-            return;
-
-        if (l <= s && e <= r) {
-            tree[idx] += x;
-            return;
-        }
-        int m = (s + e) >> 1;
-        range(2 * idx, s, m, l, r, x);
-        range(2 * idx + 1, m + 1, e, l, r, x);
+        return tree[idx] + point(2 * idx + 1, m + 1, e, l);
     }
 };
 
@@ -68,9 +72,9 @@ int main() {
     cin >> n >> q;
 
     vector<int> v(n + 1);
-    vector<vector<int>> graph(n + 1);
-
     cin >> v[1];
+
+    vector<vector<int>> graph(n + 1);
     for (int i = 2; i <= n; i++) {
         int p;
         cin >> v[i] >> p;
@@ -84,21 +88,20 @@ int main() {
     dfs(1, graph, idx, in, out);
 
     SegmentTree st(n);
-
     while (q--) {
         char op;
         cin >> op;
 
         if (op == 'p') {
-            int a, x;
-            cin >> a >> x;
+            int x, k;
+            cin >> x >> k;
 
-            st.range(1, 1, n, in[a] + 1, out[a], x);
-        } else {
-            int a;
-            cin >> a;
+            st.range(1, 1, n, in[x] + 1, out[x], k);
+        } else if (op == 'u') {
+            int x;
+            cin >> x;
 
-            cout << st.point(1, 1, n, in[a]) + v[a] << '\n';
+            cout << st.point(1, 1, n, in[x]) + v[x] << '\n';
         }
     }
 }
