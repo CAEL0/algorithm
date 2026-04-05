@@ -92,56 +92,81 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int powh;
-ll tree[3000010];
+struct SegmentTree {
+    int height, powh;
+    vector<ll> tree;
 
-ll summation(int a, int b) {
-    ll ret = 0;
-    a += powh - 1;
-    b += powh - 1;
-    while (a <= b) {
-        if (a & 1)
-            ret += tree[a++];
-        if (!(b & 1))
-            ret += tree[b--];
-        a >>= 1;
-        b >>= 1;
+    SegmentTree(int n) {
+        height = ceil(log2(n));
+        powh = 1 << height;
+        tree.resize(2 * powh);
     }
-    return ret;
-}
-void update(int k, ll c) {
-    int idx = powh + k - 1;
-    ll gap = tree[idx] - c;
-    while (idx) {
-        tree[idx] -= gap;
-        idx >>= 1;
+
+    void init(vector<ll> &v) {
+        for (int i = 0; i < v.sz; i++)
+            tree[powh + i] = v[i];
+
+        for (int h = height - 1; h >= 0; h--)
+            for (int i = (1 << h); i < (1 << (h + 1)); i++)
+                tree[i] = tree[2 * i] + tree[2 * i + 1];
     }
-}
+
+    ll sum(int l, int r) {
+        l += powh - 1;
+        r += powh - 1;
+
+        ll ret = 0;
+        while (l <= r) {
+            if (l & 1) {
+                ret += tree[l];
+                l++;
+            }
+
+            if (!(r & 1)) {
+                ret += tree[r];
+                r--;
+            }
+
+            l >>= 1;
+            r >>= 1;
+        }
+
+        return ret;
+    }
+
+    void update(int l, ll k) {
+        l += powh - 1;
+        ll gap = tree[l] - k;
+        while (l) {
+            tree[l] -= gap;
+            l >>= 1;
+        }
+    }
+};
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 
-    int n, x, y;
-    cin >> n >> x >> y;
+    int n, p, q;
+    cin >> n >> p >> q;
 
-    int height = ceil(log2(n));
-    powh = pow(2, height);
-
+    vector<ll> v(n);
     for (int i = 0; i < n; i++)
-        cin >> tree[powh + i];
-    
-    for (int h = height - 1; h >= 0; h--)
-        for (int i = pow(2, h); i < pow(2, h + 1); i++)
-            tree[i] = tree[2 * i] + tree[2 * i + 1];
-    
-    for (int i = 0; i < x + y; i++) {
-        ll p, q, r;
-        cin >> p >> q >> r;
-        if (p == 1)
-            update(q, r);
+        cin >> v[i];
+
+    SegmentTree st(n);
+    st.init(v);
+
+    q += p;
+    while (q--) {
+        ll op, x, y;
+        cin >> op >> x >> y;
+
+        if (op == 1)
+            st.update(x, y);
         else
-            cout << add(q, r) << '\n';
+            cout << st.sum(x, y) << '\n';
     }
 }
