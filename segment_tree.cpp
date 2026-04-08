@@ -70,13 +70,20 @@ int main() {
 
     q += p;
     while (q--) {
-        ll op, x, y;
-        cin >> op >> x >> y;
+        int op;
+        cin >> op;
 
-        if (op == 1)
-            st.update(1, 1, n, x, y);
-        else
+        if (op == 1) {
+            ll x, k;
+            cin >> x >> k;
+
+            st.update(1, 1, n, x, k);
+        } else if (op == 2) {
+            int x, y;
+            cin >> x >> y;
+
             cout << st.sum(1, 1, n, x, y) << '\n';
+        }
     }
 }
 
@@ -161,12 +168,19 @@ int main() {
 
     q += p;
     while (q--) {
-        ll op, x, y;
-        cin >> op >> x >> y;
+        int op;
+        cin >> op;
 
-        if (op == 1)
-            st.update(x, y);
-        else
+        if (op == 1) {
+            ll x, k;
+            cin >> x >> k;
+
+            st.update(x, k);
+        } else if (op == 2) {
+            int x, y;
+            cin >> x >> y;
+
             cout << st.sum(x, y) << '\n';
+        }
     }
 }
