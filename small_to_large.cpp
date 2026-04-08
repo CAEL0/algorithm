@@ -12,16 +12,20 @@ typedef pair<int, int> pii;
 
 struct DisjointSet {
     int n;
-    vector<int> dsu;
+    vector<int> dsu, rank;
 
     DisjointSet(int _n) {
         n = _n;
         dsu.resize(n + 1);
+        rank.resize(n + 1);
+        init();
     }
 
     void init() {
-        for (int i = 1; i <= n; i++)
+        for (int i = 1; i <= n; i++) {
             dsu[i] = i;
+            rank[i] = 1;
+        }
     }
 
     int find(int z) {
@@ -29,6 +33,21 @@ struct DisjointSet {
             dsu[z] = find(dsu[z]);
         return dsu[z];
     }
+
+    void merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y)
+            return;
+
+        if (rank[x] < rank[y])
+            swap(x, y);
+
+        rank[x] += rank[y];
+        dsu[y] = x;
+    }
+
+    bool is_same(int x, int y) { return find(x) == find(y); }
 };
 
 int main() {
@@ -53,7 +72,6 @@ int main() {
 
     q += n - 1;
     vector<pii> query(q);
-
     for (int i = 0; i < q; i++)
         cin >> query[i].fi >> query[i].se;
 
@@ -61,9 +79,9 @@ int main() {
     ds.init();
 
     vector<int> ans;
-
     for (int i = q - 1; i >= 0; i--) {
-        auto [op, x] = query[i];
+        int op = query[i].fi;
+        int x = query[i].se;
 
         if (op == 1) {
             int y = ds.find(parent[x]);
@@ -73,10 +91,9 @@ int main() {
                 swap(x, y);
 
             ds.dsu[y] = x;
-
             for (int z : colors[y])
                 colors[x].insert(z);
-        } else
+        } else if (op == 2)
             ans.push_back(colors[ds.find(x)].sz);
     }
 
