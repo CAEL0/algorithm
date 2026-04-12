@@ -15,13 +15,9 @@ struct Node {
 };
 
 struct PersistentSegmentTree {
-    vector<int> root;
     vector<Node> tree;
 
-    PersistentSegmentTree(int m) {
-        root.resize(m + 1);
-        tree.push_back({0, 0, 0});
-    }
+    PersistentSegmentTree() { tree.push_back({0, 0, 0}); }
 
     int sum(int idx, int s, int e, int l, int r) {
         if (r < s || e < l)
@@ -34,22 +30,22 @@ struct PersistentSegmentTree {
         return sum(tree[idx].left, s, m, l, r) + sum(tree[idx].right, m + 1, e, l, r);
     }
 
-    int update(int prv, int s, int e, int l, int k) {
-        int cur = tree.sz;
-        tree.push_back({tree[prv].val + k, 0, 0});
+    int update(int cur, int s, int e, int l, int k) {
+        int nxt = tree.sz;
+        tree.push_back({tree[cur].val + k, 0, 0});
         if (s == e)
-            return cur;
+            return nxt;
 
         int m = (s + e) >> 1;
         if (l <= m) {
-            tree[cur].left = update(tree[prv].left, s, m, l, k);
-            tree[cur].right = tree[prv].right;
+            tree[nxt].left = update(tree[cur].left, s, m, l, k);
+            tree[nxt].right = tree[cur].right;
         } else {
-            tree[cur].left = tree[prv].left;
-            tree[cur].right = update(tree[prv].right, m + 1, e, l, k);
+            tree[nxt].left = tree[cur].left;
+            tree[nxt].right = update(tree[cur].right, m + 1, e, l, k);
         }
 
-        return cur;
+        return nxt;
     }
 };
 
@@ -75,14 +71,15 @@ int main() {
             v[x + 1].push_back(y + 1);
         }
 
-        PersistentSegmentTree pst(m);
+        vector<int> root(m + 1);
+        PersistentSegmentTree pst;
         for (int x = 1; x <= m; x++) {
-            pst.root[x] = pst.root[x - 1];
+            root[x] = root[x - 1];
 
             for (int y : v[x]) {
-                int idx = pst.root[x];
-                pst.root[x] = pst.tree.sz;
-                pst.update(idx, 1, m, y, 1);
+                int cur = root[x];
+                root[x] = pst.tree.sz;
+                pst.update(cur, 1, m, y, 1);
             }
         }
 
@@ -91,8 +88,8 @@ int main() {
             int x, z, y, w;
             cin >> x >> z >> y >> w;
 
-            ans += pst.sum(pst.root[z + 1], 1, m, y + 1, w + 1);
-            ans -= pst.sum(pst.root[x], 1, m, y + 1, w + 1);
+            ans += pst.sum(root[z + 1], 1, m, y + 1, w + 1);
+            ans -= pst.sum(root[x], 1, m, y + 1, w + 1);
         }
 
         cout << ans << '\n';
