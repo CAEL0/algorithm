@@ -76,11 +76,8 @@ int main() {
         for (int x = 1; x <= m; x++) {
             root[x] = root[x - 1];
 
-            for (int y : v[x]) {
-                int cur = root[x];
-                root[x] = pst.tree.sz;
-                pst.update(cur, 1, m, y, 1);
-            }
+            for (int y : v[x])
+                root[x] = pst.update(root[x], 1, m, y, 1);
         }
 
         ll ans = 0;
