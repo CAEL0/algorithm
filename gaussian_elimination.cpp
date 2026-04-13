@@ -1,0 +1,56 @@
+// BOJ 22940 선형 연립 방정식
+
+#include <bits/stdc++.h>
+#define sz size()
+#define bk back()
+#define fi first
+#define se second
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> pii;
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n;
+    cin >> n;
+
+    vector<vector<ll>> v(n, vector<ll>(n + 1));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j <= n; j++)
+            cin >> v[i][j];
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int ii = i + 1; ii < n; ii++) {
+            ll k = v[ii][i];
+            for (int j = i; j <= n; j++)
+                v[ii][j] *= v[i][i];
+
+            for (int j = i; j <= n; j++)
+                v[ii][j] -= k * v[i][j];
+
+            ll g = v[ii][i];
+            for (int j = i + 1; j <= n; j++)
+                g = gcd(g, v[ii][j]);
+
+            for (int j = i; j <= n; j++)
+                v[ii][j] /= g;
+        }
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        for (int j = n; j >= i; j--)
+            v[i][j] /= v[i][i];
+
+        for (int ii = i - 1; ii >= 0; ii--) {
+            v[ii][n] -= v[ii][i] * v[i][n];
+            v[ii][i] = 0;
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+        cout << v[i][n] << ' ';
+}
