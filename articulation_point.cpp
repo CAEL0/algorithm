@@ -10,7 +10,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 
-int dfs(int cur, int idx, bool is_root, vector<vector<int>> &graph, vector<int> &vst, vector<int> &ans) {
+int dfs(int cur, int &idx, bool is_root, vector<vector<int>> &graph, vector<int> &vst, vector<int> &ans) {
     vst[cur] = idx;
     int low = idx;
     idx++;
