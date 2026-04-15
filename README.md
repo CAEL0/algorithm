@@ -30,8 +30,9 @@
   - #### Sparse Table
   - #### String
     - rope
+  - #### Trie
+    - binary trie
     - trie
-  - binary trie
   - bitset
   - cartesian tree
   - median
