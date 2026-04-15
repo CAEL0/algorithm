@@ -88,6 +88,7 @@
     - centroid decomposition
     - Euler tour technique
     - lowest common ancestor
+  - articulation point
   - Hierholzer's algorithm
   - topological sorting
 
