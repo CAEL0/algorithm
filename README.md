@@ -61,6 +61,9 @@
   - rotating calipers
 
 - ### Graph Theory
+  - #### Articulation
+    - articulation bridge
+    - articulation point
   - #### Biconnected Component
   - #### Bipartite Graph
     - bipartite matching
@@ -89,7 +92,6 @@
     - centroid decomposition
     - Euler tour technique
     - lowest common ancestor
-  - articulation point
   - Hierholzer's algorithm
   - topological sorting
 
