@@ -142,6 +142,7 @@
 - ### String
     - Aho-Corasick algorithm
     - Knuth-Morris-Pratt algorithm
+    - Main-Lorentz algorithm
     - Manacher's algorithm
     - Rabin-Karp algorithm
     - suffix array and lcp array
